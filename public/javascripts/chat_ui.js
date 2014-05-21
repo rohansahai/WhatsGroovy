@@ -89,6 +89,7 @@
     $('#play').click(function(e) {
       e.preventDefault();
       processAudio(chatApp);
+      console.log('button click event');
       return false;
     })
   });
