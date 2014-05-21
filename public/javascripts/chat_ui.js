@@ -39,6 +39,13 @@
   $(document).ready(function() {
   	var chatApp = new ChatApp.Chat(socket);
 
+    document.onmousemove = function (e) {
+      mouseX = e.pageX;
+      mouseY = e.pageY;
+      chatApp.sendMouseCoords(mouseX, mouseY);
+      //$("#cursor").css({left:e.pageX, top:e.pageY});
+    }
+
   	socket.on('message', function(message) {
   		var newElement = escapeDivText(message);
   		$("#chat-messages").append(escapeDivText(message.text));
@@ -54,6 +61,19 @@
   	  console.log(roomData);
   	  updateRoomList(roomData);
   	});
+
+    socket.on('playAudioSend', function(){
+      console.log("received audio send from server");
+      playExample()
+    });
+
+    socket.on('moveCursorSend', function(data){
+      $("#cursor-"+ data.guest).css({ left:data.mouseX, top:data.mouseY });
+    });
+
+    socket.on('newCursor', function(data){
+      $('body').append("<img class='cursor' id='cursor-" + data.guest + "'src='images/music_note.png'/>")
+    })
 
   	$('.send-form').submit(function(e) {
   		e.preventDefault();

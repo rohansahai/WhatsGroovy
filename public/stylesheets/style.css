@@ -4,3 +4,9 @@
 	background: #cecece;
 	min-height: 100px;
 }
+
+.cursor{
+	position:absolute;
+	width: 20px;
+	height: 40px;
+}
