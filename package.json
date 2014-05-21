@@ -1,0 +1,11 @@
+{
+  "name": "chat-app",
+  "version": "0.0.1",
+  "description": "Chatroom App",
+  "main": "server",
+  "dependencies": {
+    "socket.io": "~0.9.6",
+    "mime": "~1.2.7",
+    "lodash": "~1.3.1"
+  }
+}
