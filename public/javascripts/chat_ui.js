@@ -25,6 +25,11 @@
         var usersUL = $("<ul></ul>");
         $.each(userList, function(i, username){
           usersUL.append($("<li></li>").text(username));
+          //create a cursor for each user
+          if ($('#cursor-' + username).length === 0){
+            $('body').append("<img class='cursor' id='cursor-" + username + "'src='images/music_note.png'/>");
+            console.log("new cursor image")
+          }
         });
         roomListing.append(usersUL);
         $(".room-listings").append(roomListing);
@@ -68,12 +73,12 @@
     });
 
     socket.on('moveCursorSend', function(data){
-      $("#cursor-"+ data.guest).css({ left:data.mouseX, top:data.mouseY });
+      $("#cursor-"+ data.nickname).css({ left:data.mouseX, top:data.mouseY });
     });
 
-    socket.on('newCursor', function(data){
-      $('body').append("<img class='cursor' id='cursor-" + data.guest + "'src='images/music_note.png'/>")
-    })
+    socket.on('removeCursor', function(data){
+      $("#cursor-"+ data.nickname).remove();
+    });
 
   	$('.send-form').submit(function(e) {
   		e.preventDefault();
