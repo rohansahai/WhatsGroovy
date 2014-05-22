@@ -125,9 +125,9 @@ $(function(){
 
   function playAudio(mousePosY) {
     currentAudioRow = getRow(mousePosY);
-    audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
+    //audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
 
-    //chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow);
+    chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow);
   }
 
   function stopAudio(fromMove) {
