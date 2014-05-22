@@ -125,12 +125,13 @@ $(function(){
 
   function playAudio(mousePosY) {
     currentAudioRow = getRow(mousePosY);
-    //audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
-
-    chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow);
+    audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
+    // May want to keep above comment so your own audio is heard immediately.
+    chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow, audioApp.currentInstrument);
   }
 
   function stopAudio(fromMove) {
-    audioApp.stopCurrentInstrument(audioApp.highSynthEvent, currentAudioRow, fromMove);
+    audioApp.stopCurrentInstrument(audioApp.highSynthEvent[0], currentAudioRow, fromMove);
+    chatApp.stopAudio(audioApp.highSynthEvent, currentAudioRow, fromMove);
   }
 })

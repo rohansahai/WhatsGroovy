@@ -32,10 +32,19 @@
     }
   }
 
-  Chat.prototype.sendAudio = function(freq, row){
+  Chat.prototype.sendAudio = function(freq, row, instrument){
     this.socket.emit('playAudioRequest', {
       freq: freq,
-      row: row
+      row: row,
+      instrument: instrument
+    });
+  }
+
+  Chat.prototype.stopAudio = function(evt, row, fromMove){
+    this.socket.emit('stopAudioRequest', {
+      evt: evt,
+      row: row,
+      fromMove: fromMove
     });
   }
 

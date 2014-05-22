@@ -48,7 +48,7 @@
       mouseX = e.pageX;
       mouseY = e.pageY;
       chatApp.sendMouseCoords(mouseX, mouseY);
-      //$("#cursor").css({left:e.pageX, top:e.pageY});
+      $("#my-cursor").css({left:e.pageX, top:e.pageY});
     }
 
     $('.send-form').submit(function(e) {
@@ -82,7 +82,12 @@
 
     socket.on('playAudioSend', function(data){
       console.log("received audio send from server");
-      audioApp.playCurrentInstrument(data.freq, data.row);
+      audioApp.playNewInstrument(data.freq, data.row, data.instrument, data.socketId);
+    });
+
+    socket.on('stopAudioSend', function(data){
+      console.log("received stop audio request from server");
+      audioApp.stopCurrentInstrument(data.evt, data.row, data.fromMove, data.socketId);
       //playExample()
     });
 

@@ -8,13 +8,28 @@ $(function(){
         //this.playBassSynth();
         this.playShaker();
         //this.playOrgan();
+        this.highSynthFreqs = {};
+        this.highSynthEvents = {};
     };
+
+    AudioletApp.prototype.playNewInstrument = function(freq, row, instrument, user) {
+      switch (instrument) {
+        case 'high synth':
+
+          this.highSynthFreqs[user] = freq;
+          if (!this.highSynthEvent){ this.playHighSynth(); }
+          break;
+        case 'keys':
+          this.playKeys(row);
+          break;
+      }
+    }
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row) {
       switch (this.currentInstrument) {
         case 'high synth':
-          this.highSynthFreq = freq;
-          if (!this.highSynthEvent){ this.playHighSynth(); }
+          this.highSynthFreqs[0] = freq;
+          if (!this.highSynthEvent){ this.playHighSynth(0); }
           break;
         case 'organ':
           this.playOrgan();
@@ -25,11 +40,12 @@ $(function(){
       }
     }
 
-    AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove){
+    AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user){
+      user = user || 0;
       switch (this.currentInstrument) {
         case 'high synth':
           if (!fromMove){
-            this.stopInstrument(this.highSynthEvent);
+            this.stopInstrument(this.highSynthEvents[user]);
             this.highSynthEvent = undefined;
           }
           break;
@@ -54,7 +70,7 @@ $(function(){
       this.audiolet.scheduler.stop(event);
     }
 
-    AudioletApp.prototype.playHighSynth = function() {
+    AudioletApp.prototype.playHighSynth = function(user) {
         // High synth - scheduled as a mono synth (i.e. one instance keeps
         // running and the gate and frequency are switched)
         this.highSynth = new HighSynth(this.audiolet);
@@ -76,13 +92,13 @@ $(function(){
         var durationPattern = new PSequence([0.5], Infinity);
 
         // Schedule the patterns to play
-        this.highSynthEvent = this.audiolet.scheduler.play([], .5,
+        this.highSynthEvents[user] = this.audiolet.scheduler.play([], .5,
             function() {
                 // Set the gate
                 this.highSynth.trigger.trigger.setValue(1);
                 // Calculate the frequency from the scale
                 // Set the frequency
-                this.highSynth.sine.frequency.setValue(this.highSynthFreq);
+                this.highSynth.sine.frequency.setValue(this.highSynthFreqs[user]);
             }.bind(this)
         );
     }
@@ -178,35 +194,35 @@ $(function(){
       var audioHash = {}
 
       var audioElement1 = document.createElement('audio');
-      audioElement1.setAttribute('src', 'assets/c3.wav');
+      audioElement1.setAttribute('src', 'audios/c3.wav');
       audioHash[1] = audioElement1;
 
       var audioElement2 = document.createElement('audio');
-      audioElement2.setAttribute('src', 'assets/d3.wav');
+      audioElement2.setAttribute('src', 'audios/d3.wav');
       audioHash[2] = audioElement2;
 
       var audioElement3 = document.createElement('audio');
-      audioElement3.setAttribute('src', 'assets/e3.wav');
+      audioElement3.setAttribute('src', 'audios/e3.wav');
       audioHash[3] = audioElement3;
 
       var audioElement4 = document.createElement('audio');
-      audioElement4.setAttribute('src', 'assets/f3.wav');
+      audioElement4.setAttribute('src', 'audios/f3.wav');
       audioHash[4] = audioElement4;
 
       var audioElement5 = document.createElement('audio');
-      audioElement5.setAttribute('src', 'assets/g3.wav');
+      audioElement5.setAttribute('src', 'audios/g3.wav');
       audioHash[5] = audioElement5;
 
       var audioElement6 = document.createElement('audio');
-      audioElement6.setAttribute('src', 'assets/a4.wav');
+      audioElement6.setAttribute('src', 'audios/a4.wav');
       audioHash[6] = audioElement6;
 
       var audioElement7 = document.createElement('audio');
-      audioElement7.setAttribute('src', 'assets/b4.wav');
+      audioElement7.setAttribute('src', 'audios/b4.wav');
       audioHash[7] = audioElement7;
 
       var audioElement8 = document.createElement('audio');
-      audioElement8.setAttribute('src', 'assets/c4.wav');
+      audioElement8.setAttribute('src', 'audios/c4.wav');
       audioHash[8] = audioElement8;
 
       return audioHash;
