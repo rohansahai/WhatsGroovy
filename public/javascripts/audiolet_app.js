@@ -29,7 +29,7 @@ $(function(){
       switch (this.currentInstrument) {
         case 'high synth':
           this.highSynthFreqs[0] = freq;
-          if (!this.highSynthEvent){ this.playHighSynth(0); }
+          if (!this.highSynthEvents[0]){ this.playHighSynth(0);}
           break;
         case 'organ':
           this.playOrgan();
@@ -41,12 +41,13 @@ $(function(){
     }
 
     AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user){
-      user = user || 0;
+
       switch (this.currentInstrument) {
         case 'high synth':
           if (!fromMove){
+            console.log('stopping instrument');
             this.stopInstrument(this.highSynthEvents[user]);
-            this.highSynthEvent = undefined;
+            this.highSynthEvents[user] = undefined;
           }
           break;
         case 'keys':
