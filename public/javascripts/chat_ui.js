@@ -51,6 +51,19 @@
       //$("#cursor").css({left:e.pageX, top:e.pageY});
     }
 
+    $('.send-form').submit(function(e) {
+      e.preventDefault();
+      processInput(chatApp);
+      return false;
+    });
+
+    $('#play').click(function(e) {
+      e.preventDefault();
+      processAudio(chatApp);
+      console.log('button click event');
+      return false;
+    })
+
   	socket.on('message', function(message) {
   		var newElement = escapeDivText(message);
   		$("#chat-messages").append(escapeDivText(message.text));
@@ -79,18 +92,5 @@
     socket.on('removeCursor', function(data){
       $("#cursor-"+ data.nickname).remove();
     });
-
-  	$('.send-form').submit(function(e) {
-  		e.preventDefault();
-  		processInput(chatApp);
-  		return false;
-  	});
-
-    $('#play').click(function(e) {
-      e.preventDefault();
-      processAudio(chatApp);
-      console.log('button click event');
-      return false;
-    })
   });
 })(this);
