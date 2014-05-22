@@ -16,11 +16,6 @@ frequencies = {
   15: 523.25
 }
 
-organPaths = {
-  1: "http://localhost:3000/assets/c3.wav",
-  2: "http://localhost:3000/assets/d3.wav"
-}
-
 $(function(){
   var canvas = document.getElementById("music");
   canvas.width  = window.innerWidth - 10;
