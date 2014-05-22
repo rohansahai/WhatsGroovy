@@ -17,7 +17,7 @@ $(function(){
         case 'high synth':
 
           this.highSynthFreqs[user] = freq;
-          if (!this.highSynthEvent){ this.playHighSynth(); }
+          if (!this.highSynthEvents[user]){ this.playHighSynth(user); }
           break;
         case 'keys':
           this.playKeys(row);
