@@ -42,7 +42,7 @@
   }
 
   $(document).ready(function() {
-  	var chatApp = new ChatApp.Chat(socket);
+  	window.chatApp = new ChatApp.Chat(socket);
 
     document.onmousemove = function (e) {
       mouseX = e.pageX;
@@ -80,9 +80,10 @@
   	  updateRoomList(roomData);
   	});
 
-    socket.on('playAudioSend', function(){
+    socket.on('playAudioSend', function(data){
       console.log("received audio send from server");
-      playExample()
+      audioApp.playCurrentInstrument(data.freq, data.row);
+      //playExample()
     });
 
     socket.on('moveCursorSend', function(data){

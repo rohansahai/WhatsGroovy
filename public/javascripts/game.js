@@ -21,7 +21,7 @@ $(function(){
   canvas.width  = window.innerWidth - 10;
   canvas.height = window.innerHeight - 150;
 
-  var audioApp = new AudioletApp();
+  window.audioApp = new AudioletApp();
   var currentAudioRow = 0;
   var numRows = 12;
 
@@ -51,9 +51,9 @@ $(function(){
     var row = getRow(mousePos.y);
     if (currentAudioRow !== 0 && row !== currentAudioRow){
       stopAudio(true);
-      currentAudioRow = row;
 
-      audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
+      playAudio(mousePos.y)
+      //audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
     }
   }, false);
 
@@ -126,6 +126,8 @@ $(function(){
   function playAudio(mousePosY) {
     currentAudioRow = getRow(mousePosY);
     audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
+
+    //chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow);
   }
 
   function stopAudio(fromMove) {

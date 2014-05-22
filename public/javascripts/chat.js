@@ -32,8 +32,11 @@
     }
   }
 
-  Chat.prototype.sendAudio = function(){
-    this.socket.emit('playAudioRequest');
+  Chat.prototype.sendAudio = function(freq, row){
+    this.socket.emit('playAudioRequest', {
+      freq: freq,
+      row: row
+    });
   }
 
   Chat.prototype.sendMouseCoords = function(mouseX, mouseY){
