@@ -4,13 +4,6 @@ $(function(){
 
       // Triangle base oscillator
       this.sine = new Triangle(audiolet);
-
-      // var buffy = new AudioletBuffer(1,1);
-      // buffy.load("http://localhost:3000/assets/e3.wav");
-      // var buffyReal = new BufferPlayer(audiolet, buffy);
-      // buffyReal.connect(this.outputs[0]);
-
-
       // Note on trigger
       this.trigger = new TriggerControl(audiolet);
 
@@ -179,41 +172,49 @@ $(function(){
 
   var BassSynth = window.BassSynth = function(audiolet) {
         AudioletGroup.call(this, audiolet, 0, 1);
-        // Basic wave
-        this.sine = new Sine(audiolet, 100);
 
-        // Frequency Modulator
-        this.fmEnv = new PercussiveEnvelope(audiolet, 10, 10, 2);
-        this.fmEnvMulAdd = new MulAdd(audiolet, 90, 0);
-        this.frequencyModulator = new Saw(audiolet);
-        this.frequencyMulAdd = new MulAdd(audiolet, 90, 100);
+        // Triangle base oscillator
+        this.sine = new Triangle(audiolet);
+        // Note on trigger
+        this.trigger = new TriggerControl(audiolet);
 
         // Gain envelope
+        this.gainEnv = new PercussiveEnvelope(audiolet, 0, 0.1, 0.15);
+        this.gainEnvMulAdd = new MulAdd(audiolet, 0.7); //INCREASE VOLUME WITH SECOND PARAMETER HERE
         this.gain = new Gain(audiolet);
-        this.gainEnv = new ADSREnvelope(audiolet,
-                                        1, // Gate
-                                        1, // Attack
-                                        0.2, // Decay
-                                        0.9, // Sustain
-                                        2); // Release
-        this.gainEnvMulAdd = new MulAdd(audiolet, 0.2);
 
-        this.upMixer = new UpMixer(audiolet, 2);
+        // Feedback delay
+        this.delay = new Delay(audiolet, 0.1, 0.1);
+        this.feedbackLimiter = new Gain(audiolet, 0.5);
 
-        // Connect main signal path
+        // Reverb
+        this.reverb = new Reverb(audiolet);
+
+        // Stereo panner
+        this.pan = new Pan(audiolet);
+        this.panLFO = new Sine(audiolet, 1 / 8);
+
+
+        // Connect oscillator
         this.sine.connect(this.gain);
-        this.gain.connect(this.upMixer);
-        this.upMixer.connect(this.outputs[0]);
 
-        // Connect Frequency Modulator
-        this.fmEnv.connect(this.fmEnvMulAdd);
-        this.fmEnvMulAdd.connect(this.frequencyMulAdd, 0, 1);
-        this.frequencyModulator.connect(this.frequencyMulAdd);
-        this.frequencyMulAdd.connect(this.sine);
-
-        // Connect Envelope
+        // Connect trigger and envelope
+        this.trigger.connect(this.gainEnv);
         this.gainEnv.connect(this.gainEnvMulAdd);
         this.gainEnvMulAdd.connect(this.gain, 0, 1);
+        this.gain.connect(this.delay);
+
+        // Connect delay
+        this.delay.connect(this.feedbackLimiter);
+        this.feedbackLimiter.connect(this.delay);
+        this.gain.connect(this.pan);
+        this.delay.connect(this.pan);
+
+        this.reverb.connect(this.pan);
+
+        // Connect panner
+        this.panLFO.connect(this.pan, 0, 1);
+        this.pan.connect(this.outputs[0]);
     }
     extend(BassSynth, AudioletGroup);
 })

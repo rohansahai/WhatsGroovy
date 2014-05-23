@@ -1,19 +1,14 @@
 frequencies = {
-  1: 130.81,
-  2: 146.83,
-  3: 164.81,
-  4: 174.61,
+  1: 110,
+  2: 130.81,
+  3: 146.83,
+  4: 164.81,
   5: 196,
   6: 220,
-  7: 246.94,
-  8: 261.63,
-  9: 293.66,
-  10: 329.63,
-  11: 349.23,
-  12: 392,
-  13: 440,
-  14: 493.88,
-  15: 523.25
+  7: 261.63,
+  8: 293.66,
+  9: 329.63,
+  10: 392
 }
 
 $(function(){
@@ -65,6 +60,18 @@ $(function(){
       $target.removeClass("active");
     } else {
       audioApp.currentInstrument = 'high synth';
+      $target.addClass("active");
+    }
+  })
+
+  $('#bass-synth-button').click(function(event){
+
+    var $target = $(event.currentTarget);
+    if (audioApp.currentInstrument === "bassSynth"){
+      audioApp.currentInstrument = '';
+      $target.removeClass("active");
+    } else {
+      audioApp.currentInstrument = 'bassSynth';
       $target.addClass("active");
     }
   })

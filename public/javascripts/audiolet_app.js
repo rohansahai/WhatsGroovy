@@ -10,6 +10,8 @@ $(function(){
         //this.playOrgan();
         this.highSynthFreqs = {};
         this.highSynthEvents = {};
+        this.bassSynthFreqs = {};
+        this.bassSynthEvents = {};
 
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
@@ -26,6 +28,10 @@ $(function(){
         case 'high synth':
           this.highSynthFreqs[user] = freq;
           if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
+          break;
+        case 'bassSynth':
+          this.bassSynthFreqs[user] = freq;
+          if (!this.bassSynthEvents[user]){ this.playBassSynth(user);}
           break;
         case 'keys':
           if (!this.organAudioHash[user]){
@@ -58,6 +64,13 @@ $(function(){
             this.highSynthEvents[user] = undefined;
           }
           break;
+        case 'bassSynth':
+          if (!fromMove){
+            console.log('stopping instrument');
+            this.stopInstrument(this.bassSynthEvents[user]);
+            this.bassSynthEvents[user] = undefined;
+          }
+          break;
         case 'keys':
           this.stopWavInstrument(user, row, this.organAudioHash);
           break;
@@ -81,7 +94,6 @@ $(function(){
     }
 
     AudioletApp.prototype.stopInstrument = function(event) {
-      //this.synth.disconnect(this.audiolet.output);
       this.audiolet.scheduler.stop(event);
     }
 
@@ -118,7 +130,7 @@ $(function(){
         );
     }
 
-    AudioletApp.prototype.playBassSynth = function() {
+    AudioletApp.prototype.playBassSynth = function(user) {
         // Bass synth - scheduled as a mono synth (i.e. one instance keeps
         // running and the gate and frequency are switched)
         this.bassSynth = new BassSynth(this.audiolet);
@@ -127,29 +139,13 @@ $(function(){
         this.bassSynth.connect(this.audiolet.output);
 
         // Bassline
-        var degreePattern = new PSequence([0, 0, 1, 1, 2, 2, 3, 3],
-                                          Infinity);
-
-        // How long each event lasts - gate on for 14, off for 2
-        var durationPattern = new PSequence([30, 2], Infinity);
-
-        // Toggle the gate on and off
-        var gatePattern = new PSequence([1, 0], Infinity);
-
-        // Schedule the patterns to play
-        var patterns = [degreePattern, gatePattern];
-        this.audiolet.scheduler.play(patterns, durationPattern,
-            function(degree, gate) {
-                // Set the gates
-                this.bassSynth.gainEnv.gate.setValue(gate);
-                this.bassSynth.fmEnv.gate.setValue(gate);
+        this.bassSynthEvents[user] = this.audiolet.scheduler.play([], .5,
+            function() {
+                // Set the gate
+                this.bassSynth.trigger.trigger.setValue(1);
                 // Calculate the frequency from the scale
-                var frequency = this.scale.getFrequency(degree,
-                                                        this.c2Frequency,
-                                                        1);
                 // Set the frequency
-                this.bassSynth.frequencyMulAdd.add.setValue(frequency);
-                this.bassSynth.frequencyModulator.frequency.setValue(frequency * 4);
+                this.bassSynth.sine.frequency.setValue(this.bassSynthFreqs[user]);
             }.bind(this)
         );
     }
