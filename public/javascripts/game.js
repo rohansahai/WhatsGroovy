@@ -11,7 +11,8 @@ frequencies = {
   10: 392
 }
 
-$(function(){
+window.startGame = function startGame(){
+  console.log('starting game');
   var canvas = document.getElementById("music");
   canvas.width  = window.innerWidth - 10;
   canvas.height = window.innerHeight - 150;
@@ -165,4 +166,4 @@ $(function(){
     audioApp.stopCurrentInstrument(audioApp.highSynthEvents[0], currentAudioRow, fromMove, 0, audioApp.currentInstrument);
     chatApp.stopAudio(audioApp.highSynthEvent, currentAudioRow, fromMove, audioApp.currentInstrument);
   }
-})
+}

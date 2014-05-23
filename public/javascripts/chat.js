@@ -15,6 +15,11 @@
     this.sendMessage("Switched to " + room);
   }
 
+  Chat.prototype.enterRoom = function(room){
+    this.room = room;
+    this.socket.emit('enterRoomRequest', room);
+  }
+
   Chat.prototype.processCommand = function(command){
     commandArgs = command.split(' ');
     switch(commandArgs[0]) {

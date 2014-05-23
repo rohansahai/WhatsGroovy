@@ -42,7 +42,7 @@
   }
 
   $(document).ready(function() {
-  	window.chatApp = new ChatApp.Chat(socket);
+  	//window.chatApp = new ChatApp.Chat(socket);
 
     document.onmousemove = function (e) {
       mouseX = e.pageX;
