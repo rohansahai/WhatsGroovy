@@ -55,6 +55,10 @@
   }
 
   Chat.prototype.sendMouseCoords = function(mouseX, mouseY){
-    this.socket.emit('moveCursorRequest', { mouseX: mouseX, mouseY: mouseY })
+    this.socket.emit('moveCursorRequest', {
+      mouseX: mouseX,
+      mouseY: mouseY,
+      room: this.room
+    })
   };
 })(this);
