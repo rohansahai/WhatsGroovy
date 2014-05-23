@@ -23,7 +23,7 @@ $(function(){
 
   window.audioApp = new AudioletApp();
   var currentAudioRow = 0;
-  var numRows = 12;
+  var numRows = 10;
 
   var context = canvas.getContext("2d");
 
