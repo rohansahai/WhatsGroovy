@@ -1,10 +1,13 @@
 var fs = require('fs');
 var path = require('path');
 var mime = require('mime');
+var static = require('node-static');
+var fileServer = new static.Server('./public');
 
-var serveFile = function(response, absPath){
+var serveFile = function(request, response, absPath){
 	console.log("serving file at ", absPath);
 	fs.readFile(absPath, function(err, data) {
+
 		if (err) {
 			console.log("ERROR LOGGED: ", err);
 			serveError(response, 404);
@@ -12,7 +15,7 @@ var serveFile = function(response, absPath){
 			response.writeHead(
 				200,
 				{"Content-Type": mime.lookup(path.basename(absPath))});
-			response.end(data);	
+			response.end(data);
 		}
 	})
 };
@@ -23,7 +26,7 @@ var serveError = function(response, errorCode){
     //TODO: Serve an actual HTML page for these.
     message = 'Error 404: resource not found.';
   } else {
-    message = 'Error: there was a problem.';    
+    message = 'Error: there was a problem.';
   }
   response.writeHead(errorCode, {"Content-Type": "text/plain"});
   response.write(message);
@@ -34,9 +37,11 @@ var router = function(request, response){
 	var url = request.url;
 	console.log("Routing to ", url);
 	if (url === "/"){
-		serveFile(response, "public/index.html");
+		serveFile(request, response, "public/index.html");
+		//fileServer.serve(request, response);
 	} else {
-	  serveFile(response, ("public" + url));
+	  //serveFile(request, response, ("public" + url));
+		fileServer.serve(request, response);
 	} // end outer if/else
 } // end router function
 

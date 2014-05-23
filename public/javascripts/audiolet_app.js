@@ -195,9 +195,9 @@ $(function(){
     }
 
     AudioletApp.prototype.playInstrument = function(user, row, instHash) {
-      //instHash[user][row].pause();
       console.log('playing instrument');
       console.log(instHash[user][row].currentTime);
+
       instHash[user][row].currentTime = 0;
 
       instHash[user][row].play();
@@ -205,15 +205,14 @@ $(function(){
 
     AudioletApp.prototype.stopWavInstrument = function(user, row, instHash){
       instHash[user][row].pause();
-      instHash[user][row].load();
     }
 
     AudioletApp.prototype.assignAudioHash = function(folder) {
       var audioHash = {}
 
       var audioElement1 = document.createElement('audio');
+      //audioElement1.setAttribute('preload', 'auto');
       audioElement1.setAttribute('src', 'audios/'+folder+'/a3.wav');
-      //audioElement1.load();
       audioHash[1] = audioElement1;
 
       var audioElement2 = document.createElement('audio');
