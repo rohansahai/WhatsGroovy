@@ -13,8 +13,8 @@ $(function(){
 
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
-        this.organAudioHash[0] = this.assignOrganAudioHash();
-        this.wildSynthAudioHash[0] = this.assignWildSynthAudioHash();
+        this.organAudioHash[0] = this.assignAudioHash('organ');
+        this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
 
     };
 
@@ -26,19 +26,19 @@ $(function(){
           break;
         case 'keys':
           if (!this.organAudioHash[user]){
-            this.organAudioHash[user] = this.assignOrganAudioHash();
+            this.organAudioHash[user] = this.assignAudioHash('organ');
           }
           this.playInstrument(user, row, this.organAudioHash);
           break;
         case 'wildSynth':
           if (!this.wildSynthAudioHash[user]){
-            this.wildSynthAudioHash[user] = this.assignWildSynthAudioHash();
+            this.wildSynthAudioHash[user] = this.assignAudioHash('wild-synth');
           }
           this.playInstrument(user, row, this.wildSynthAudioHash);
           break;
         case 'gatedEdm':
             if (!this.gatedEdmAudioHash[user]){
-              this.gatedEdmAudioHash[user] = this.assignGatedEdmAudioHash();
+              this.gatedEdmAudioHash[user] = this.assignGatedEdmAudioHash('gated-edm');
             }
             this.playInstrument(user, row, this.gatedEdmAudioHash);
             break;
@@ -199,6 +199,53 @@ $(function(){
 
     AudioletApp.prototype.stopWavInstrument = function(user, row, instHash){
       instHash[user][row].pause();
+    }
+
+    AudioletApp.prototype.assignAudioHash = function(folder) {
+      var audioHash = {}
+
+      var audioElement1 = document.createElement('audio');
+      audioElement1.setAttribute('src', 'audios/'+folder+'/a3.wav');
+      audioHash[1] = audioElement1;
+
+      var audioElement2 = document.createElement('audio');
+      audioElement2.setAttribute('src', 'audios/'+folder+'/c3.wav');
+      audioHash[2] = audioElement2;
+
+      var audioElement3 = document.createElement('audio');
+      audioElement3.setAttribute('src', 'audios/'+folder+'/d3.wav');
+      audioHash[3] = audioElement3;
+
+      var audioElement4 = document.createElement('audio');
+      audioElement4.setAttribute('src', 'audios/'+folder+'/e3.wav');
+      audioHash[4] = audioElement4;
+
+      var audioElement5 = document.createElement('audio');
+      audioElement5.setAttribute('src', 'audios/'+folder+'/g3.wav');
+      audioHash[5] = audioElement5;
+
+      var audioElement6 = document.createElement('audio');
+      audioElement6.setAttribute('src', 'audios/'+folder+'/a4.wav');
+      audioHash[6] = audioElement6;
+
+      var audioElement7 = document.createElement('audio');
+      audioElement7.setAttribute('src', 'audios/'+folder+'/c4.wav');
+      audioHash[7] = audioElement7;
+
+      var audioElement8 = document.createElement('audio');
+      audioElement8.setAttribute('src', 'audios/'+folder+'/d4.wav');
+      audioHash[8] = audioElement8;
+
+      var audioElement9 = document.createElement('audio');
+      audioElement9.setAttribute('src', 'audios/'+folder+'/e4.wav');
+      audioHash[9] = audioElement9;
+
+      var audioElement10 = document.createElement('audio');
+      audioElement10.setAttribute('src', 'audios/'+folder+'/g4.wav');
+      audioHash[10] = audioElement10;
+
+      return audioHash;
+
     }
 
     AudioletApp.prototype.assignOrganAudioHash = function() {
