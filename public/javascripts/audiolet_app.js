@@ -12,19 +12,6 @@ $(function(){
         this.highSynthEvents = {};
     };
 
-    AudioletApp.prototype.playNewInstrument = function(freq, row, instrument, user) {
-      switch (instrument) {
-        case 'high synth':
-
-          this.highSynthFreqs[user] = freq;
-          if (!this.highSynthEvents[user]){ this.playHighSynth(user); }
-          break;
-        case 'keys':
-          this.playKeys(row);
-          break;
-      }
-    }
-
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
       switch (instrument) {
         case 'high synth':
@@ -40,9 +27,9 @@ $(function(){
       }
     }
 
-    AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user){
+    AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user, instrument){
 
-      switch (this.currentInstrument) {
+      switch (instrument) {
         case 'high synth':
           if (!fromMove){
             console.log('stopping instrument');

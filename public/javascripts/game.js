@@ -131,7 +131,7 @@ $(function(){
   }
 
   function stopAudio(fromMove) {
-    audioApp.stopCurrentInstrument(audioApp.highSynthEvents[0], currentAudioRow, fromMove, 0);
-    chatApp.stopAudio(audioApp.highSynthEvent, currentAudioRow, fromMove);
+    audioApp.stopCurrentInstrument(audioApp.highSynthEvents[0], currentAudioRow, fromMove, 0, audioApp.currentInstrument);
+    chatApp.stopAudio(audioApp.highSynthEvent, currentAudioRow, fromMove, audioApp.currentInstrument);
   }
 })
