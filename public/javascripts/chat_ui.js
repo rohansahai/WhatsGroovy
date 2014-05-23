@@ -82,7 +82,7 @@
 
     socket.on('playAudioSend', function(data){
       console.log("received audio send from server");
-      audioApp.playNewInstrument(data.freq, data.row, data.instrument, data.socketId);
+      audioApp.playCurrentInstrument(data.freq, data.row, data.instrument, data.socketId);
     });
 
     socket.on('stopAudioSend', function(data){

@@ -25,11 +25,11 @@ $(function(){
       }
     }
 
-    AudioletApp.prototype.playCurrentInstrument = function(freq, row) {
-      switch (this.currentInstrument) {
+    AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
+      switch (instrument) {
         case 'high synth':
-          this.highSynthFreqs[0] = freq;
-          if (!this.highSynthEvents[0]){ this.playHighSynth(0);}
+          this.highSynthFreqs[user] = freq;
+          if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
           break;
         case 'organ':
           this.playOrgan();
