@@ -195,13 +195,17 @@ $(function(){
     }
 
     AudioletApp.prototype.playInstrument = function(user, row, instHash) {
-      instHash[user][row].pause();
-      //instHash[user][row].load();
+      //instHash[user][row].pause();
+      console.log('playing instrument');
+      console.log(instHash[user][row].currentTime);
+      instHash[user][row].currentTime = 0;
+
       instHash[user][row].play();
     }
 
     AudioletApp.prototype.stopWavInstrument = function(user, row, instHash){
       instHash[user][row].pause();
+      instHash[user][row].load();
     }
 
     AudioletApp.prototype.assignAudioHash = function(folder) {

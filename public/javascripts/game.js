@@ -158,13 +158,4 @@ $(function(){
     audioApp.stopCurrentInstrument(audioApp.highSynthEvents[0], currentAudioRow, fromMove, 0, audioApp.currentInstrument);
     chatApp.stopAudio(audioApp.highSynthEvent, currentAudioRow, fromMove, audioApp.currentInstrument);
   }
-
-  // function loadAudio(uri)
-  // {
-  //   var audio = new Audio();
-  //   //audio.onload = isAppLoaded; // It doesn't works!
-  //   audio.addEventListener('canplaythrough', isAppLoaded, false); // It works!!
-  //   audio.src = uri;
-  //   return audio;
-  // }
 })
