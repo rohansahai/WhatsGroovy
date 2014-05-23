@@ -196,7 +196,7 @@ $(function(){
 
     AudioletApp.prototype.playInstrument = function(user, row, instHash) {
       instHash[user][row].pause();
-      instHash[user][row].load();
+      //instHash[user][row].load();
       instHash[user][row].play();
     }
 
@@ -209,6 +209,7 @@ $(function(){
 
       var audioElement1 = document.createElement('audio');
       audioElement1.setAttribute('src', 'audios/'+folder+'/a3.wav');
+      //audioElement1.load();
       audioHash[1] = audioElement1;
 
       var audioElement2 = document.createElement('audio');
