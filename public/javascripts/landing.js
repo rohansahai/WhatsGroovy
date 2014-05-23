@@ -7,7 +7,8 @@
     $('.join-room').submit(function(event){
       event.preventDefault();
       var room = $('#room-name').val();
-      chatApp.enterRoom(room);
+      var nickname = $('#nickname').val();
+      chatApp.enterRoom(room, nickname);
     })
 
     socket.on('renderHomePage', function(){

@@ -15,9 +15,12 @@
     this.sendMessage("Switched to " + room);
   }
 
-  Chat.prototype.enterRoom = function(room){
+  Chat.prototype.enterRoom = function(room, nickname){
     this.room = room;
-    this.socket.emit('enterRoomRequest', room);
+    this.socket.emit('enterRoomRequest', {
+      room: room,
+      nickname: nickname
+    });
   }
 
   Chat.prototype.processCommand = function(command){
@@ -41,7 +44,8 @@
     this.socket.emit('playAudioRequest', {
       freq: freq,
       row: row,
-      instrument: instrument
+      instrument: instrument,
+      room: this.room
     });
   }
 
@@ -50,7 +54,8 @@
       evt: evt,
       row: row,
       fromMove: fromMove,
-      instrument: instrument
+      instrument: instrument,
+      room: this.room
     });
   }
 
