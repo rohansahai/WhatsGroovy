@@ -81,6 +81,18 @@ $(function(){
     }
   })
 
+  $('#wild-synth-button').click(function(event){
+
+    var $target = $(event.currentTarget);
+    if (audioApp.currentInstrument === 'wildSynth'){
+      audioApp.currentInstrument = '';
+      $target.removeClass("active");
+    } else {
+      audioApp.currentInstrument = 'wildSynth';
+      $target.addClass("active");
+    }
+  })
+
   $('#kick-button').click(function(event){
     var $target = $(event.currentTarget);
     if ($target.html() === "Kick ON"){

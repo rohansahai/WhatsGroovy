@@ -11,8 +11,11 @@ $(function(){
         this.highSynthFreqs = {};
         this.highSynthEvents = {};
 
-        this.audioHash = {};
-        this.audioHash[0] = this.assignAudioHash();
+        this.organAudioHash = {};
+        this.wildSynthAudioHash = {};
+        this.organAudioHash[0] = this.assignOrganAudioHash();
+        this.wildSynthAudioHash[0] = this.assignWildSynthAudioHash();
+
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -22,10 +25,17 @@ $(function(){
           if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
           break;
         case 'keys':
-          if (!this.audioHash[user]){
-            this.audioHash[user] = this.assignAudioHash();
+          if (!this.organAudioHash[user]){
+            this.organAudioHash[user] = this.assignOrganAudioHash();
           }
-          this.playKeys(user, row);
+          this.playInstrument(user, row, this.organAudioHash);
+          break;
+        case 'wildSynth':
+          console.log("are we here");
+          if (!this.wildSynthAudioHash[user]){
+            this.wildSynthAudioHash[user] = this.assignWildSynthAudioHash();
+          }
+          this.playInstrument(user, row, this.wildSynthAudioHash);
           break;
       }
     }
@@ -41,7 +51,10 @@ $(function(){
           }
           break;
         case 'keys':
-          this.stopKeys(user, row);
+          this.stopWavInstrument(user, row, this.organAudioHash);
+          break;
+        case 'wildSynth':
+          this.stopWavInstrument(user, row, this.wildSynthAudioHash);
           break;
       }
     }
@@ -170,50 +183,145 @@ $(function(){
       );
     }
 
-    AudioletApp.prototype.playKeys = function(user, row) {
-      this.audioHash[user][row].pause();
-      this.audioHash[user][row].load();
-      this.audioHash[user][row].play();
+    AudioletApp.prototype.playInstrument = function(user, row, instHash) {
+      instHash[user][row].pause();
+      instHash[user][row].load();
+      instHash[user][row].play();
     }
 
-    AudioletApp.prototype.stopKeys = function(user, row){
-      this.audioHash[user][row].pause();
+    AudioletApp.prototype.stopWavInstrument = function(user, row, instHash){
+      instHash[user][row].pause();
     }
 
-    AudioletApp.prototype.assignAudioHash = function() {
+    AudioletApp.prototype.assignOrganAudioHash = function() {
       var audioHash = {}
 
       var audioElement1 = document.createElement('audio');
-      audioElement1.setAttribute('src', 'audios/c3.wav');
+      audioElement1.setAttribute('src', 'audios/organ/c3.wav');
       audioHash[1] = audioElement1;
 
       var audioElement2 = document.createElement('audio');
-      audioElement2.setAttribute('src', 'audios/d3.wav');
+      audioElement2.setAttribute('src', 'audios/organ/d3.wav');
       audioHash[2] = audioElement2;
 
       var audioElement3 = document.createElement('audio');
-      audioElement3.setAttribute('src', 'audios/e3.wav');
+      audioElement3.setAttribute('src', 'audios/organ/e3.wav');
       audioHash[3] = audioElement3;
 
       var audioElement4 = document.createElement('audio');
-      audioElement4.setAttribute('src', 'audios/f3.wav');
+      audioElement4.setAttribute('src', 'audios/organ/f3.wav');
       audioHash[4] = audioElement4;
 
       var audioElement5 = document.createElement('audio');
-      audioElement5.setAttribute('src', 'audios/g3.wav');
+      audioElement5.setAttribute('src', 'audios/organ/g3.wav');
       audioHash[5] = audioElement5;
 
       var audioElement6 = document.createElement('audio');
-      audioElement6.setAttribute('src', 'audios/a4.wav');
+      audioElement6.setAttribute('src', 'audios/organ/a4.wav');
       audioHash[6] = audioElement6;
 
       var audioElement7 = document.createElement('audio');
-      audioElement7.setAttribute('src', 'audios/b4.wav');
+      audioElement7.setAttribute('src', 'audios/organ/b4.wav');
       audioHash[7] = audioElement7;
 
       var audioElement8 = document.createElement('audio');
-      audioElement8.setAttribute('src', 'audios/c4.wav');
+      audioElement8.setAttribute('src', 'audios/organ/c4.wav');
       audioHash[8] = audioElement8;
+
+      var audioElement9 = document.createElement('audio');
+      audioElement9.setAttribute('src', 'audios/organ/d4.wav');
+      audioHash[9] = audioElement9;
+
+      var audioElement10 = document.createElement('audio');
+      audioElement10.setAttribute('src', 'audios/organ/e4.wav');
+      audioHash[10] = audioElement10;
+
+      var audioElement11 = document.createElement('audio');
+      audioElement11.setAttribute('src', 'audios/organ/f4.wav');
+      audioHash[11] = audioElement11;
+
+      var audioElement12 = document.createElement('audio');
+      audioElement12.setAttribute('src', 'audios/organ/g4.wav');
+      audioHash[12] = audioElement12;
+
+      var audioElement13 = document.createElement('audio');
+      audioElement13.setAttribute('src', 'audios/organ/a5.wav');
+      audioHash[13] = audioElement13;
+
+      var audioElement14 = document.createElement('audio');
+      audioElement14.setAttribute('src', 'audios/organ/b5.wav');
+      audioHash[14] = audioElement14;
+
+      var audioElement15 = document.createElement('audio');
+      audioElement15.setAttribute('src', 'audios/organ/c5.wav');
+      audioHash[15] = audioElement15;
+
+      return audioHash;
+
+    }
+
+    AudioletApp.prototype.assignWildSynthAudioHash = function() {
+      var audioHash = {}
+
+      var audioElement1 = document.createElement('audio');
+      audioElement1.setAttribute('src', 'audios/wild-synth/c3.wav');
+      audioHash[1] = audioElement1;
+
+      var audioElement2 = document.createElement('audio');
+      audioElement2.setAttribute('src', 'audios/wild-synth/d3.wav');
+      audioHash[2] = audioElement2;
+
+      var audioElement3 = document.createElement('audio');
+      audioElement3.setAttribute('src', 'audios/wild-synth/e3.wav');
+      audioHash[3] = audioElement3;
+
+      var audioElement4 = document.createElement('audio');
+      audioElement4.setAttribute('src', 'audios/wild-synth/f3.wav');
+      audioHash[4] = audioElement4;
+
+      var audioElement5 = document.createElement('audio');
+      audioElement5.setAttribute('src', 'audios/wild-synth/g3.wav');
+      audioHash[5] = audioElement5;
+
+      var audioElement6 = document.createElement('audio');
+      audioElement6.setAttribute('src', 'audios/wild-synth/a4.wav');
+      audioHash[6] = audioElement6;
+
+      var audioElement7 = document.createElement('audio');
+      audioElement7.setAttribute('src', 'audios/wild-synth/b4.wav');
+      audioHash[7] = audioElement7;
+
+      var audioElement8 = document.createElement('audio');
+      audioElement8.setAttribute('src', 'audios/wild-synth/c4.wav');
+      audioHash[8] = audioElement8;
+
+      var audioElement9 = document.createElement('audio');
+      audioElement9.setAttribute('src', 'audios/wild-synth/d4.wav');
+      audioHash[9] = audioElement9;
+
+      var audioElement10 = document.createElement('audio');
+      audioElement10.setAttribute('src', 'audios/wild-synth/e4.wav');
+      audioHash[10] = audioElement10;
+
+      var audioElement11 = document.createElement('audio');
+      audioElement11.setAttribute('src', 'audios/wild-synth/f4.wav');
+      audioHash[11] = audioElement11;
+
+      var audioElement12 = document.createElement('audio');
+      audioElement12.setAttribute('src', 'audios/wild-synth/g4.wav');
+      audioHash[12] = audioElement12;
+
+      var audioElement13 = document.createElement('audio');
+      audioElement13.setAttribute('src', 'audios/wild-synth/a5.wav');
+      audioHash[13] = audioElement13;
+
+      var audioElement14 = document.createElement('audio');
+      audioElement14.setAttribute('src', 'audios/wild-synth/b5.wav');
+      audioHash[14] = audioElement14;
+
+      var audioElement15 = document.createElement('audio');
+      audioElement15.setAttribute('src', 'audios/wild-synth/c5.wav');
+      audioHash[15] = audioElement15;
 
       return audioHash;
 
