@@ -10,6 +10,7 @@ $(function(){
         //this.playOrgan();
         this.highSynthFreqs = {};
         this.highSynthEvents = {};
+        this.audioHash = this.assignAudioHash();
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -17,9 +18,6 @@ $(function(){
         case 'high synth':
           this.highSynthFreqs[user] = freq;
           if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
-          break;
-        case 'organ':
-          this.playOrgan();
           break;
         case 'keys':
           this.playKeys(row);
@@ -168,7 +166,6 @@ $(function(){
     }
 
     AudioletApp.prototype.playKeys = function(row) {
-      this.audioHash = this.assignAudioHash();
       this.audioHash[row].pause();
       this.audioHash[row].load();
       this.audioHash[row].play();
