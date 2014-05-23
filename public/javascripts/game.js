@@ -93,6 +93,18 @@ $(function(){
     }
   })
 
+  $('#gated-edm-button').click(function(event){
+
+    var $target = $(event.currentTarget);
+    if (audioApp.currentInstrument === 'gatedEdm'){
+      audioApp.currentInstrument = '';
+      $target.removeClass("active");
+    } else {
+      audioApp.currentInstrument = 'gatedEdm';
+      $target.addClass("active");
+    }
+  })
+
   $('#kick-button').click(function(event){
     var $target = $(event.currentTarget);
     if ($target.html() === "Kick ON"){

@@ -13,8 +13,11 @@ $(function(){
 
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
+        this.gatedEdmAudioHash = {};
+
         this.organAudioHash[0] = this.assignAudioHash('organ');
         this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
+        this.gatedEdmAudioHash[0] = this.assignAudioHash('gated-edm');
 
     };
 
@@ -242,100 +245,6 @@ $(function(){
 
       var audioElement10 = document.createElement('audio');
       audioElement10.setAttribute('src', 'audios/'+folder+'/g4.wav');
-      audioHash[10] = audioElement10;
-
-      return audioHash;
-
-    }
-
-    AudioletApp.prototype.assignOrganAudioHash = function() {
-      var audioHash = {}
-
-      var audioElement1 = document.createElement('audio');
-      audioElement1.setAttribute('src', 'audios/organ/a3.wav');
-      audioHash[1] = audioElement1;
-
-      var audioElement2 = document.createElement('audio');
-      audioElement2.setAttribute('src', 'audios/organ/c3.wav');
-      audioHash[2] = audioElement2;
-
-      var audioElement3 = document.createElement('audio');
-      audioElement3.setAttribute('src', 'audios/organ/d3.wav');
-      audioHash[3] = audioElement3;
-
-      var audioElement4 = document.createElement('audio');
-      audioElement4.setAttribute('src', 'audios/organ/e3.wav');
-      audioHash[4] = audioElement4;
-
-      var audioElement5 = document.createElement('audio');
-      audioElement5.setAttribute('src', 'audios/organ/g3.wav');
-      audioHash[5] = audioElement5;
-
-      var audioElement6 = document.createElement('audio');
-      audioElement6.setAttribute('src', 'audios/organ/a4.wav');
-      audioHash[6] = audioElement6;
-
-      var audioElement7 = document.createElement('audio');
-      audioElement7.setAttribute('src', 'audios/organ/c4.wav');
-      audioHash[7] = audioElement7;
-
-      var audioElement8 = document.createElement('audio');
-      audioElement8.setAttribute('src', 'audios/organ/d4.wav');
-      audioHash[8] = audioElement8;
-
-      var audioElement9 = document.createElement('audio');
-      audioElement9.setAttribute('src', 'audios/organ/e4.wav');
-      audioHash[9] = audioElement9;
-
-      var audioElement10 = document.createElement('audio');
-      audioElement10.setAttribute('src', 'audios/organ/g4.wav');
-      audioHash[10] = audioElement10;
-
-      return audioHash;
-
-    }
-
-    AudioletApp.prototype.assignWildSynthAudioHash = function() {
-      var audioHash = {}
-
-      var audioElement1 = document.createElement('audio');
-      audioElement1.setAttribute('src', 'audios/wild-synth/a3.wav');
-      audioHash[1] = audioElement1;
-
-      var audioElement2 = document.createElement('audio');
-      audioElement2.setAttribute('src', 'audios/wild-synth/c3.wav');
-      audioHash[2] = audioElement2;
-
-      var audioElement3 = document.createElement('audio');
-      audioElement3.setAttribute('src', 'audios/wild-synth/d3.wav');
-      audioHash[3] = audioElement3;
-
-      var audioElement4 = document.createElement('audio');
-      audioElement4.setAttribute('src', 'audios/wild-synth/e3.wav');
-      audioHash[4] = audioElement4;
-
-      var audioElement5 = document.createElement('audio');
-      audioElement5.setAttribute('src', 'audios/wild-synth/g3.wav');
-      audioHash[5] = audioElement5;
-
-      var audioElement6 = document.createElement('audio');
-      audioElement6.setAttribute('src', 'audios/wild-synth/a4.wav');
-      audioHash[6] = audioElement6;
-
-      var audioElement7 = document.createElement('audio');
-      audioElement7.setAttribute('src', 'audios/wild-synth/c4.wav');
-      audioHash[7] = audioElement7;
-
-      var audioElement8 = document.createElement('audio');
-      audioElement8.setAttribute('src', 'audios/wild-synth/d4.wav');
-      audioHash[8] = audioElement8;
-
-      var audioElement9 = document.createElement('audio');
-      audioElement9.setAttribute('src', 'audios/wild-synth/e4.wav');
-      audioHash[9] = audioElement9;
-
-      var audioElement10 = document.createElement('audio');
-      audioElement10.setAttribute('src', 'audios/wild-synth/g4.wav');
       audioHash[10] = audioElement10;
 
       return audioHash;
