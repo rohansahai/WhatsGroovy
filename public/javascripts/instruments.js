@@ -174,7 +174,7 @@ $(function(){
         AudioletGroup.call(this, audiolet, 0, 1);
 
         // Triangle base oscillator
-        this.sine = new Triangle(audiolet);
+        this.sine = new Sine(audiolet);
         // Note on trigger
         this.trigger = new TriggerControl(audiolet);
 
@@ -183,8 +183,9 @@ $(function(){
         this.gainEnvMulAdd = new MulAdd(audiolet, 0.7); //INCREASE VOLUME WITH SECOND PARAMETER HERE
         this.gain = new Gain(audiolet);
 
+
         // Feedback delay
-        this.delay = new Delay(audiolet, 0.1, 0.1);
+        this.delay = new Delay(audiolet, 0.5, 0.5);
         this.feedbackLimiter = new Gain(audiolet, 0.5);
 
         // Reverb
