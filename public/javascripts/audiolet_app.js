@@ -10,7 +10,9 @@ $(function(){
         //this.playOrgan();
         this.highSynthFreqs = {};
         this.highSynthEvents = {};
-        this.audioHash = this.assignAudioHash();
+
+        this.audioHash = {};
+        this.audioHash[0] = this.assignAudioHash();
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -20,7 +22,7 @@ $(function(){
           if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
           break;
         case 'keys':
-          this.playKeys(row);
+          this.playKeys(user, row);
           break;
       }
     }
@@ -36,7 +38,7 @@ $(function(){
           }
           break;
         case 'keys':
-          this.stopKeys(row);
+          this.stopKeys(user, row);
           break;
       }
     }
@@ -165,14 +167,14 @@ $(function(){
       );
     }
 
-    AudioletApp.prototype.playKeys = function(row) {
-      this.audioHash[row].pause();
-      this.audioHash[row].load();
-      this.audioHash[row].play();
+    AudioletApp.prototype.playKeys = function(user, row) {
+      this.audioHash[user][row].pause();
+      this.audioHash[user][row].load();
+      this.audioHash[user][row].play();
     }
 
-    AudioletApp.prototype.stopKeys = function(row){
-      this.audioHash[row].pause();
+    AudioletApp.prototype.stopKeys = function(user, row){
+      this.audioHash[user][row].pause();
     }
 
     AudioletApp.prototype.assignAudioHash = function() {
