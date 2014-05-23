@@ -22,6 +22,9 @@ $(function(){
           if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
           break;
         case 'keys':
+          if (!this.audioHash[user]){
+            this.audioHash[user] = this.assignAudioHash();
+          }
           this.playKeys(user, row);
           break;
       }
