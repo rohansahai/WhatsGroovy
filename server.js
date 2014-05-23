@@ -5,7 +5,7 @@ var httpServer = http.createServer(function (request, response) {
 	router(request, response);
 });
 
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 httpServer.listen(port);
 
