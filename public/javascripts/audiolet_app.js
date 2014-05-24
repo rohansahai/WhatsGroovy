@@ -16,7 +16,7 @@ $(function(){
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
         this.gatedEdmAudioHash = {};
-        this.apiAudioHash = {};
+        this.synthPad = new SynthPad();
 
         this.organAudioHash[0] = this.assignAudioHash('organ');
         this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
@@ -53,20 +53,14 @@ $(function(){
             this.playInstrument(user, row, this.gatedEdmAudioHash);
             break;
         case 'api':
-          if (!this.apiAudioHash[user]){
-            this.apiAudioHash[user] = true;
-            this.playApiInstrument(freq);
+          if (!this.synthPadPlaying || this.synthPadPlaying === false){
+            SynthPad.playSound(freq);
+            this.synthPadPlaying = true;
           } else {
-            this.synthPad.updateFrequency(freq);
+            SynthPad.updateFrequency(freq);
           }
-
           break;
       }
-    }
-
-    AudioletApp.prototype.playApiInstrument = function(freq){
-      this.synthPad = new SynthPad();
-      synthPad.playSound(freq);
     }
 
     AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user, instrument){
@@ -94,6 +88,10 @@ $(function(){
           break;
         case 'gatedEdm':
             this.stopWavInstrument(user, row, this.gatedEdmAudioHash);
+            break;
+        case 'api':
+            SynthPad.stopSound();
+            this.synthPadPlaying = false;
             break;
       }
     }
