@@ -12,7 +12,7 @@ frequencies = {
 }
 
 window.startGame = function startGame(){
-  console.log('starting game');
+  $('body').css('background-color', 'white')
   var canvas = document.getElementById("music");
   canvas.width  = window.innerWidth - 10;
   canvas.height = window.innerHeight - 150;
