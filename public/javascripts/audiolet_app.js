@@ -46,8 +46,8 @@ $(function(){
         case 'organSynth':
           if (!this.organSynths[user] || this.organSynths[user].playing === false){
             this.organSynths[user] = new OrganSynth(this.myAudioContext);
-            this.organSynths[user].playSound(row);
-            //this.playApiInstrument(this.organSynths[user], user, freq);
+
+            this.playExternalApiInstrument(this.organSynths[user], row);
           } else {
             console.log('updating');
             this.organSynths[user].updateFrequency(row);
@@ -79,7 +79,7 @@ $(function(){
             if (!fromMove){
               this.organSynths[user].stopSound();
               this.organSynths[user].playing = false;
-              //clearInterval(this.intervals[user]);
+              clearInterval(this.intervals[user]);
             }
             break;
 
@@ -93,6 +93,13 @@ $(function(){
       this.intervals[user] = setInterval(function(){
         inst.playSound();
       }, 250);
+    }
+
+    Array.prototype.playExternalApiInstrument = function(inst, row){
+      inst.playSound(row);
+      this.intervals[user] = setInterval(function(){
+        inst.playSound(row);
+      }, 500);
     }
 
     AudioletApp.prototype.playKick = function() {
