@@ -36,11 +36,15 @@ OrganSynth.prototype.stopSound = function() {
   }
 }
 
-OrganSynth.prototype.playSound = function(row) {
+OrganSynth.prototype.playSound = function() {
   var that = this;
-  this.loadSoundFile(organSynthFiles[row], function(){
+  this.loadSoundFile(organSynthFiles[this.frequency], function(){
     that.playFile();
   });
+}
+
+OrganSynth.prototype.updateFrequency = function(row) {
+  this.frequency = row;
 }
 
 OrganSynth.prototype.playFile = function() {

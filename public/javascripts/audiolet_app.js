@@ -47,7 +47,7 @@ $(function(){
           if (!this.organSynths[user] || this.organSynths[user].playing === false){
             this.organSynths[user] = new OrganSynth(this.myAudioContext);
 
-            this.playExternalApiInstrument(this.organSynths[user], row);
+            this.playExternalApiInstrument(this.organSynths[user], user, row);
           } else {
             console.log('updating');
             this.organSynths[user].updateFrequency(row);
@@ -95,10 +95,11 @@ $(function(){
       }, 250);
     }
 
-    Array.prototype.playExternalApiInstrument = function(inst, row){
-      inst.playSound(row);
+    AudioletApp.prototype.playExternalApiInstrument = function(inst, user, row){
+      inst.frequency = row;
+      inst.playSound();
       this.intervals[user] = setInterval(function(){
-        inst.playSound(row);
+        inst.playSound();
       }, 500);
     }
 
