@@ -53,6 +53,18 @@ window.startGame = function startGame(){
     }
   }, false);
 
+  $('#api-button').click(function(event){
+
+    var $target = $(event.currentTarget);
+    if (audioApp.currentInstrument === 'api'){
+      audioApp.currentInstrument = '';
+      $target.removeClass("active");
+    } else {
+      audioApp.currentInstrument = 'api';
+      $target.addClass("active");
+    }
+  })
+
   $('#high-synth-button').click(function(event){
 
     var $target = $(event.currentTarget);

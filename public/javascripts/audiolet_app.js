@@ -16,6 +16,7 @@ $(function(){
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
         this.gatedEdmAudioHash = {};
+        this.apiAudioHash = {};
 
         this.organAudioHash[0] = this.assignAudioHash('organ');
         this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
@@ -51,7 +52,21 @@ $(function(){
             }
             this.playInstrument(user, row, this.gatedEdmAudioHash);
             break;
+        case 'api':
+          if (!this.apiAudioHash[user]){
+            this.apiAudioHash[user] = true;
+            this.playApiInstrument(freq);
+          } else {
+            this.synthPad.updateFrequency(freq);
+          }
+
+          break;
       }
+    }
+
+    AudioletApp.prototype.playApiInstrument = function(freq){
+      this.synthPad = new SynthPad();
+      synthPad.playSound(freq);
     }
 
     AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user, instrument){
