@@ -64,7 +64,7 @@ $(function(){
             this.synthPadInterval = setInterval(function(){
               console.log('yat');
               that.synthPad.playSound();
-            }, 500);
+            }, 250);
 
           } else {
             console.log('updating');

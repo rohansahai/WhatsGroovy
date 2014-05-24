@@ -22,7 +22,7 @@
     this.oscillator.frequency.value = this.frequency;
     this.gainNode.gain.setTargetValueAtTime(0.5, now, 0.01);
 
-    this.gainNode.gain.setTargetValueAtTime(0.0, now + .25, 0.1);
+    this.gainNode.gain.setTargetValueAtTime(0.0, now + .1, 0.1);
 
   };
 
