@@ -63,30 +63,6 @@ window.startGame = function startGame(){
     }
   })
 
-  $('#high-synth-button').click(function(event){
-
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === "high synth"){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'high synth';
-      $target.addClass("active");
-    }
-  })
-
-  $('#bass-synth-button').click(function(event){
-
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === "bassSynth"){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'bassSynth';
-      $target.addClass("active");
-    }
-  })
-
   $('#organ-button').click(function(event){
 
     var $target = $(event.currentTarget);
