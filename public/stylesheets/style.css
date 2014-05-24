@@ -1,3 +1,15 @@
+body {
+	/*background-image: url('/images/headphones.jpg');
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+	background-size: cover;
+	background-repeat:no-repeat;
+	min-height: 1000px;
+	overflow: hidden;*/
+	background-color: #D1F2A5;
+}
+
 #chat-messages {
 	min-width: 100px;
 	width: 80%;
