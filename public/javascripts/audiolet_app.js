@@ -4,9 +4,9 @@ $(function(){
         this.c2Frequency = 65.4064;
         this.scale = new MajorScale();
         this.audiolet.scheduler.setTempo(120);
-        this.playKick();
+        //this.playKick();
         //this.playBassSynth();
-        this.playShaker();
+        //this.playShaker();
         //this.playOrgan();
         this.highSynthFreqs = {};
         this.highSynthEvents = {};
@@ -16,7 +16,8 @@ $(function(){
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
         this.gatedEdmAudioHash = {};
-        this.synthPad = new SynthPad();
+
+        this.myAudioContext = new webkitAudioContext();
 
         this.organAudioHash[0] = this.assignAudioHash('organ');
         this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
@@ -54,10 +55,11 @@ $(function(){
             break;
         case 'api':
           if (!this.synthPadPlaying || this.synthPadPlaying === false){
-            SynthPad.playSound(freq);
+            this.synthPad = new SynthPad(this.myAudioContext);
+            this.synthPad.playSound(freq);
             this.synthPadPlaying = true;
           } else {
-            SynthPad.updateFrequency(freq);
+            this.synthPad.updateFrequency(freq);
           }
           break;
       }
@@ -90,8 +92,11 @@ $(function(){
             this.stopWavInstrument(user, row, this.gatedEdmAudioHash);
             break;
         case 'api':
-            SynthPad.stopSound();
-            this.synthPadPlaying = false;
+            if (!fromMove){
+              console.log('stopping instrument');
+              this.synthPad.stopSound();
+              this.synthPadPlaying = false;
+            }
             break;
       }
     }
