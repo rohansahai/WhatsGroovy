@@ -8,7 +8,6 @@
     window.chatApp = new ChatApp.Chat(socket);
 
     socket.on('showCurrentRooms', function(rooms) {
-      debugger
       for (var i = 0; i < rooms.length; i++) {
         $("#current-rooms").append('<li>' + rooms[i] + '</li>');
       }
