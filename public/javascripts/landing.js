@@ -6,6 +6,15 @@
 
   $(function(){
     window.chatApp = new ChatApp.Chat(socket);
+
+    socket.on('showCurrentRooms', function(rooms) {
+      debugger
+      for (var i = 0; i < rooms.length; i++) {
+        $("#current-rooms").append('<li>' + rooms[i] + '</li>');
+      }
+    });
+
+
     $('.join-room').submit(function(event){
       event.preventDefault();
       var room = $('#room-name').val();
@@ -13,11 +22,10 @@
       chatApp.enterRoom(room, nickname);
     })
 
+    var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
     socket.on('renderHomePage', function(nickname){
-      var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render({
-        nickname: nickname
-      });
       $('body').html(gameHtml);
+      $('#cursor-nickname').append(nickname);
       startGame();
       //startGameUI();
     });
