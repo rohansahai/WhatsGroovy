@@ -4,9 +4,10 @@ $(function(){
         this.c2Frequency = 65.4064;
         this.scale = new MajorScale();
         this.audiolet.scheduler.setTempo(120);
-        //this.playKick();
+        this.playKick();
+        this.playShaker();
         //this.playBassSynth();
-        //this.playShaker();
+
         //this.playOrgan();
         this.highSynthFreqs = {};
         this.highSynthEvents = {};
@@ -66,6 +67,7 @@ $(function(){
             }, 500);
 
           } else {
+            console.log('updating');
             this.synthPad.updateFrequency(freq);
           }
           break;
