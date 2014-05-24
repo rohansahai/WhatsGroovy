@@ -10,15 +10,8 @@ $(function(){
         this.initializeAudioHashes();
 
         this.myAudioContext = new webkitAudioContext();
-        this.testLoaded();
+        //this.testLoaded();
     };
-
-    AudioletApp.prototype.testLoaded = function(){
-      var loaded = new LoadedSound(this.myAudioContext);
-      loaded.loadSoundFile('/audios/organ/a3.wav', function(){
-        loaded.playSound();
-      });
-    }
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
       var that = this;
@@ -50,6 +43,16 @@ $(function(){
             this.synthPads[user].updateFrequency(freq);
           }
           break;
+        case 'organSynth':
+          if (!this.organSynths[user] || this.organSynths[user].playing === false){
+            this.organSynths[user] = new OrganSynth(this.myAudioContext);
+            this.organSynths[user].playSound(row);
+            //this.playApiInstrument(this.organSynths[user], user, freq);
+          } else {
+            console.log('updating');
+            this.organSynths[user].updateFrequency(row);
+          }
+          break;
       }
     }
 
@@ -72,7 +75,15 @@ $(function(){
               clearInterval(this.intervals[user]);
             }
             break;
-      }
+        case 'organSynth':
+            if (!fromMove){
+              this.organSynths[user].stopSound();
+              this.organSynths[user].playing = false;
+              //clearInterval(this.intervals[user]);
+            }
+            break;
+
+        }
     }
 
     AudioletApp.prototype.playApiInstrument = function(inst, user, freq){
@@ -174,6 +185,7 @@ $(function(){
       this.wildSynthAudioHash = {};
       this.gatedEdmAudioHash = {};
       this.synthPads = {};
+      this.organSynths = {};
       this.intervals = {};
 
       this.organAudioHash[0] = this.assignAudioHash('organ');

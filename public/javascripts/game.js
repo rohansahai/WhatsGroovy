@@ -52,7 +52,6 @@ window.startGame = function startGame(){
   }, false);
 
   $('#light-sine-button').click(function(event){
-
     var $target = $(event.currentTarget);
     if (audioApp.currentInstrument === 'lightSine'){
       audioApp.currentInstrument = '';
@@ -87,14 +86,13 @@ window.startGame = function startGame(){
     }
   })
 
-  $('#gated-edm-button').click(function(event){
-
+  $('#organ-synth-button').click(function(event){
     var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'gatedEdm'){
+    if (audioApp.currentInstrument === 'organSynth'){
       audioApp.currentInstrument = '';
       $target.removeClass("active");
     } else {
-      audioApp.currentInstrument = 'gatedEdm';
+      audioApp.currentInstrument = 'organSynth';
       $target.addClass("active");
     }
   })
