@@ -47,20 +47,18 @@ window.startGame = function startGame(){
     var row = getRow(mousePos.y);
     if (currentAudioRow !== 0 && row !== currentAudioRow){
       stopAudio(true);
-
       playAudio(mousePos.y)
-      //audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow);
     }
   }, false);
 
-  $('#api-button').click(function(event){
+  $('#light-sine-button').click(function(event){
 
     var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'api'){
+    if (audioApp.currentInstrument === 'lightSine'){
       audioApp.currentInstrument = '';
       $target.removeClass("active");
     } else {
-      audioApp.currentInstrument = 'api';
+      audioApp.currentInstrument = 'lightSine';
       $target.addClass("active");
     }
   })

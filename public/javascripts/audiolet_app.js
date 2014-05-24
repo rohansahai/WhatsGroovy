@@ -7,18 +7,9 @@ $(function(){
         this.playKick();
         this.playShaker();
 
-        this.organAudioHash = {};
-        this.wildSynthAudioHash = {};
-        this.gatedEdmAudioHash = {};
-        this.synthPads = {};
-        this.synthPadIntervals = {};
+        this.initializeAudioHashes();
 
         this.myAudioContext = new webkitAudioContext();
-
-        this.organAudioHash[0] = this.assignAudioHash('organ');
-        this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
-        this.gatedEdmAudioHash[0] = this.assignAudioHash('gated-edm');
-
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -42,17 +33,10 @@ $(function(){
             }
             this.playInstrument(user, row, this.gatedEdmAudioHash);
             break;
-        case 'api':
+        case 'lightSine':
           if (!this.synthPads[user] || this.synthPads[user].playing === false){
             this.synthPads[user] = new SynthPad(this.myAudioContext);
-            this.synthPads[user].playing = true;
-            this.synthPads[user].frequency = freq;
-            this.synthPads[user].playSound();
-            this.synthPadIntervals[user] = setInterval(function(){
-              console.log('yat');
-              that.synthPads[user].playSound();
-            }, 250);
-
+            this.playApiInstrument(this.synthPads[user], user, freq);
           } else {
             console.log('updating');
             this.synthPads[user].updateFrequency(freq);
@@ -73,15 +57,23 @@ $(function(){
         case 'gatedEdm':
             this.stopWavInstrument(user, row, this.gatedEdmAudioHash);
             break;
-        case 'api':
+        case 'lightSine':
             if (!fromMove){
-              console.log('stopping instrument');
               this.synthPads[user].stopSound();
               this.synthPads[user].playing = false;
-              clearInterval(this.synthPadIntervals[user]);
+              clearInterval(this.intervals[user]);
             }
             break;
       }
+    }
+
+    AudioletApp.prototype.playApiInstrument = function(inst, user, freq){
+      inst.playing = true;
+      inst.frequency = freq;
+      inst.playSound();
+      this.intervals[user] = setInterval(function(){
+        inst.playSound();
+      }, 250);
     }
 
     AudioletApp.prototype.playKick = function() {
@@ -168,4 +160,16 @@ $(function(){
       return audioHash;
 
     }
+
+    AudioletApp.prototype.initializeAudioHashes = function() {
+      this.organAudioHash = {};
+      this.wildSynthAudioHash = {};
+      this.gatedEdmAudioHash = {};
+      this.synthPads = {};
+      this.intervals = {};
+
+      this.organAudioHash[0] = this.assignAudioHash('organ');
+      this.wildSynthAudioHash[0] = this.assignAudioHash('wild-synth');
+      this.gatedEdmAudioHash[0] = this.assignAudioHash('gated-edm');
+    };
 });
