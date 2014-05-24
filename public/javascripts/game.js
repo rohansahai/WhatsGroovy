@@ -175,7 +175,7 @@ window.startGame = function startGame(){
   }
 
   function stopAudio(fromMove) {
-    audioApp.stopCurrentInstrument(audioApp.highSynthEvents[0], currentAudioRow, fromMove, 0, audioApp.currentInstrument);
-    chatApp.stopAudio(audioApp.highSynthEvent, currentAudioRow, fromMove, audioApp.currentInstrument);
+    audioApp.stopCurrentInstrument(currentAudioRow, fromMove, 0, audioApp.currentInstrument);
+    chatApp.stopAudio(currentAudioRow, fromMove, audioApp.currentInstrument);
   }
 }

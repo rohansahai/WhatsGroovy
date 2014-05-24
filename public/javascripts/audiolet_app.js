@@ -6,13 +6,6 @@ $(function(){
         this.audiolet.scheduler.setTempo(120);
         this.playKick();
         this.playShaker();
-        //this.playBassSynth();
-
-        //this.playOrgan();
-        this.highSynthFreqs = {};
-        this.highSynthEvents = {};
-        this.bassSynthFreqs = {};
-        this.bassSynthEvents = {};
 
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
@@ -29,14 +22,6 @@ $(function(){
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
       var that = this;
       switch (instrument) {
-        case 'high synth':
-          this.highSynthFreqs[user] = freq;
-          if (!this.highSynthEvents[user]){ this.playHighSynth(user);}
-          break;
-        case 'bassSynth':
-          this.bassSynthFreqs[user] = freq;
-          if (!this.bassSynthEvents[user]){ this.playBassSynth(user);}
-          break;
         case 'keys':
           if (!this.organAudioHash[user]){
             this.organAudioHash[user] = this.assignAudioHash('organ');
@@ -74,23 +59,9 @@ $(function(){
       }
     }
 
-    AudioletApp.prototype.stopCurrentInstrument = function(event, row, fromMove, user, instrument){
+    AudioletApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
 
       switch (instrument) {
-        case 'high synth':
-          if (!fromMove){
-            console.log('stopping instrument');
-            this.stopInstrument(this.highSynthEvents[user]);
-            this.highSynthEvents[user] = undefined;
-          }
-          break;
-        case 'bassSynth':
-          if (!fromMove){
-            console.log('stopping instrument');
-            this.stopInstrument(this.bassSynthEvents[user]);
-            this.bassSynthEvents[user] = undefined;
-          }
-          break;
         case 'keys':
           this.stopWavInstrument(user, row, this.organAudioHash);
           break;
@@ -121,64 +92,6 @@ $(function(){
 
     }
 
-    AudioletApp.prototype.stopInstrument = function(event) {
-      this.audiolet.scheduler.stop(event);
-    }
-
-    AudioletApp.prototype.playHighSynth = function(user) {
-        // High synth - scheduled as a mono synth (i.e. one instance keeps
-        // running and the gate and frequency are switched)
-        this.highSynth = new HighSynth(this.audiolet);
-
-        // Connect it to the output so we can hear it
-        this.highSynth.connect(this.audiolet.output);
-
-        // Four rising arpeggios starting at sucessively higher notes
-        var arp1 = new PArithmetic(0, 1, 4);
-        var arp2 = new PArithmetic(1, 1, 4);
-        var arp3 = new PArithmetic(2, 1, 4);
-        var arp4 = new PArithmetic(3, 1, 4);
-
-        // Plays the arpeggios one after another, then repeat them
-        var degreePattern = new PSequence([arp1],
-                                          Infinity);
-
-        // How long each event lasts
-        var durationPattern = new PSequence([0.5], Infinity);
-
-        // Schedule the patterns to play
-        this.highSynthEvents[user] = this.audiolet.scheduler.play([], .5,
-            function() {
-                // Set the gate
-                this.highSynth.trigger.trigger.setValue(1);
-                // Calculate the frequency from the scale
-                // Set the frequency
-                this.highSynth.sine.frequency.setValue(this.highSynthFreqs[user]);
-            }.bind(this)
-        );
-    }
-
-    AudioletApp.prototype.playBassSynth = function(user) {
-        // Bass synth - scheduled as a mono synth (i.e. one instance keeps
-        // running and the gate and frequency are switched)
-        this.bassSynth = new BassSynth(this.audiolet);
-
-        // Connect it to the output so we can hear it
-        this.bassSynth.connect(this.audiolet.output);
-
-        // Bassline
-        this.bassSynthEvents[user] = this.audiolet.scheduler.play([], .5,
-            function() {
-                // Set the gate
-                this.bassSynth.trigger.trigger.setValue(1);
-                // Calculate the frequency from the scale
-                // Set the frequency
-                this.bassSynth.sine.frequency.setValue(this.bassSynthFreqs[user]);
-            }.bind(this)
-        );
-    }
-
-
     AudioletApp.prototype.playShaker = function() {
         // Shaker - four to the floor on the off-beat
         // Scheduled as a poly synth
@@ -191,31 +104,6 @@ $(function(){
                 }.bind(this)
             );
         }.bind(this));
-    }
-
-    AudioletApp.prototype.playOrgan = function() {
-      // High synth - scheduled as a mono synth (i.e. one instance keeps
-      // running and the gate and frequency are switched)
-      this.organ = new Organ(this.audiolet);
-      this.organFreq = "http://localhost:3000/assets/c3.wav";
-
-      // Connect it to the output so we can hear it
-      this.organ.connect(this.audiolet.output);
-
-      // Schedule the patterns to play
-      this.organEvent = this.audiolet.scheduler.play([], .5,
-          function() {
-              // Set the gate
-              this.organ.trigger.trigger.setValue(1);
-
-              this.organ.buffy.load(this.organFreq);
-              this.organ.organ = new BufferPlayer(this.audiolet, this.organ.buffy);
-
-              // Calculate the frequency from the scale
-              // Set the frequency
-              //this.highSynth.sine.frequency.setValue(this.highSynthFreq);
-          }.bind(this)
-      );
     }
 
     AudioletApp.prototype.playInstrument = function(user, row, instHash) {

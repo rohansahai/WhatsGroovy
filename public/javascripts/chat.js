@@ -49,9 +49,8 @@
     });
   }
 
-  Chat.prototype.stopAudio = function(evt, row, fromMove, instrument){
+  Chat.prototype.stopAudio = function(row, fromMove, instrument){
     this.socket.emit('stopAudioRequest', {
-      evt: evt,
       row: row,
       fromMove: fromMove,
       instrument: instrument,

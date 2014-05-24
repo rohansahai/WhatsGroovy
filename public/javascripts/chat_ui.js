@@ -87,7 +87,7 @@
 
     socket.on('stopAudioSend', function(data){
       console.log("received stop audio request from server");
-      audioApp.stopCurrentInstrument(data.evt, data.row, data.fromMove, data.socketId, data.instrument);
+      audioApp.stopCurrentInstrument(data.row, data.fromMove, data.socketId, data.instrument);
       //playExample()
     });
 
