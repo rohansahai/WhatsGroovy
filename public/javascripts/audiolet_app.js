@@ -26,6 +26,7 @@ $(function(){
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
+      var that = this;
       switch (instrument) {
         case 'high synth':
           this.highSynthFreqs[user] = freq;
@@ -56,8 +57,14 @@ $(function(){
         case 'api':
           if (!this.synthPadPlaying || this.synthPadPlaying === false){
             this.synthPad = new SynthPad(this.myAudioContext);
-            this.synthPad.playSound(freq);
             this.synthPadPlaying = true;
+            this.synthPad.frequency = freq;
+            this.synthPad.playSound();
+            this.synthPadInterval = setInterval(function(){
+              console.log('yat');
+              that.synthPad.playSound();
+            }, 500);
+
           } else {
             this.synthPad.updateFrequency(freq);
           }
@@ -96,6 +103,7 @@ $(function(){
               console.log('stopping instrument');
               this.synthPad.stopSound();
               this.synthPadPlaying = false;
+              clearInterval(this.synthPadInterval);
             }
             break;
       }
