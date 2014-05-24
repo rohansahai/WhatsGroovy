@@ -4,13 +4,21 @@ $(function(){
         this.c2Frequency = 65.4064;
         this.scale = new MajorScale();
         this.audiolet.scheduler.setTempo(120);
-        this.playKick();
-        this.playShaker();
+        //this.playKick();
+        //this.playShaker();
 
         this.initializeAudioHashes();
 
         this.myAudioContext = new webkitAudioContext();
+        this.testLoaded();
     };
+
+    AudioletApp.prototype.testLoaded = function(){
+      var loaded = new LoadedSound(this.myAudioContext);
+      loaded.loadSoundFile('/audios/organ/a3.wav', function(){
+        loaded.playSound();
+      });
+    }
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
       var that = this;
