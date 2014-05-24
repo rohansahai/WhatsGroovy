@@ -14,7 +14,9 @@
     })
 
     socket.on('renderHomePage', function(nickname){
-      var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render(nickname);
+      var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render({
+        nickname: nickname
+      });
       $('body').html(gameHtml);
       startGame();
       //startGameUI();
