@@ -170,7 +170,6 @@ window.startGame = function startGame(){
   function playAudio(mousePosY) {
     currentAudioRow = getRow(mousePosY);
     audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow, audioApp.currentInstrument, 0);
-    // May want to keep above comment so your own audio is heard immediately.
     chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow, audioApp.currentInstrument);
   }
 

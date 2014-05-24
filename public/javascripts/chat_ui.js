@@ -81,7 +81,6 @@
   	});
 
     socket.on('playAudioSend', function(data){
-      console.log("received audio send from server");
       audioApp.playCurrentInstrument(data.freq, data.row, data.instrument, data.socketId);
     });
 

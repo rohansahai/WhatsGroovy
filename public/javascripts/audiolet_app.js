@@ -10,6 +10,8 @@ $(function(){
         this.organAudioHash = {};
         this.wildSynthAudioHash = {};
         this.gatedEdmAudioHash = {};
+        this.synthPads = {};
+        this.synthPadIntervals = {};
 
         this.myAudioContext = new webkitAudioContext();
 
@@ -41,19 +43,19 @@ $(function(){
             this.playInstrument(user, row, this.gatedEdmAudioHash);
             break;
         case 'api':
-          if (!this.synthPadPlaying || this.synthPadPlaying === false){
-            this.synthPad = new SynthPad(this.myAudioContext);
-            this.synthPadPlaying = true;
-            this.synthPad.frequency = freq;
-            this.synthPad.playSound();
-            this.synthPadInterval = setInterval(function(){
+          if (!this.synthPads[user] || this.synthPads[user].playing === false){
+            this.synthPads[user] = new SynthPad(this.myAudioContext);
+            this.synthPads[user].playing = true;
+            this.synthPads[user].frequency = freq;
+            this.synthPads[user].playSound();
+            this.synthPadIntervals[user] = setInterval(function(){
               console.log('yat');
-              that.synthPad.playSound();
+              that.synthPads[user].playSound();
             }, 250);
 
           } else {
             console.log('updating');
-            this.synthPad.updateFrequency(freq);
+            this.synthPads[user].updateFrequency(freq);
           }
           break;
       }
@@ -74,9 +76,9 @@ $(function(){
         case 'api':
             if (!fromMove){
               console.log('stopping instrument');
-              this.synthPad.stopSound();
-              this.synthPadPlaying = false;
-              clearInterval(this.synthPadInterval);
+              this.synthPads[user].stopSound();
+              this.synthPads[user].playing = false;
+              clearInterval(this.synthPadIntervals[user]);
             }
             break;
       }
