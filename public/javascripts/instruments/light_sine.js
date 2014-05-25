@@ -2,24 +2,27 @@ var SynthPad = window.SynthPad = function(ctx) {
   //Create an audio context.
   this.ctx = ctx;
   this.createTunaFx();
-  // this.oscillator = this.ctx.createOscillator();
-  //
-  // this.gainNode = this.ctx.createGainNode();
-  // this.oscillator.type = 'sine';
-  //
-  // this.gainNode.connect(this.ctx.destination);
-  // this.oscillator.connect(this.gainNode);
-  //
-  // this.oscillator.start(0);
-  // this.gainNode.gain.value = 0;
-  // this.frequency;
 
   this.oscillator = this.ctx.createOscillator();
-  this.oscillator.type = 'triangle';
-  this.oscillator.frequency = 500;
+
+  this.gainNode = this.ctx.createGainNode();
+  this.oscillator.type = 'sine';
+
+
   this.oscillator.connect(this.tunaWahWah.input);
-  this.tunaWahWah.connect(this.ctx.destination);
-  this.oscillator.noteOn(0);
+  this.tunaWahWah.connect(this.gainNode);
+  this.gainNode.connect(this.ctx.destination);
+
+  this.oscillator.start(0);
+  this.gainNode.gain.value = 0;
+  this.frequency;
+
+  // this.oscillator = this.ctx.createOscillator();
+  // this.oscillator.type = 'triangle';
+  // this.oscillator.frequency = 500;
+  // this.oscillator.connect(this.tunaWahWah.input);
+  // this.tunaWahWah.connect(this.ctx.destination);
+  // this.oscillator.noteOn(0);
 
 };
 
@@ -56,7 +59,7 @@ SynthPad.prototype.createTunaFx = function(){
 SynthPad.prototype.playSound = function(freq) {
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = this.frequency;
-  this.gainNode.gain.setTargetValueAtTime(0.5, now, 0.01);
+  this.gainNode.gain.setTargetValueAtTime(1, now, 0.01);
 
   this.gainNode.gain.setTargetValueAtTime(0.0, now + .1, 0.1);
 
