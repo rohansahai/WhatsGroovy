@@ -69,7 +69,7 @@ OrganSynth.prototype.playFile = function() {
   this.filterNode.connect(this.delayNode);
   this.delayNode.connect(this.feedbackGainNode);
   this.feedbackGainNode.connect(this.gainNode);
-  this.feedbackGainNode.connect(this.delayNode);
+  //this.feedbackGainNode.connect(this.delayNode);
   this.gainNode.connect(this.ctx.destination);
 
   // this.pannerNode.connect(this.ctx.destination);

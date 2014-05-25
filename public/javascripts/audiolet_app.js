@@ -34,13 +34,13 @@ $(function(){
             }
             this.playInstrument(user, row, this.gatedEdmAudioHash);
             break;
-        case 'lightSine':
-          if (!this.synthPads[user] || this.synthPads[user].playing === false){
-            this.synthPads[user] = new SynthPad(this.myAudioContext);
-            this.playApiInstrument(this.synthPads[user], user, freq);
+        case 'triangleWah':
+          if (!this.triangleWahs[user] || this.triangleWahs[user].playing === false){
+            this.triangleWahs[user] = new TriangleWah(this.myAudioContext);
+            this.playApiInstrument(this.triangleWahs[user], user, freq);
           } else {
             console.log('updating');
-            this.synthPads[user].updateFrequency(freq);
+            this.triangleWahs[user].updateFrequency(freq);
           }
           break;
         case 'organSynth':
@@ -68,10 +68,10 @@ $(function(){
         case 'gatedEdm':
             this.stopWavInstrument(user, row, this.gatedEdmAudioHash);
             break;
-        case 'lightSine':
+        case 'triangleWah':
             if (!fromMove){
-              this.synthPads[user].stopSound();
-              this.synthPads[user].playing = false;
+              this.triangleWahs[user].stopSound();
+              this.triangleWahs[user].playing = false;
               clearInterval(this.intervals[user]);
             }
             break;
@@ -192,7 +192,7 @@ $(function(){
       this.organAudioHash = {};
       this.wildSynthAudioHash = {};
       this.gatedEdmAudioHash = {};
-      this.synthPads = {};
+      this.triangleWahs = {};
       this.organSynths = {};
       this.intervals = {};
 

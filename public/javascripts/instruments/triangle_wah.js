@@ -1,4 +1,4 @@
-var SynthPad = window.SynthPad = function(ctx) {
+var TriangleWah = window.TriangleWah = function(ctx) {
   //Create an audio context.
   this.ctx = ctx;
   this.createTunaFx();
@@ -6,7 +6,7 @@ var SynthPad = window.SynthPad = function(ctx) {
   this.oscillator = this.ctx.createOscillator();
 
   this.gainNode = this.ctx.createGainNode();
-  this.oscillator.type = 'sine';
+  this.oscillator.type = 'triangle';
 
 
   this.oscillator.connect(this.tunaWahWah.input);
@@ -26,7 +26,7 @@ var SynthPad = window.SynthPad = function(ctx) {
 
 };
 
-SynthPad.prototype.createTunaFx = function(){
+TriangleWah.prototype.createTunaFx = function(){
     tuna = new Tuna(this.ctx);
 
     this.tunaWahWah = new tuna.WahWah({
@@ -56,7 +56,10 @@ SynthPad.prototype.createTunaFx = function(){
 }
 
 // Play a note.
-SynthPad.prototype.playSound = function(freq) {
+TriangleWah.prototype.playSound = function(freq) {
+
+
+
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = this.frequency;
   this.gainNode.gain.setTargetValueAtTime(1, now, 0.01);
@@ -67,7 +70,7 @@ SynthPad.prototype.playSound = function(freq) {
 
 
 // Stop the audio.
-SynthPad.prototype.stopSound = function() {
+TriangleWah.prototype.stopSound = function() {
   var now = this.ctx.currentTime;
   //this.gainNode.gain.linearRampToValueAtTime(0.0, now + 0.5);
   this.gainNode.gain.setTargetValueAtTime(0.0, now, 0.3);
@@ -75,7 +78,7 @@ SynthPad.prototype.stopSound = function() {
 };
 
 // Update the note frequency.
-SynthPad.prototype.updateFrequency = function(freq) {
+TriangleWah.prototype.updateFrequency = function(freq) {
   //this.oscillator.start(0);
   this.frequency = freq;
 };

@@ -51,13 +51,13 @@ window.startGame = function startGame(){
     }
   }, false);
 
-  $('#light-sine-button').click(function(event){
+  $('#triangle-wah-button').click(function(event){
     var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'lightSine'){
+    if (audioApp.currentInstrument === 'triangleWah'){
       audioApp.currentInstrument = '';
       $target.removeClass("active");
     } else {
-      audioApp.currentInstrument = 'lightSine';
+      audioApp.currentInstrument = 'triangleWah';
       $target.addClass("active");
     }
   })
