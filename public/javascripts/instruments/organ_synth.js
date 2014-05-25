@@ -50,18 +50,30 @@ OrganSynth.prototype.updateFrequency = function(row) {
 OrganSynth.prototype.playFile = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
+  this.filterNode = this.ctx.createBiquadFilter();
   this.gainNode = this.ctx.createGainNode();
+  this.feedbackGainNode = this.ctx.createGainNode();
+  this.delayNode = this.ctx.createDelayNode();
   this.source = this.ctx.createBufferSource();
 
   this.source.buffer = this.audioBuffer;
   this.source.loop = false;
 
-  //this.gainNode.gain.value = 0.5;
+  this.gainNode.gain.setTargetValueAtTime(0.5, now, 0.01);
   this.gainNode.gain.setTargetValueAtTime(0.0, now + .1, 0.1);
 
-  //this.gainNode.connect(this.ctx.destination);
-  this.source.connect(this.gainNode);
+  this.filterNode.frequency.value = 500;
+
+  this.source.connect(this.filterNode);
+  this.filterNode.connect(this.gainNode);
+  this.filterNode.connect(this.delayNode);
+  this.delayNode.connect(this.feedbackGainNode);
+  this.feedbackGainNode.connect(this.gainNode);
+  this.feedbackGainNode.connect(this.delayNode);
   this.gainNode.connect(this.ctx.destination);
+
+  // this.pannerNode.connect(this.ctx.destination);
+
   this.source.noteOn(0); // Play immediately.
 }
 
