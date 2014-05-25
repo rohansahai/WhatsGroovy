@@ -11,26 +11,43 @@ var organSynthFiles = {
   10: '/audios/organ/g4.wav'
 }
 
+audioBuffer = {};
+
 var OrganSynth = window.OrganSynth = function(ctx) {
   // Create an audio context.
   this.ctx = ctx;
   this.source = null;
-  this.audioBuffer = null;
-
 };
 
-OrganSynth.prototype.loadSoundFile = function(url, callback) {
-  var that = this;
+OrganSynth.loadAllFiles = function(ctx){
+  for (var key in organSynthFiles) {
+    OrganSynth.loadSoundFile(organSynthFiles[key], key, ctx);
+  }
+}
+
+OrganSynth.loadSoundFile = function(url, freq, ctx) {
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
   //http://whatsgroovy.herokuapp.com  heroku hosting!
   xhr.open('GET', 'http://localhost:8080' + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
-    that.initSound(this.response, callback); // this.response is an ArrayBuffer.
+    OrganSynth.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
   };
   xhr.send();
 }
+
+
+OrganSynth.initSound = function(arrayBuffer, freq, ctx) {
+  ctx.decodeAudioData(arrayBuffer, function(buffer) {
+    // audioBuffer is global to reuse the decoded audio later.
+    audioBuffer[freq] = buffer;
+    //callback();
+  }, function(e) {
+    console.log('Error decoding file', e);
+  });
+}
+
 
 OrganSynth.prototype.stopSound = function() {
   if (this.source) {
@@ -39,19 +56,19 @@ OrganSynth.prototype.stopSound = function() {
 }
 
 OrganSynth.prototype.playSound = function() {
-  var that = this;
-  this.loadSoundFile(organSynthFiles[this.frequency], function(){
-    that.playFile();
-  });
+  // var that = this;
+  // this.loadSoundFile(organSynthFiles[this.frequency], function(){
+  //   that.playFile();
+  // });
 
-  //this.playFile(this.frequency);
+  this.playFile(this.frequency);
 }
 
 OrganSynth.prototype.updateFrequency = function(row) {
   this.frequency = row;
 }
 
-OrganSynth.prototype.playFile = function() {
+OrganSynth.prototype.playFile = function(freq) {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   this.filterNode = this.ctx.createBiquadFilter();
@@ -60,7 +77,8 @@ OrganSynth.prototype.playFile = function() {
   this.delayNode = this.ctx.createDelayNode();
   this.source = this.ctx.createBufferSource();
 
-  this.source.buffer = this.audioBuffer;
+  //this.source.buffer = this.audioBuffer;
+  this.source.buffer = audioBuffer[freq];
   this.source.loop = false;
 
   this.gainNode.gain.setTargetValueAtTime(0.5, now, 0.01);
@@ -79,15 +97,4 @@ OrganSynth.prototype.playFile = function() {
   // this.pannerNode.connect(this.ctx.destination);
 
   this.source.noteOn(0); // Play immediately.
-}
-
-OrganSynth.prototype.initSound = function(arrayBuffer, callback) {
-  var that = this;
-  this.ctx.decodeAudioData(arrayBuffer, function(buffer) {
-    // audioBuffer is global to reuse the decoded audio later.
-    that.audioBuffer = buffer;
-    callback();
-  }, function(e) {
-    console.log('Error decoding file', e);
-  });
 }

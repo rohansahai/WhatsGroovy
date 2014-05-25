@@ -10,6 +10,7 @@ $(function(){
         this.initializeAudioHashes();
 
         this.myAudioContext = new webkitAudioContext();
+        OrganSynth.loadAllFiles(this.myAudioContext);
         //this.testLoaded();
     };
 
