@@ -23,7 +23,8 @@ OrganSynth.prototype.loadSoundFile = function(url, callback) {
   var that = this;
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
-  xhr.open('GET', 'http://whatsgroovy.herokuapp.com' + url, true);
+  //http://whatsgroovy.herokuapp.com  heroku hosting!
+  xhr.open('GET', 'http://localhost:8080' + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
     that.initSound(this.response, callback); // this.response is an ArrayBuffer.
@@ -42,6 +43,8 @@ OrganSynth.prototype.playSound = function() {
   this.loadSoundFile(organSynthFiles[this.frequency], function(){
     that.playFile();
   });
+
+  //this.playFile(this.frequency);
 }
 
 OrganSynth.prototype.updateFrequency = function(row) {

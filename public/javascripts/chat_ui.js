@@ -27,7 +27,12 @@
           usersUL.append($("<li></li>").text(username));
           //create a cursor for each user
           if ($('#cursor-' + username).length === 0){
-            $('body').append("<img class='cursor' id='cursor-" + username + "'src='images/music_note.png'/>");
+            $('body').append("\
+            <div class='cursor' id='cursor-" + username + "'>\
+            <img class='cursor' src='images/music_note.png'/>\
+            <h4 id='cursor-nickname'>" + username + " </h4>\
+            </div>\
+            ");
             console.log("new cursor image")
           }
         });
