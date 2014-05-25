@@ -8,22 +8,9 @@ var TriangleWah = window.TriangleWah = function(ctx) {
   this.gainNode = this.ctx.createGainNode();
   this.oscillator.type = 'triangle';
 
-
-  this.oscillator.connect(this.tunaWahWah.input);
-  this.tunaWahWah.connect(this.gainNode);
-  this.gainNode.connect(this.ctx.destination);
-
   this.oscillator.start(0);
   this.gainNode.gain.value = 0;
   this.frequency;
-
-  // this.oscillator = this.ctx.createOscillator();
-  // this.oscillator.type = 'triangle';
-  // this.oscillator.frequency = 500;
-  // this.oscillator.connect(this.tunaWahWah.input);
-  // this.tunaWahWah.connect(this.ctx.destination);
-  // this.oscillator.noteOn(0);
-
 };
 
 TriangleWah.prototype.createTunaFx = function(){
@@ -53,18 +40,29 @@ TriangleWah.prototype.createTunaFx = function(){
         feedback: 0.9, //0 to 1+
         bypass: 0
     });
+    this.tunaDelay = new tuna.Delay({
+                feedback: 0.45,    //0 to 1+
+                delayTime: 150,    //how many milliseconds should the wet signal be delayed?
+                wetLevel: 0.25,    //0 to 1+
+                dryLevel: 0,       //0 to 1+
+                cutoff: 20,        //cutoff frequency of the built in highpass-filter. 20 to 22050
+                bypass: 0
+            });
 }
 
 // Play a note.
 TriangleWah.prototype.playSound = function(freq) {
 
-
+  this.oscillator.connect(this.tunaWahWah.input);
+  this.tunaWahWah.connect(this.gainNode);
+  this.gainNode.connect(this.ctx.destination);
 
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = this.frequency;
+
   this.gainNode.gain.setTargetValueAtTime(1, now, 0.01);
 
-  this.gainNode.gain.setTargetValueAtTime(0.0, now + .1, 0.1);
+  this.gainNode.gain.setTargetValueAtTime(0.0, now + .05, 0.05);
 
 };
 

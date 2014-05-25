@@ -93,7 +93,7 @@ $(function(){
       inst.playSound();
       this.intervals[user] = setInterval(function(){
         inst.playSound();
-      }, 250);
+      }, 125);
     }
 
     AudioletApp.prototype.playExternalApiInstrument = function(inst, user, row){

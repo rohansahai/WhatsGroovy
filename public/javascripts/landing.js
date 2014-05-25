@@ -10,6 +10,7 @@
     socket.on('showCurrentRooms', function(rooms) {
       for (var i = 0; i < rooms.length; i++) {
         $("#current-rooms").append('<li>' + rooms[i] + '</li>');
+        //$('#room-name').append("<option value=" + rooms[i] + ">" + rooms[i] + "</option>");
       }
     });
 
