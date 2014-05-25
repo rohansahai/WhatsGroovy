@@ -22,7 +22,8 @@ var OrganSynth = window.OrganSynth = function(ctx) {
 OrganSynth.prototype.loadSoundFile = function(url, callback) {
   var that = this;
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://localhost:8080' + url, true);
+  //http://localhost:8080 local hosting!
+  xhr.open('GET', 'http://whatsgroovy.herokuapp.com' + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
     that.initSound(this.response, callback); // this.response is an ArrayBuffer.
