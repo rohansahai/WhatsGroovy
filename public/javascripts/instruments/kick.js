@@ -40,7 +40,8 @@ KickDrum.initSound = function(arrayBuffer, ctx, callback) {
 KickDrum.playSound = function(ctx) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
-  var timeToPlay = (Math.floor(now/4) + 1) * 4;
+  var timeToPlay = (Math.floor(now/4) + 1) * 4 - 3;
+  console.log("time now: " + now + "---time to play: " + timeToPlay);
   var gainNode = ctx.createGainNode();
   var source = ctx.createBufferSource();
 
