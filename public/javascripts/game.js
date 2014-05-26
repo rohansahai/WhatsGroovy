@@ -9,14 +9,15 @@ window.startGame = function startGame(){
   var numRows = 10;
 
   var context = canvas.getContext("2d");
-
-  var opts = {
-    distance : canvas.height/numRows,
-    lineWidth : 1,
-    gridColor  : "#66ff00",
-    caption : false
-  };
-  new Grid(opts).draw(context);
+  context.fillStyle = "blue";
+  context.fillRect(0,0,canvas.width,canvas.height);
+  // var opts = {
+  //   distance : canvas.height/numRows,
+  //   lineWidth : 1,
+  //   gridColor  : "#66ff00",
+  //   caption : false
+  // };
+  // new Grid(opts).draw(context);
 
   canvas.addEventListener('mousedown', function(evt) {
     var mousePos = getMousePos(canvas, evt);

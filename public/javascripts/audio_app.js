@@ -16,9 +16,7 @@ $(function(){
         this.initializeAudioHashes();
         this.myAudioContext = new webkitAudioContext();
 
-        this.analyser = this.myAudioContext.createAnalyser();
-        this.analyser.fftSize = 64;
-        this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+        this.setUpVisualizer();
 
         this.instruments = {
           'wildSynth': WildSynth,
@@ -38,9 +36,19 @@ $(function(){
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://whatsgroovy.herokuapp.com";
+        hostUrl = "http://localhost:8080";
         this.preLoadFiles();
 
+    };
+
+    AudioApp.prototype.setUpVisualizer = function(){
+      this.analyser = this.myAudioContext.createAnalyser();
+      this.analyser.fftSize = 64;
+      this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+
+      for (var i = 0; i < this.analyser.fftSize/2; i++) {
+        $('#visualizer').append('<div class="visualizer-bar" id=visual-' + i + '></div>');
+      }
     };
 
     AudioApp.prototype.playCurrentInstrument = function(row, instrument, user) {
@@ -78,7 +86,9 @@ $(function(){
     AudioApp.prototype.updateAnalyser = function(){
       this.analyser.getByteFrequencyData(this.frequencyData);
       console.log(this.frequencyData);
-      $('#visualizer').css("height", this.frequencyData[0] + "px");
+      for (var i = 0; i < this.frequencyData.length; i++) {
+        $('#visual-' + i).css("height", this.frequencyData[i] + "px");
+      }
     }
 
     AudioApp.prototype.playKick = function(hostUrl) {

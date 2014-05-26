@@ -35,5 +35,17 @@ body {
 }
 
 #visualizer{
+	display: inline-block;
+	height: 250px;
+	border: solid 5px;
+}
+
+.visualizer-bar{
+	min-height: 10px;
 	background-color: blue;
+	width: 20px;
+	border: solid 1px;
+	float: left;
+	/*position: absolute;
+	bottom: 0;*/
 }
