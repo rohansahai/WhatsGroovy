@@ -10,17 +10,8 @@ $(function(){
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
         PluckedSynth.loadAllFiles(this.myAudioContext);
+        WildSynth.loadAllFiles(this.myAudioContext);
         this.playKick();
-    };
-
-    AudioApp.prototype.playKick = function(hostUrl) {
-      var that = this;
-      KickDrum.loadAllFiles(this.myAudioContext, function(){
-        KickDrum.playSound(that.myAudioContext);
-        setInterval(function(){
-          KickDrum.playSound(that.myAudioContext);
-        }, 4000);
-      });
     };
 
     AudioApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -31,12 +22,6 @@ $(function(){
             this.organAudioHash[user] = this.assignAudioHash('organ');
           }
           this.playInstrument(user, row, this.organAudioHash);
-          break;
-        case 'wildSynth':
-          if (!this.wildSynthAudioHash[user]){
-            this.wildSynthAudioHash[user] = this.assignAudioHash('wild-synth');
-          }
-          this.playInstrument(user, row, this.wildSynthAudioHash);
           break;
         case 'triangleWah':
           if (!this.triangleWahs[user] || this.triangleWahs[user].playing === false){
@@ -51,7 +36,7 @@ $(function(){
           if (!this.organSynths[user] || this.organSynths[user].playing === false){
             this.organSynths[user] = new OrganSynth(this.myAudioContext);
 
-            this.playExternalApiInstrument(this.organSynths[user], user, row);
+            this.playExternalApiInstrument(this.organSynths[user], user, row, 125);
           } else {
             console.log('updating');
             this.organSynths[user].updateFrequency(row);
@@ -60,7 +45,7 @@ $(function(){
         case 'vibraphone':
           if (!this.vibraphones[user] || this.vibraphones[user].playing === false){
             this.vibraphones[user] = new Vibraphone(this.myAudioContext);
-            this.playExternalApiInstrument(this.vibraphones[user], user, row);
+            this.playExternalApiInstrument(this.vibraphones[user], user, row, 125);
           } else {
             this.vibraphones[user].updateFrequency(row);
           }
@@ -68,9 +53,17 @@ $(function(){
         case 'pluckedSynth':
           if (!this.pluckedSynths[user] || this.pluckedSynths[user].playing === false){
             this.pluckedSynths[user] = new PluckedSynth(this.myAudioContext);
-            this.playExternalApiInstrument(this.pluckedSynths[user], user, row);
+            this.playExternalApiInstrument(this.pluckedSynths[user], user, row, 125);
           } else {
             this.pluckedSynths[user].updateFrequency(row);
+          }
+          break;
+        case 'wildSynth':
+          if (!this.wildSynths[user] || this.wildSynths[user].playing === false){
+            this.wildSynths[user] = new WildSynth(this.myAudioContext);
+            this.playExternalApiInstrument(this.wildSynths[user], user, row, 125);
+          } else {
+            this.wildSynths[user].updateFrequency(row, this.intervals[user]);
           }
           break;
       }
@@ -81,9 +74,6 @@ $(function(){
       switch (instrument) {
         case 'keys':
           this.stopWavInstrument(user, row, this.organAudioHash);
-          break;
-        case 'wildSynth':
-          this.stopWavInstrument(user, row, this.wildSynthAudioHash);
           break;
         case 'triangleWah':
             if (!fromMove){
@@ -110,6 +100,13 @@ $(function(){
                 clearInterval(this.intervals[user]);
               }
               break;
+        case 'wildSynth':
+              if (!fromMove){
+                this.wildSynths[user].playing = false;
+                this.wildSynths[user].stopSound();
+                clearInterval(this.intervals[user]);
+              }
+              break;
         }
     }
 
@@ -122,13 +119,23 @@ $(function(){
       }, 125);
     }
 
-    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row){
+    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval){
       inst.frequency = row;
       inst.playSound();
       this.intervals[user] = setInterval(function(){
         inst.playSound();
-      }, 125);
+      }, interval);
     }
+
+    AudioApp.prototype.playKick = function(hostUrl) {
+      var that = this;
+      KickDrum.loadAllFiles(this.myAudioContext, function(){
+        KickDrum.playSound(that.myAudioContext);
+        setInterval(function(){
+          KickDrum.playSound(that.myAudioContext);
+        }, 4000);
+      });
+    };
 
     AudioApp.prototype.playInstrument = function(user, row, instHash) {
       instHash[user][row].currentTime = 0;
@@ -196,6 +203,7 @@ $(function(){
       this.organSynths = {};
       this.vibraphones = {};
       this.pluckedSynths = {};
+      this.wildSynths = {};
       this.intervals = {};
 
       this.organAudioHash[0] = this.assignAudioHash('organ');
