@@ -19,7 +19,7 @@ KickDrum.loadSoundFile = function(url, ctx, callback) {
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
   //http://whatsgroovy.herokuapp.com  heroku hosting!
-  xhr.open('GET', 'http://localhost:8080' + url, true);
+  xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
     KickDrum.initSound(this.response, ctx, callback); // this.response is an ArrayBuffer.

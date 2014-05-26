@@ -10,13 +10,18 @@ $(function(){
         this.initializeAudioHashes();
 
         this.myAudioContext = new webkitAudioContext();
+
+        //http://localhost:8080 local hosting!
+        //http://whatsgroovy.herokuapp.com  heroku hosting!
+        hostUrl = "http://whatsgroovy.herokuapp.com";
+
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
         PluckedSynth.loadAllFiles(this.myAudioContext);
         this.playMyKick();
     };
 
-    AudioletApp.prototype.playMyKick = function() {
+    AudioletApp.prototype.playMyKick = function(hostUrl) {
       var that = this;
       KickDrum.loadAllFiles(this.myAudioContext, function(){
         setInterval(function(){

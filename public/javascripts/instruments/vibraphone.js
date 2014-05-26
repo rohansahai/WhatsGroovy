@@ -29,7 +29,7 @@ Vibraphone.loadSoundFile = function(url, freq, ctx) {
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
   //http://whatsgroovy.herokuapp.com  heroku hosting!
-  xhr.open('GET', 'http://localhost:8080' + url, true);
+  xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
     Vibraphone.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
