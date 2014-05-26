@@ -12,8 +12,7 @@ $(function(){
         this.myAudioContext = new webkitAudioContext();
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
-
-        //this.testLoaded();
+        PluckedSynth.loadAllFiles(this.myAudioContext);
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -64,6 +63,14 @@ $(function(){
             this.vibraphones[user].updateFrequency(row);
           }
           break;
+        case 'pluckedSynth':
+          if (!this.pluckedSynths[user] || this.pluckedSynths[user].playing === false){
+            this.pluckedSynths[user] = new PluckedSynth(this.myAudioContext);
+            this.playExternalApiInstrument(this.pluckedSynths[user], user, row);
+          } else {
+            this.pluckedSynths[user].updateFrequency(row);
+          }
+          break;
       }
     }
 
@@ -98,6 +105,12 @@ $(function(){
               clearInterval(this.intervals[user]);
             }
             break;
+        case 'pluckedSynth':
+              if (!fromMove){
+                this.pluckedSynths[user].playing = false;
+                clearInterval(this.intervals[user]);
+              }
+              break;
         }
     }
 
@@ -207,6 +220,7 @@ $(function(){
       this.triangleWahs = {};
       this.organSynths = {};
       this.vibraphones = {};
+      this.pluckedSynths = {};
       this.intervals = {};
 
       this.organAudioHash[0] = this.assignAudioHash('organ');

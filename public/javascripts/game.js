@@ -86,6 +86,18 @@ window.startGame = function startGame(){
     }
   })
 
+  $('#plucked-synth-button').click(function(event){
+
+    var $target = $(event.currentTarget);
+    if (audioApp.currentInstrument === 'pluckedSynth'){
+      audioApp.currentInstrument = '';
+      $target.removeClass("active");
+    } else {
+      audioApp.currentInstrument = 'pluckedSynth';
+      $target.addClass("active");
+    }
+  })
+
   $('#wild-synth-button').click(function(event){
 
     var $target = $(event.currentTarget);
