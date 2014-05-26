@@ -11,7 +11,7 @@ var organSynthFiles = {
   10: '/audios/organ/g4.wav'
 }
 
-audioBuffer = {};
+organSynthAudioBuffer = {};
 
 var OrganSynth = window.OrganSynth = function(ctx) {
   // Create an audio context.
@@ -40,17 +40,10 @@ OrganSynth.loadSoundFile = function(url, freq, ctx) {
 
 OrganSynth.initSound = function(arrayBuffer, freq, ctx) {
   ctx.decodeAudioData(arrayBuffer, function(buffer) {
-    audioBuffer[freq] = buffer;
+    organSynthAudioBuffer[freq] = buffer;
   }, function(e) {
     console.log('Error decoding file', e);
   });
-}
-
-
-OrganSynth.prototype.stopSound = function() {
-  if (this.source) {
-    this.source.noteOff(0);
-  }
 }
 
 OrganSynth.prototype.updateFrequency = function(row) {
@@ -67,7 +60,7 @@ OrganSynth.prototype.playSound = function() {
   this.source = this.ctx.createBufferSource();
 
   //this.source.buffer = this.audioBuffer;
-  this.source.buffer = audioBuffer[this.frequency];
+  this.source.buffer = organSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
   this.gainNode.gain.setTargetValueAtTime(0.5, now, 0.01);

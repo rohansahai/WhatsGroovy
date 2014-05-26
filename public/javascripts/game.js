@@ -74,6 +74,18 @@ window.startGame = function startGame(){
     }
   })
 
+  $('#vibraphone-button').click(function(event){
+
+    var $target = $(event.currentTarget);
+    if (audioApp.currentInstrument === 'vibraphone'){
+      audioApp.currentInstrument = '';
+      $target.removeClass("active");
+    } else {
+      audioApp.currentInstrument = 'vibraphone';
+      $target.addClass("active");
+    }
+  })
+
   $('#wild-synth-button').click(function(event){
 
     var $target = $(event.currentTarget);

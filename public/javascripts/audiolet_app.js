@@ -4,13 +4,15 @@ $(function(){
         this.c2Frequency = 65.4064;
         this.scale = new MajorScale();
         this.audiolet.scheduler.setTempo(120);
-        this.playKick();
-        this.playShaker();
+        //this.playKick();
+        //this.playShaker();
 
         this.initializeAudioHashes();
 
         this.myAudioContext = new webkitAudioContext();
         OrganSynth.loadAllFiles(this.myAudioContext);
+        Vibraphone.loadAllFiles(this.myAudioContext);
+
         //this.testLoaded();
     };
 
@@ -54,6 +56,14 @@ $(function(){
             this.organSynths[user].updateFrequency(row);
           }
           break;
+        case 'vibraphone':
+          if (!this.vibraphones[user] || this.vibraphones[user].playing === false){
+            this.vibraphones[user] = new Vibraphone(this.myAudioContext);
+            this.playExternalApiInstrument(this.vibraphones[user], user, row);
+          } else {
+            this.vibraphones[user].updateFrequency(row);
+          }
+          break;
       }
     }
 
@@ -78,12 +88,16 @@ $(function(){
             break;
         case 'organSynth':
             if (!fromMove){
-              this.organSynths[user].stopSound();
               this.organSynths[user].playing = false;
               clearInterval(this.intervals[user]);
             }
             break;
-
+        case 'vibraphone':
+            if (!fromMove){
+              this.vibraphones[user].playing = false;
+              clearInterval(this.intervals[user]);
+            }
+            break;
         }
     }
 
@@ -101,7 +115,7 @@ $(function(){
       inst.playSound();
       this.intervals[user] = setInterval(function(){
         inst.playSound();
-      }, 250);
+      }, 125);
     }
 
     AudioletApp.prototype.playKick = function() {
@@ -129,9 +143,6 @@ $(function(){
     }
 
     AudioletApp.prototype.playInstrument = function(user, row, instHash) {
-      console.log('playing instrument');
-      console.log(instHash[user][row].currentTime);
-
       instHash[user][row].currentTime = 0;
 
       instHash[user][row].play();
@@ -195,6 +206,7 @@ $(function(){
       this.gatedEdmAudioHash = {};
       this.triangleWahs = {};
       this.organSynths = {};
+      this.vibraphones = {};
       this.intervals = {};
 
       this.organAudioHash[0] = this.assignAudioHash('organ');
