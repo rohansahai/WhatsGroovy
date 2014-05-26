@@ -14,7 +14,6 @@ window.startGame = function startGame(nickname){
   setInterval(function(){
     Canvas.draw(ctx, canvas.width, canvas.height);
     Canvas.drawCursors(ctx);
-    //cursor.drawMyCursor(ctx);
   }, 10);
 
   canvas.addEventListener('mousedown', function(evt) {

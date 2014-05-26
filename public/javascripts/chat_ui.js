@@ -33,15 +33,8 @@
     //size of other user
     var canvasWidth = $('#music').width();
     var canvasHeight = $('#music').height();
-    var canvasOffsetY = $('#music').position().top;
-    var canvasOffsetX = $('#music').position().left;
 
     cursors[data.nickname].pos = [(data.mouseX * canvasWidth), (data.mouseY * canvasHeight)];
-
-    $("#cursor-"+ data.nickname).css({
-      left: canvasOffsetX + (data.mouseX * canvasWidth),
-      top: canvasOffsetY + (data.mouseY * canvasHeight)
-    });
   }
 
   $(document).ready(function() {
@@ -65,6 +58,7 @@
   	});
 
     socket.on('playAudioSend', function(data){
+      console.log('received audio from server');
       audioApp.playCurrentInstrument(data.row, data.instrument, data.socketId);
     });
 
@@ -73,24 +67,15 @@
     });
 
     socket.on('moveCursorSend', function(data){
+      // create a cursor for the user if one doesnt exist
       if (!cursors[data.nickname]){
         cursors[data.nickname] = new Canvas.CanvasCursor(data.nickname);
-      }
-
-      // create a cursor for the user if one doesnt exist
-      if ($('#cursor-' + data.nickname).length === 0){
-        $('body').append("\
-        <div class='cursor' id='cursor-" + data.nickname + "'>\
-        <img class='cursor' src='images/music_note.png'/>\
-        <h4 id='cursor-nickname'>" + data.nickname + " </h4>\
-        </div>\
-        ");
       }
       updateMousePosition(data);
     });
 
     socket.on('removeCursor', function(data){
-      $("#cursor-"+ data.nickname).remove();
+      delete cursors[data.nickname];
     });
   });
 })(this);

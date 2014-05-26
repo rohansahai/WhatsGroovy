@@ -25,7 +25,7 @@
 
   Canvas.draw = function(ctx, canvasWidth, canvasHeight){
     ctx.clearRect(0,0,canvasWidth,canvasHeight);
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "black";
     ctx.fillRect(0,0,canvasWidth,canvasHeight);
     Canvas.drawRows(ctx, canvasWidth, canvasHeight);
   }
