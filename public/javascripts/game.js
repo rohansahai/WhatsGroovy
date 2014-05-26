@@ -17,7 +17,7 @@ window.startGame = function startGame(){
   canvas.width  = window.innerWidth - 10;
   canvas.height = window.innerHeight - 150;
 
-  window.audioApp = new AudioletApp();
+  window.audioApp = new AudioApp();
   var currentAudioRow = 0;
   var numRows = 10;
 

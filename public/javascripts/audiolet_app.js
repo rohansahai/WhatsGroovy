@@ -1,27 +1,19 @@
 $(function(){
-    var AudioletApp = window.AudioletApp = function() {
-        this.audiolet = new Audiolet();
-        this.c2Frequency = 65.4064;
-        this.scale = new MajorScale();
-        this.audiolet.scheduler.setTempo(120);
-        //this.playKick();
-        //this.playShaker();
-
+    var AudioApp = window.AudioApp = function() {
         this.initializeAudioHashes();
-
         this.myAudioContext = new webkitAudioContext();
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://whatsgroovy.herokuapp.com";
+        hostUrl = "http://localhost:8080";
 
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
         PluckedSynth.loadAllFiles(this.myAudioContext);
-        this.playMyKick();
+        this.playKick();
     };
 
-    AudioletApp.prototype.playMyKick = function(hostUrl) {
+    AudioApp.prototype.playKick = function(hostUrl) {
       var that = this;
       KickDrum.loadAllFiles(this.myAudioContext, function(){
         KickDrum.playSound(that.myAudioContext);
@@ -31,7 +23,7 @@ $(function(){
       });
     };
 
-    AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
+    AudioApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
       var that = this;
       switch (instrument) {
         case 'keys':
@@ -84,7 +76,7 @@ $(function(){
       }
     }
 
-    AudioletApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
+    AudioApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
 
       switch (instrument) {
         case 'keys':
@@ -121,7 +113,7 @@ $(function(){
         }
     }
 
-    AudioletApp.prototype.playApiInstrument = function(inst, user, freq){
+    AudioApp.prototype.playApiInstrument = function(inst, user, freq){
       inst.playing = true;
       inst.frequency = freq;
       inst.playSound();
@@ -130,7 +122,7 @@ $(function(){
       }, 125);
     }
 
-    AudioletApp.prototype.playExternalApiInstrument = function(inst, user, row){
+    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row){
       inst.frequency = row;
       inst.playSound();
       this.intervals[user] = setInterval(function(){
@@ -138,41 +130,17 @@ $(function(){
       }, 125);
     }
 
-    AudioletApp.prototype.playKick = function() {
-        this.kickEvent = this.audiolet.scheduler.play([], 1,
-            function() {
-                var kick = new Kick(this.audiolet);
-                kick.connect(this.audiolet.output);
-            }.bind(this)
-        );
-
-    }
-
-    AudioletApp.prototype.playShaker = function() {
-        // Shaker - four to the floor on the off-beat
-        // Scheduled as a poly synth
-        var that = this;
-         this.audiolet.scheduler.addRelative(0.5, function() {
-            that.shakerEvent = this.audiolet.scheduler.play([], 1,
-                function() {
-                    var shaker = new Shaker(this.audiolet);
-                    shaker.connect(this.audiolet.output);
-                }.bind(this)
-            );
-        }.bind(this));
-    }
-
-    AudioletApp.prototype.playInstrument = function(user, row, instHash) {
+    AudioApp.prototype.playInstrument = function(user, row, instHash) {
       instHash[user][row].currentTime = 0;
 
       instHash[user][row].play();
     }
 
-    AudioletApp.prototype.stopWavInstrument = function(user, row, instHash){
+    AudioApp.prototype.stopWavInstrument = function(user, row, instHash){
       instHash[user][row].pause();
     }
 
-    AudioletApp.prototype.assignAudioHash = function(folder) {
+    AudioApp.prototype.assignAudioHash = function(folder) {
       var audioHash = {}
 
       var audioElement1 = document.createElement('audio');
@@ -220,7 +188,7 @@ $(function(){
 
     }
 
-    AudioletApp.prototype.initializeAudioHashes = function() {
+    AudioApp.prototype.initializeAudioHashes = function() {
       this.organAudioHash = {};
       this.wildSynthAudioHash = {};
       this.gatedEdmAudioHash = {};
