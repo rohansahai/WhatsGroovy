@@ -6,16 +6,6 @@
   	return $("<div></div>").text(text);
   }
 
-  var processInput = function (chatApp) {
-  	var text = $('#send-message').val();
-  	if(text[0] === '/'){
-      chatApp.processCommand(text.slice(1));
-  	} else {
-    	chatApp.sendMessage(text);
-  	}
-  	$("#send-message").val('');
-  }
-
   var updateRoomList = function(roomData){
     $(".room-listings").empty();
     $.each(roomData, function(room, userList){
@@ -58,17 +48,6 @@
       console.log('button click event');
       return false;
     })
-
-  	socket.on('message', function(message) {
-  		var newElement = escapeDivText(message);
-  		$("#chat-messages").append(escapeDivText(message.text));
-  	});
-
-  	socket.on('nicknameChangeResult', function(result) {
-  	  if(result.success){
-  	    $("#chat-messages").append(escapeDivText(result.text));
-  	  }
-  	});
 
   	socket.on('roomList', function(roomData){
   	  updateRoomList(roomData);
