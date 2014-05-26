@@ -26,15 +26,19 @@
     chatApp.sendAudio();
   }
 
-  $(document).ready(function() {
-  	//window.chatApp = new ChatApp.Chat(socket);
+  var updateMousePosition = function(data) {
+    var canvasWidth = $('#music').width();
+    var canvasHeight = $('#music').height();
+    var canvasOffsetY = $('#music').position().top;
+    var canvasOffsetX = $('#music').position().left;
+    $("#cursor-"+ data.nickname).css({
+      left: canvasOffsetX + (data.mouseX * canvasWidth),
+      top: canvasOffsetY + (data.mouseY * canvasHeight)
+    });
+  }
 
-    // document.onmousemove = function (e) {
-    //   mouseX = e.pageX;
-    //   mouseY = e.pageY;
-    //   chatApp.sendMouseCoords(mouseX, mouseY);
-    //   $("#my-cursor").css({left:e.pageX, top:e.pageY});
-    // }
+  $(document).ready(function() {
+  	window.chatApp = new ChatApp.Chat(socket);
 
     $('.send-form').submit(function(e) {
       e.preventDefault();
@@ -71,16 +75,7 @@
         </div>\
         ");
       }
-      var canvasWidth = $('#music').width();
-      var canvasHeight = $('#music').height();
-      var canvasOffsetY = $('#music').position().top;
-      var canvasOffsetX = $('#music').position().left;
-      console.log("OffsetY: " + canvasOffsetY);
-      console.log("Our Y position " + data.mouseY);
-      $("#cursor-"+ data.nickname).css({
-        left: canvasOffsetX + (data.mouseX * canvasWidth),
-        top: canvasOffsetY + (data.mouseY * canvasHeight)
-      });
+      updateMousePosition(data);
     });
 
     socket.on('removeCursor', function(data){
