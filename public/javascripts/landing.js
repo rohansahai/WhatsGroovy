@@ -29,7 +29,7 @@
     socket.on('renderHomePage', function(nickname){
       $('body').html(gameHtml);
       $('#cursor-nickname').append(nickname);
-      startGame();
+      startGame(nickname);
       //startGameUI();
     });
   })

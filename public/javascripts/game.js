@@ -1,23 +1,20 @@
-window.startGame = function startGame(){
+window.startGame = function startGame(nickname){
   $('body').css('background-color', 'white')
   var canvas = document.getElementById("music");
-  canvas.width  = window.innerWidth - 10;
+  canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight - 150;
+
+  var cursor = new Canvas.CanvasCursor(nickname);
 
   window.audioApp = new AudioApp();
   var currentAudioRow = 0;
   var numRows = 10;
 
-  var context = canvas.getContext("2d");
-  context.fillStyle = "blue";
-  context.fillRect(0,0,canvas.width,canvas.height);
-  // var opts = {
-  //   distance : canvas.height/numRows,
-  //   lineWidth : 1,
-  //   gridColor  : "#66ff00",
-  //   caption : false
-  // };
-  // new Grid(opts).draw(context);
+  var ctx = canvas.getContext("2d");
+  setInterval(function(){
+    Canvas.draw(ctx, canvas.width, canvas.height, cursor);
+    cursor.drawMyCursor(ctx);
+  }, 10);
 
   canvas.addEventListener('mousedown', function(evt) {
     var mousePos = getMousePos(canvas, evt);
@@ -42,6 +39,9 @@ window.startGame = function startGame(){
     var canvasHeight = $('#music').height();
     chatApp.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
     $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
+    cursor.pos[0] = evt.offsetX;
+    cursor.pos[1] = evt.offsetY;
+    //Canvas.drawMyCursor(ctx, evt.offsetX, evt.offsetY);
 
   }, false);
 
