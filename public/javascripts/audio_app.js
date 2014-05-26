@@ -74,7 +74,7 @@ $(function(){
       inst.frequency = row;
       inst.playSound(row);
       this.intervals[user] = setInterval(function(){
-        that.updateAnalyser();
+        //that.updateAnalyser();
         inst.playSound();
       }, interval);
     }
@@ -86,9 +86,9 @@ $(function(){
     AudioApp.prototype.playKick = function(hostUrl) {
       var that = this;
       KickDrum.loadAllFiles(this.myAudioContext, function(){
-        KickDrum.playSound(that.myAudioContext);
+        KickDrum.playSound(that.myAudioContext, that.analyser);
         setInterval(function(){
-          KickDrum.playSound(that.myAudioContext);
+          KickDrum.playSound(that.myAudioContext, that.analyser);
         }, 4000);
       });
     };
@@ -107,6 +107,6 @@ $(function(){
       Vibraphone.loadAllFiles(this.myAudioContext);
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
-      //this.playKick();
+      this.playKick();
     }
 });

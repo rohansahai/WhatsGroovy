@@ -12,6 +12,7 @@ window.startGame = function startGame(nickname){
 
   var ctx = canvas.getContext("2d");
   setInterval(function(){
+    audioApp.updateAnalyser();
     Canvas.draw(ctx, canvas.width, canvas.height);
     Canvas.drawCursors(ctx);
     Canvas.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);

@@ -37,7 +37,7 @@ KickDrum.initSound = function(arrayBuffer, ctx, callback) {
   });
 }
 
-KickDrum.playSound = function(ctx) {
+KickDrum.playSound = function(ctx, analyser) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
   var timeToPlay = (Math.floor(now/4) + 1) * 4 - 3;
@@ -51,7 +51,8 @@ KickDrum.playSound = function(ctx) {
   gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + 3.9, 0.1);
 
   source.connect(gainNode);
-  gainNode.connect(ctx.destination);
+  gainNode.connect(analyser);
+  analyser.connect(ctx.destination);
 
-  source.noteOn(timeToPlay); 
+  source.noteOn(timeToPlay);
 }

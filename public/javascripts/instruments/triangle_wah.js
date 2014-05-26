@@ -1,7 +1,8 @@
-var TriangleWah = window.TriangleWah = function(ctx) {
+var TriangleWah = window.TriangleWah = function(ctx, analyser) {
   //Create an audio context.
   this.ctx = ctx;
   this.createTunaFx();
+  this.analyser = analyser;
 
   this.oscillator = this.ctx.createOscillator();
 
@@ -60,7 +61,8 @@ TriangleWah.prototype.playSound = function(row) {
 
   this.oscillator.connect(this.tunaWahWah.input);
   this.tunaWahWah.connect(this.gainNode);
-  this.gainNode.connect(this.ctx.destination);
+  this.gainNode.connect(this.analyser);
+  this.analyser.connect(this.ctx.destination);
 
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = freq;

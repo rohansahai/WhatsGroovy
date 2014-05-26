@@ -13,10 +13,11 @@ var wildSynthFiles = {
 
 wildSynthAudioBuffer = {};
 
-var WildSynth = window.WildSynth = function(ctx) {
+var WildSynth = window.WildSynth = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
   this.source = null;
+  this.analyser = analyser;
 };
 
 WildSynth.loadAllFiles = function(ctx){
@@ -66,7 +67,8 @@ WildSynth.prototype.playSound = function() {
 
   this.source.connect(this.gainNode);
   //this.feedbackGainNode.connect(this.delayNode);
-  this.gainNode.connect(this.ctx.destination);
+  this.gainNode.connect(this.analyser);
+  this.analyser.connect(this.ctx.destination);
 
   // this.pannerNode.connect(this.ctx.destination);
 

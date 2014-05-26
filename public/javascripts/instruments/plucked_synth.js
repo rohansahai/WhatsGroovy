@@ -13,9 +13,10 @@ var pluckedSynthFiles = {
 
 pluckedSynthAudioBuffer = {};
 
-var PluckedSynth = window.PluckedSynth = function(ctx) {
+var PluckedSynth = window.PluckedSynth = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
+  this.analyser = analyser;
   this.source = null;
 };
 
@@ -65,7 +66,8 @@ PluckedSynth.prototype.playSound = function() {
   this.gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + .5, 0.1);
 
   this.source.connect(this.gainNode);;
-  this.gainNode.connect(this.ctx.destination);
+  this.gainNode.connect(this.analyser);
+  this.analyser.connect(this.ctx.destination);
 
   this.source.noteOn(timeToPlay); // Play immediately.
 }
