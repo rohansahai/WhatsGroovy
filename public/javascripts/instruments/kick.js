@@ -49,7 +49,7 @@ KickDrum.playSound = function(ctx) {
   source.loop = false;
 
   //gainNode.gain.setTargetValueAtTime(0.5, timeToPlay, 0.01);
-  gainNode.gain.setTargetValueAtTime(0.0, now + 3.9, 0.1);
+  gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + 3.9, 0.1);
 
   source.connect(gainNode);
   //this.feedbackGainNode.connect(this.delayNode);
@@ -57,5 +57,5 @@ KickDrum.playSound = function(ctx) {
 
   // this.pannerNode.connect(this.ctx.destination);
 
-  source.noteOn(now); // Play immediately.
+  source.noteOn(timeToPlay); // Play immediately.
 }

@@ -3,6 +3,11 @@ $(function(){
         this.initializeAudioHashes();
         this.myAudioContext = new webkitAudioContext();
 
+        this.analyser = this.myAudioContext.createAnalyser();
+        this.analyser.fftSize = 64;
+        this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+
+
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
         hostUrl = "http://localhost:8080";
@@ -11,7 +16,7 @@ $(function(){
         Vibraphone.loadAllFiles(this.myAudioContext);
         PluckedSynth.loadAllFiles(this.myAudioContext);
         WildSynth.loadAllFiles(this.myAudioContext);
-        this.playKick();
+        //this.playKick();
     };
 
     AudioApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
@@ -28,17 +33,15 @@ $(function(){
             this.triangleWahs[user] = new TriangleWah(this.myAudioContext);
             this.playApiInstrument(this.triangleWahs[user], user, freq);
           } else {
-            console.log('updating');
             this.triangleWahs[user].updateFrequency(freq);
           }
           break;
         case 'organSynth':
           if (!this.organSynths[user] || this.organSynths[user].playing === false){
-            this.organSynths[user] = new OrganSynth(this.myAudioContext);
+            this.organSynths[user] = new OrganSynth(this.myAudioContext, this.analyser);
 
             this.playExternalApiInstrument(this.organSynths[user], user, row, 125);
           } else {
-            console.log('updating');
             this.organSynths[user].updateFrequency(row);
           }
           break;
@@ -120,11 +123,19 @@ $(function(){
     }
 
     AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval){
+      var that = this;
       inst.frequency = row;
       inst.playSound();
       this.intervals[user] = setInterval(function(){
+        that.updateAnalyser();
         inst.playSound();
       }, interval);
+    }
+
+    AudioApp.prototype.updateAnalyser = function(){
+      this.analyser.getByteFrequencyData(this.frequencyData);
+      console.log(this.frequencyData);
+      $('#visualizer').css("height", this.frequencyData[0] + "px");
     }
 
     AudioApp.prototype.playKick = function(hostUrl) {

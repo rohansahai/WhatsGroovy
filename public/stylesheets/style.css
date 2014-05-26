@@ -33,3 +33,7 @@ body {
 #play{
 	z-index: 10;
 }
+
+#visualizer{
+	background-color: blue;
+}

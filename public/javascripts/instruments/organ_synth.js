@@ -13,9 +13,10 @@ var organSynthFiles = {
 
 organSynthAudioBuffer = {};
 
-var OrganSynth = window.OrganSynth = function(ctx) {
+var OrganSynth = window.OrganSynth = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
+  this.analyser = analyser;
   this.source = null;
 };
 
@@ -66,7 +67,8 @@ OrganSynth.prototype.playSound = function() {
 
   this.source.connect(this.gainNode);
   //this.feedbackGainNode.connect(this.delayNode);
-  this.gainNode.connect(this.ctx.destination);
+  this.gainNode.connect(this.analyser);
+  this.analyser.connect(this.ctx.destination);
 
   // this.pannerNode.connect(this.ctx.destination);
 
