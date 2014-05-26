@@ -7,6 +7,12 @@ $(function(){
         this.analyser.fftSize = 64;
         this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
 
+        this.instruments = {
+          'wildSynth': WildSynth,
+          'organSynth': OrganSynth,
+          'vibraphone': Vibraphone,
+          'pluckedSynth': PluckedSynth
+        }
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
@@ -37,39 +43,28 @@ $(function(){
           }
           break;
         case 'organSynth':
-          if (!this.organSynths[user] || this.organSynths[user].playing === false){
-            this.organSynths[user] = new OrganSynth(this.myAudioContext, this.analyser);
-
-            this.playExternalApiInstrument(this.organSynths[user], user, row, 125);
-          } else {
-            this.organSynths[user].updateFrequency(row);
-          }
+          this.organSynths[user] = this.checkInstrument(this.organSynths[user], instrument, user, row);
           break;
         case 'vibraphone':
-          if (!this.vibraphones[user] || this.vibraphones[user].playing === false){
-            this.vibraphones[user] = new Vibraphone(this.myAudioContext);
-            this.playExternalApiInstrument(this.vibraphones[user], user, row, 125);
-          } else {
-            this.vibraphones[user].updateFrequency(row);
-          }
+          this.vibraphones[user] = this.checkInstrument(this.vibraphones[user], instrument, user, row);
           break;
         case 'pluckedSynth':
-          if (!this.pluckedSynths[user] || this.pluckedSynths[user].playing === false){
-            this.pluckedSynths[user] = new PluckedSynth(this.myAudioContext);
-            this.playExternalApiInstrument(this.pluckedSynths[user], user, row, 125);
-          } else {
-            this.pluckedSynths[user].updateFrequency(row);
-          }
+          this.pluckedSynths[user] = this.checkInstrument(this.pluckedSynths[user], instrument, user, row);
           break;
         case 'wildSynth':
-          if (!this.wildSynths[user] || this.wildSynths[user].playing === false){
-            this.wildSynths[user] = new WildSynth(this.myAudioContext);
-            this.playExternalApiInstrument(this.wildSynths[user], user, row, 125);
-          } else {
-            this.wildSynths[user].updateFrequency(row, this.intervals[user]);
-          }
+          this.wildSynths[user] = this.checkInstrument(this.wildSynths[user], instrument, user, row);
           break;
       }
+    }
+
+    AudioApp.prototype.checkInstrument = function(obj, instr, user, row){
+      if (!obj || obj.playing === false){
+        obj = new this.instruments[instr](this.myAudioContext, this.analyser);
+        this.playExternalApiInstrument(obj, user, row, 125);
+      } else {
+        obj.updateFrequency(row, this.intervals[user]);
+      }
+      return obj;
     }
 
     AudioApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
