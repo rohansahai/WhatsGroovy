@@ -1,14 +1,14 @@
 var vibraphoneFiles = {
-  1: '/audios/vibraphone/a3.wav',
-  2: '/audios/vibraphone/c3.wav',
-  3: '/audios/vibraphone/d3.wav',
-  4: '/audios/vibraphone/e3.wav',
-  5: '/audios/vibraphone/g3.wav',
-  6: '/audios/vibraphone/a4.wav',
-  7: '/audios/vibraphone/c4.wav',
-  8: '/audios/vibraphone/d4.wav',
-  9: '/audios/vibraphone/e4.wav',
-  10: '/audios/vibraphone/g4.wav'
+  1: '/audios/vibraphone/g4.wav',
+  2: '/audios/vibraphone/e4.wav',
+  3: '/audios/vibraphone/d4.wav',
+  4: '/audios/vibraphone/c4.wav',
+  5: '/audios/vibraphone/a4.wav',
+  6: '/audios/vibraphone/g3.wav',
+  7: '/audios/vibraphone/e3.wav',
+  8: '/audios/vibraphone/d3.wav',
+  9: '/audios/vibraphone/c3.wav',
+  10: '/audios/vibraphone/a3.wav'
 }
 
 vibraphoneAudioBuffer = {};

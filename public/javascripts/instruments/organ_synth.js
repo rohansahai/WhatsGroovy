@@ -1,14 +1,14 @@
 var organSynthFiles = {
-  1: '/audios/organ/a3.wav',
-  2: '/audios/organ/c3.wav',
-  3: '/audios/organ/d3.wav',
-  4: '/audios/organ/e3.wav',
-  5: '/audios/organ/g3.wav',
-  6: '/audios/organ/a4.wav',
-  7: '/audios/organ/c4.wav',
-  8: '/audios/organ/d4.wav',
-  9: '/audios/organ/e4.wav',
-  10: '/audios/organ/g4.wav'
+  1: '/audios/organ/g4.wav',
+  2: '/audios/organ/e4.wav',
+  3: '/audios/organ/d4.wav',
+  4: '/audios/organ/c4.wav',
+  5: '/audios/organ/a4.wav',
+  6: '/audios/organ/g3.wav',
+  7: '/audios/organ/e3.wav',
+  8: '/audios/organ/d3.wav',
+  9: '/audios/organ/c3.wav',
+  10: '/audios/organ/a3.wav'
 }
 
 organSynthAudioBuffer = {};

@@ -13,7 +13,7 @@ $(function(){
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://whatsgroovy.herokuapp.com";
+        hostUrl = "http://localhost:8080";
 
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
@@ -45,12 +45,6 @@ $(function(){
           }
           this.playInstrument(user, row, this.wildSynthAudioHash);
           break;
-        case 'gatedEdm':
-            if (!this.gatedEdmAudioHash[user]){
-              this.gatedEdmAudioHash[user] = this.assignGatedEdmAudioHash('gated-edm');
-            }
-            this.playInstrument(user, row, this.gatedEdmAudioHash);
-            break;
         case 'triangleWah':
           if (!this.triangleWahs[user] || this.triangleWahs[user].playing === false){
             this.triangleWahs[user] = new TriangleWah(this.myAudioContext);
@@ -98,9 +92,6 @@ $(function(){
         case 'wildSynth':
           this.stopWavInstrument(user, row, this.wildSynthAudioHash);
           break;
-        case 'gatedEdm':
-            this.stopWavInstrument(user, row, this.gatedEdmAudioHash);
-            break;
         case 'triangleWah':
             if (!fromMove){
               this.triangleWahs[user].stopSound();
@@ -185,43 +176,43 @@ $(function(){
 
       var audioElement1 = document.createElement('audio');
       //audioElement1.setAttribute('preload', 'auto');
-      audioElement1.setAttribute('src', 'audios/'+folder+'/a3.wav');
+      audioElement1.setAttribute('src', 'audios/'+folder+'/g4.wav');
       audioHash[1] = audioElement1;
 
       var audioElement2 = document.createElement('audio');
-      audioElement2.setAttribute('src', 'audios/'+folder+'/c3.wav');
+      audioElement2.setAttribute('src', 'audios/'+folder+'/e4.wav');
       audioHash[2] = audioElement2;
 
       var audioElement3 = document.createElement('audio');
-      audioElement3.setAttribute('src', 'audios/'+folder+'/d3.wav');
+      audioElement3.setAttribute('src', 'audios/'+folder+'/d4.wav');
       audioHash[3] = audioElement3;
 
       var audioElement4 = document.createElement('audio');
-      audioElement4.setAttribute('src', 'audios/'+folder+'/e3.wav');
+      audioElement4.setAttribute('src', 'audios/'+folder+'/c4.wav');
       audioHash[4] = audioElement4;
 
       var audioElement5 = document.createElement('audio');
-      audioElement5.setAttribute('src', 'audios/'+folder+'/g3.wav');
+      audioElement5.setAttribute('src', 'audios/'+folder+'/a4.wav');
       audioHash[5] = audioElement5;
 
       var audioElement6 = document.createElement('audio');
-      audioElement6.setAttribute('src', 'audios/'+folder+'/a4.wav');
+      audioElement6.setAttribute('src', 'audios/'+folder+'/g3.wav');
       audioHash[6] = audioElement6;
 
       var audioElement7 = document.createElement('audio');
-      audioElement7.setAttribute('src', 'audios/'+folder+'/c4.wav');
+      audioElement7.setAttribute('src', 'audios/'+folder+'/e3.wav');
       audioHash[7] = audioElement7;
 
       var audioElement8 = document.createElement('audio');
-      audioElement8.setAttribute('src', 'audios/'+folder+'/d4.wav');
+      audioElement8.setAttribute('src', 'audios/'+folder+'/d3.wav');
       audioHash[8] = audioElement8;
 
       var audioElement9 = document.createElement('audio');
-      audioElement9.setAttribute('src', 'audios/'+folder+'/e4.wav');
+      audioElement9.setAttribute('src', 'audios/'+folder+'/c3.wav');
       audioHash[9] = audioElement9;
 
       var audioElement10 = document.createElement('audio');
-      audioElement10.setAttribute('src', 'audios/'+folder+'/g4.wav');
+      audioElement10.setAttribute('src', 'audios/'+folder+'/a3.wav');
       audioHash[10] = audioElement10;
 
       return audioHash;
