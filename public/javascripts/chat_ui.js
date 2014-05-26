@@ -63,11 +63,11 @@
 
     socket.on('moveCursorSend', function(data){
       // create a cursor for the user if one doesnt exist
-      if ($('#cursor-' + username).length === 0){
+      if ($('#cursor-' + data.nickname).length === 0){
         $('body').append("\
-        <div class='cursor' id='cursor-" + username + "'>\
+        <div class='cursor' id='cursor-" + data.nickname + "'>\
         <img class='cursor' src='images/music_note.png'/>\
-        <h4 id='cursor-nickname'>" + username + " </h4>\
+        <h4 id='cursor-nickname'>" + data.nickname + " </h4>\
         </div>\
         ");
         console.log("new cursor image")

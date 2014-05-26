@@ -16,13 +16,13 @@ $(function(){
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://localhost:8080";
+        hostUrl = "http://whatsgroovy.herokuapp.com";
 
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
         PluckedSynth.loadAllFiles(this.myAudioContext);
         WildSynth.loadAllFiles(this.myAudioContext);
-        //this.playKick();
+        this.playKick();
     };
 
     AudioApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
