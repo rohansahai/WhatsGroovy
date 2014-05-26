@@ -11,6 +11,6 @@ httpServer.listen(port);
 
 console.log('Server running at http://localhost:' + port + '/');
 
-var socketIOListen = require('./lib/chat-server.js').socketIOListen;
+var socketIOListen = require('./lib/socket-server.js').socketIOListen;
 
 socketIOListen(httpServer);

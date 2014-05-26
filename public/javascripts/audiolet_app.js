@@ -4,8 +4,8 @@ $(function(){
         this.c2Frequency = 65.4064;
         this.scale = new MajorScale();
         this.audiolet.scheduler.setTempo(120);
-        //this.playKick();
-        //this.playShaker();
+        this.playKick();
+        this.playShaker();
 
         this.initializeAudioHashes();
 
