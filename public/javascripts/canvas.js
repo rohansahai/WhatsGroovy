@@ -50,4 +50,15 @@
     }
   };
 
+  Canvas.drawVisualizer = function(ctx, data, canvasWidth, canvasHeight){
+    var rowWidth = canvasWidth/data.length;
+    for (var i = 0; i < data.length; i++) {
+      var height = data[i];
+      ctx.beginPath();
+      ctx.strokeStyle="blue";
+      ctx.rect(i*rowWidth, canvasHeight - height, rowWidth, height);
+      ctx.stroke();
+    }
+  };
+
 })(this);

@@ -14,6 +14,7 @@ window.startGame = function startGame(nickname){
   setInterval(function(){
     Canvas.draw(ctx, canvas.width, canvas.height);
     Canvas.drawCursors(ctx);
+    Canvas.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
   }, 10);
 
   canvas.addEventListener('mousedown', function(evt) {
