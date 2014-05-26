@@ -53,30 +53,23 @@ OrganSynth.prototype.updateFrequency = function(row) {
 OrganSynth.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
-  this.filterNode = this.ctx.createBiquadFilter();
+  var timeToPlay = (Math.floor(now/.125) + 1) * .125;
+  console.log(timeToPlay);
   this.gainNode = this.ctx.createGainNode();
-  this.feedbackGainNode = this.ctx.createGainNode();
-  this.delayNode = this.ctx.createDelayNode();
   this.source = this.ctx.createBufferSource();
 
   //this.source.buffer = this.audioBuffer;
   this.source.buffer = organSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetValueAtTime(0.5, now, 0.01);
-  this.gainNode.gain.setTargetValueAtTime(0.0, now + .1, 0.1);
+  this.gainNode.gain.setTargetValueAtTime(0.5, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + .1, 0.1);
 
-  this.filterNode.frequency.value = 500;
-
-  this.source.connect(this.filterNode);
-  this.filterNode.connect(this.gainNode);
-  this.filterNode.connect(this.delayNode);
-  this.delayNode.connect(this.feedbackGainNode);
-  this.feedbackGainNode.connect(this.gainNode);
+  this.source.connect(this.gainNode);
   //this.feedbackGainNode.connect(this.delayNode);
   this.gainNode.connect(this.ctx.destination);
 
   // this.pannerNode.connect(this.ctx.destination);
 
-  this.source.noteOn(0); // Play immediately.
+  this.source.noteOn(timeToPlay); // Play immediately.
 }

@@ -4,8 +4,8 @@ $(function(){
         this.c2Frequency = 65.4064;
         this.scale = new MajorScale();
         this.audiolet.scheduler.setTempo(120);
-        this.playKick();
-        this.playShaker();
+        //this.playKick();
+        //this.playShaker();
 
         this.initializeAudioHashes();
 
@@ -13,6 +13,16 @@ $(function(){
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
         PluckedSynth.loadAllFiles(this.myAudioContext);
+        this.playMyKick();
+    };
+
+    AudioletApp.prototype.playMyKick = function() {
+      var that = this;
+      KickDrum.loadAllFiles(this.myAudioContext, function(){
+        setInterval(function(){
+          KickDrum.playSound(that.myAudioContext);
+        }, 500);
+      });
     };
 
     AudioletApp.prototype.playCurrentInstrument = function(freq, row, instrument, user) {
