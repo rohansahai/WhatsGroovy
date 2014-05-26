@@ -28,6 +28,14 @@ $(function(){
           'triangleWah': TriangleWah
         }
 
+        this.instrumentObjects = {
+          'wildSynth': this.wildSynths,
+          'organSynth': this.organSynths,
+          'vibraphone': this.vibraphones,
+          'pluckedSynth': this.pluckedSynths,
+          'triangleWah': this.triangleWahs
+        }
+
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
         hostUrl = "http://localhost:8080";
@@ -36,24 +44,7 @@ $(function(){
     };
 
     AudioApp.prototype.playCurrentInstrument = function(row, instrument, user) {
-      var that = this;
-      switch (instrument) {
-        case 'triangleWah':
-          this.triangleWahs[user] = this.checkInstrument(this.triangleWahs[user], instrument, user, row);
-          break;
-        case 'organSynth':
-          this.organSynths[user] = this.checkInstrument(this.organSynths[user], instrument, user, row);
-          break;
-        case 'vibraphone':
-          this.vibraphones[user] = this.checkInstrument(this.vibraphones[user], instrument, user, row);
-          break;
-        case 'pluckedSynth':
-          this.pluckedSynths[user] = this.checkInstrument(this.pluckedSynths[user], instrument, user, row);
-          break;
-        case 'wildSynth':
-          this.wildSynths[user] = this.checkInstrument(this.wildSynths[user], instrument, user, row);
-          break;
-      }
+      this.instrumentObjects[instrument][user] = this.checkInstrument(this.instrumentObjects[instrument][user], instrument, user, row);
     }
 
     AudioApp.prototype.checkInstrument = function(obj, instr, user, row){
@@ -102,15 +93,6 @@ $(function(){
               }
               break;
         }
-    }
-
-    AudioApp.prototype.playApiInstrument = function(inst, user, row){
-      inst.playing = true;
-      inst.frequency = frequencies[row];
-      inst.playSound();
-      this.intervals[user] = setInterval(function(){
-        inst.playSound();
-      }, 125);
     }
 
     AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval, internal){
