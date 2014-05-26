@@ -36,6 +36,12 @@ window.startGame = function startGame(){
       stopAudio(true);
       playAudio(mousePos.y)
     }
+
+    var canvasWidth = $('#music').width();
+    var canvasHeight = $('#music').height();
+    chatApp.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
+    $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
+
   }, false);
 
   $('#triangle-wah-button').click(function(event){

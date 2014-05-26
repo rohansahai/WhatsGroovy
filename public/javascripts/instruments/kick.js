@@ -41,11 +41,9 @@ KickDrum.playSound = function(ctx) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
   var timeToPlay = (Math.floor(now/4) + 1) * 4 - 3;
-  console.log("time now: " + now + "---time to play: " + timeToPlay);
   var gainNode = ctx.createGainNode();
   var source = ctx.createBufferSource();
 
-  //this.source.buffer = this.audioBuffer;
   source.buffer = kickDrumAudioBuffer[1];
   source.loop = false;
 
@@ -53,10 +51,7 @@ KickDrum.playSound = function(ctx) {
   gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + 3.9, 0.1);
 
   source.connect(gainNode);
-  //this.feedbackGainNode.connect(this.delayNode);
   gainNode.connect(ctx.destination);
 
-  // this.pannerNode.connect(this.ctx.destination);
-
-  source.noteOn(timeToPlay); // Play immediately.
+  source.noteOn(timeToPlay); 
 }

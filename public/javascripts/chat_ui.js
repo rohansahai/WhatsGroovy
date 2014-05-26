@@ -29,12 +29,12 @@
   $(document).ready(function() {
   	//window.chatApp = new ChatApp.Chat(socket);
 
-    document.onmousemove = function (e) {
-      mouseX = e.pageX;
-      mouseY = e.pageY;
-      chatApp.sendMouseCoords(mouseX, mouseY);
-      $("#my-cursor").css({left:e.pageX, top:e.pageY});
-    }
+    // document.onmousemove = function (e) {
+    //   mouseX = e.pageX;
+    //   mouseY = e.pageY;
+    //   chatApp.sendMouseCoords(mouseX, mouseY);
+    //   $("#my-cursor").css({left:e.pageX, top:e.pageY});
+    // }
 
     $('.send-form').submit(function(e) {
       e.preventDefault();
@@ -70,9 +70,17 @@
         <h4 id='cursor-nickname'>" + data.nickname + " </h4>\
         </div>\
         ");
-        console.log("new cursor image")
       }
-      $("#cursor-"+ data.nickname).css({ left:data.mouseX, top:data.mouseY });
+      var canvasWidth = $('#music').width();
+      var canvasHeight = $('#music').height();
+      var canvasOffsetY = $('#music').position().top;
+      var canvasOffsetX = $('#music').position().left;
+      console.log("OffsetY: " + canvasOffsetY);
+      console.log("Our Y position " + data.mouseY);
+      $("#cursor-"+ data.nickname).css({
+        left: canvasOffsetX + (data.mouseX * canvasWidth),
+        top: canvasOffsetY + (data.mouseY * canvasHeight)
+      });
     });
 
     socket.on('removeCursor', function(data){

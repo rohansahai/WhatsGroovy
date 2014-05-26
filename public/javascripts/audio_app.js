@@ -105,6 +105,6 @@ $(function(){
       Vibraphone.loadAllFiles(this.myAudioContext);
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
-      this.playKick();
+      //this.playKick();
     }
 });
