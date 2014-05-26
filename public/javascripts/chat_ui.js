@@ -25,16 +25,6 @@
         var usersUL = $("<ul></ul>");
         $.each(userList, function(i, username){
           usersUL.append($("<li></li>").text(username));
-          //create a cursor for each user
-          if ($('#cursor-' + username).length === 0){
-            $('body').append("\
-            <div class='cursor' id='cursor-" + username + "'>\
-            <img class='cursor' src='images/music_note.png'/>\
-            <h4 id='cursor-nickname'>" + username + " </h4>\
-            </div>\
-            ");
-            console.log("new cursor image")
-          }
         });
         roomListing.append(usersUL);
         $(".room-listings").append(roomListing);
@@ -93,6 +83,16 @@
     });
 
     socket.on('moveCursorSend', function(data){
+      // create a cursor for the user if one doesnt exist
+      if ($('#cursor-' + username).length === 0){
+        $('body').append("\
+        <div class='cursor' id='cursor-" + username + "'>\
+        <img class='cursor' src='images/music_note.png'/>\
+        <h4 id='cursor-nickname'>" + username + " </h4>\
+        </div>\
+        ");
+        console.log("new cursor image")
+      }
       $("#cursor-"+ data.nickname).css({ left:data.mouseX, top:data.mouseY });
     });
 
