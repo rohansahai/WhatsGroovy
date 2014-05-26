@@ -81,7 +81,6 @@
   	});
 
   	socket.on('roomList', function(roomData){
-  	  console.log(roomData);
   	  updateRoomList(roomData);
   	});
 
@@ -90,9 +89,7 @@
     });
 
     socket.on('stopAudioSend', function(data){
-      console.log("received stop audio request from server");
       audioApp.stopCurrentInstrument(data.row, data.fromMove, data.socketId, data.instrument);
-      //playExample()
     });
 
     socket.on('moveCursorSend', function(data){
