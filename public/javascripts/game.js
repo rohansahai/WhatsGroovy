@@ -4,7 +4,7 @@ window.startGame = function startGame(nickname){
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight - 150;
 
-  var cursor = new Canvas.CanvasCursor(nickname);
+  cursors[nickname] = new Canvas.CanvasCursor(nickname);
 
   window.audioApp = new AudioApp();
   var currentAudioRow = 0;
@@ -12,8 +12,9 @@ window.startGame = function startGame(nickname){
 
   var ctx = canvas.getContext("2d");
   setInterval(function(){
-    Canvas.draw(ctx, canvas.width, canvas.height, cursor);
-    cursor.drawMyCursor(ctx);
+    Canvas.draw(ctx, canvas.width, canvas.height);
+    Canvas.drawCursors(ctx);
+    //cursor.drawMyCursor(ctx);
   }, 10);
 
   canvas.addEventListener('mousedown', function(evt) {
@@ -39,9 +40,9 @@ window.startGame = function startGame(nickname){
     var canvasHeight = $('#music').height();
     chatApp.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
     $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
-    cursor.pos[0] = evt.offsetX;
-    cursor.pos[1] = evt.offsetY;
-    //Canvas.drawMyCursor(ctx, evt.offsetX, evt.offsetY);
+
+    cursors[nickname].pos[0] = evt.offsetX;
+    cursors[nickname].pos[1] = evt.offsetY;
 
   }, false);
 

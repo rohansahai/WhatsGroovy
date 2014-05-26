@@ -6,7 +6,7 @@
     this.pos = [0, 0];
   }
 
-  CanvasCursor.prototype.drawMyCursor = function(ctx){
+  CanvasCursor.prototype.drawCursor = function(ctx){
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
     ctx.lineWidth="1";
@@ -23,7 +23,7 @@
     ctx.stroke();
   };
 
-  Canvas.draw = function(ctx, canvasWidth, canvasHeight, cursor){
+  Canvas.draw = function(ctx, canvasWidth, canvasHeight){
     ctx.clearRect(0,0,canvasWidth,canvasHeight);
     ctx.fillStyle = "blue";
     ctx.fillRect(0,0,canvasWidth,canvasHeight);
@@ -40,6 +40,13 @@
       ctx.moveTo(0,i*rowHeight);
       ctx.lineTo(canvasWidth,i*rowHeight);
       ctx.stroke();
+    }
+  };
+
+  Canvas.drawCursors = function(ctx){
+
+    for (var key in cursors){
+      cursors[key].drawCursor(ctx);
     }
   };
 

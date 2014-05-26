@@ -2,6 +2,8 @@
   var ChatApp = root.ChatApp = (root.ChatApp || {});
   var socket = io.connect();
 
+  window.cursors = {};
+
   var escapeDivText = function(text) {
   	return $("<div></div>").text(text);
   }
@@ -33,6 +35,9 @@
     var canvasHeight = $('#music').height();
     var canvasOffsetY = $('#music').position().top;
     var canvasOffsetX = $('#music').position().left;
+
+    cursors[data.nickname].pos = [(data.mouseX * canvasWidth), (data.mouseY * canvasHeight)];
+
     $("#cursor-"+ data.nickname).css({
       left: canvasOffsetX + (data.mouseX * canvasWidth),
       top: canvasOffsetY + (data.mouseY * canvasHeight)
@@ -68,6 +73,10 @@
     });
 
     socket.on('moveCursorSend', function(data){
+      if (!cursors[data.nickname]){
+        cursors[data.nickname] = new Canvas.CanvasCursor(data.nickname);
+      }
+
       // create a cursor for the user if one doesnt exist
       if ($('#cursor-' + data.nickname).length === 0){
         $('body').append("\
