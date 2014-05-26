@@ -1,16 +1,3 @@
-frequencies = {
-  10: 110,
-  9: 130.81,
-  8: 146.83,
-  7: 164.81,
-  6: 196,
-  5: 220,
-  4: 261.63,
-  3: 293.66,
-  2: 329.63,
-  1: 392
-}
-
 window.startGame = function startGame(){
   $('body').css('background-color', 'white')
   var canvas = document.getElementById("music");
@@ -58,18 +45,6 @@ window.startGame = function startGame(){
       $target.removeClass("active");
     } else {
       audioApp.currentInstrument = 'triangleWah';
-      $target.addClass("active");
-    }
-  })
-
-  $('#organ-button').click(function(event){
-
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'keys'){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'keys';
       $target.addClass("active");
     }
   })
@@ -165,8 +140,8 @@ window.startGame = function startGame(){
 
   function playAudio(mousePosY) {
     currentAudioRow = getRow(mousePosY);
-    audioApp.playCurrentInstrument(frequencies[currentAudioRow], currentAudioRow, audioApp.currentInstrument, 0);
-    chatApp.sendAudio(frequencies[currentAudioRow], currentAudioRow, audioApp.currentInstrument);
+    audioApp.playCurrentInstrument(currentAudioRow, audioApp.currentInstrument, 0);
+    chatApp.sendAudio(currentAudioRow, audioApp.currentInstrument);
   }
 
   function stopAudio(fromMove) {

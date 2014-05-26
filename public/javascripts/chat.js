@@ -40,9 +40,8 @@
     }
   }
 
-  Chat.prototype.sendAudio = function(freq, row, instrument){
+  Chat.prototype.sendAudio = function(row, instrument){
     this.socket.emit('playAudioRequest', {
-      freq: freq,
       row: row,
       instrument: instrument,
       room: this.room

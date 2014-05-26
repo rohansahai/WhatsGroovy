@@ -54,7 +54,7 @@
   	});
 
     socket.on('playAudioSend', function(data){
-      audioApp.playCurrentInstrument(data.freq, data.row, data.instrument, data.socketId);
+      audioApp.playCurrentInstrument(data.row, data.instrument, data.socketId);
     });
 
     socket.on('stopAudioSend', function(data){
