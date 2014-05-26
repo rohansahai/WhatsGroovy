@@ -1,5 +1,5 @@
 var kickDrumFiles = {
-  1: '/audios/drums/kick.wav',
+  1: '/audios/drums/shortBeat.wav',
 }
 
 kickDrumAudioBuffer = {};
@@ -40,8 +40,7 @@ KickDrum.initSound = function(arrayBuffer, ctx, callback) {
 KickDrum.playSound = function(ctx) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
-  var timeToPlay = (Math.floor(now/.5) + 1) * .5;
-  console.log(timeToPlay);
+  var timeToPlay = (Math.floor(now/4) + 1) * 4;
   var gainNode = ctx.createGainNode();
   var source = ctx.createBufferSource();
 
@@ -49,8 +48,8 @@ KickDrum.playSound = function(ctx) {
   source.buffer = kickDrumAudioBuffer[1];
   source.loop = false;
 
-  gainNode.gain.setTargetValueAtTime(0.5, timeToPlay, 0.01);
-  gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + .1, 0.1);
+  //gainNode.gain.setTargetValueAtTime(0.5, timeToPlay, 0.01);
+  gainNode.gain.setTargetValueAtTime(0.0, now + 3.9, 0.1);
 
   source.connect(gainNode);
   //this.feedbackGainNode.connect(this.delayNode);
@@ -58,5 +57,5 @@ KickDrum.playSound = function(ctx) {
 
   // this.pannerNode.connect(this.ctx.destination);
 
-  source.noteOn(timeToPlay); // Play immediately.
+  source.noteOn(now); // Play immediately.
 }

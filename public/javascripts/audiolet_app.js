@@ -13,7 +13,7 @@ $(function(){
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://localhost:8080";
+        hostUrl = "http://whatsgroovy.herokuapp.com";
 
         OrganSynth.loadAllFiles(this.myAudioContext);
         Vibraphone.loadAllFiles(this.myAudioContext);
@@ -24,9 +24,10 @@ $(function(){
     AudioletApp.prototype.playMyKick = function(hostUrl) {
       var that = this;
       KickDrum.loadAllFiles(this.myAudioContext, function(){
+        KickDrum.playSound(that.myAudioContext);
         setInterval(function(){
           KickDrum.playSound(that.myAudioContext);
-        }, 500);
+        }, 4000);
       });
     };
 
