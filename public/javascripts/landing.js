@@ -8,8 +8,11 @@
     window.chatApp = new ChatApp.Chat(socket);
 
     socket.on('showCurrentRooms', function(rooms) {
+      $('#current-rooms').empty();
       for (var i = 0; i < rooms.length; i++) {
-        $("#current-rooms").append('<li>' + rooms[i] + '</li>');
+        if ($('#current-rooms').children().length < rooms.length){
+          $("#current-rooms").append('<li>' + rooms[i] + '</li>');
+        }
         //$('#room-name').append("<option value=" + rooms[i] + ">" + rooms[i] + "</option>");
       }
     });
