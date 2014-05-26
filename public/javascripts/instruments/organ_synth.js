@@ -54,7 +54,6 @@ OrganSynth.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
-  console.log(timeToPlay);
   this.gainNode = this.ctx.createGainNode();
   this.source = this.ctx.createBufferSource();
 

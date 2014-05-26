@@ -53,6 +53,9 @@ TriangleWah.prototype.createTunaFx = function(){
 // Play a note.
 TriangleWah.prototype.playSound = function(freq) {
 
+  var now = this.ctx.currentTime;
+  var timeToPlay = (Math.floor(now/.125) + 1) * .125;
+
   this.oscillator.connect(this.tunaWahWah.input);
   this.tunaWahWah.connect(this.gainNode);
   this.gainNode.connect(this.ctx.destination);
@@ -60,9 +63,9 @@ TriangleWah.prototype.playSound = function(freq) {
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = this.frequency;
 
-  this.gainNode.gain.setTargetValueAtTime(1, now, 0.01);
+  this.gainNode.gain.setTargetValueAtTime(1, timeToPlay, 0.01);
 
-  this.gainNode.gain.setTargetValueAtTime(0.0, now + .05, 0.05);
+  this.gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + .05, 0.05);
 
 };
 
