@@ -58,51 +58,17 @@ $(function(){
     }
 
     AudioApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
-
-      switch (instrument) {
-        case 'triangleWah':
-            if (!fromMove){
-              this.triangleWahs[user].stopSound();
-              this.triangleWahs[user].playing = false;
-              clearInterval(this.intervals[user]);
-            }
-            break;
-        case 'organSynth':
-            if (!fromMove){
-              this.organSynths[user].playing = false;
-              clearInterval(this.intervals[user]);
-            }
-            break;
-        case 'vibraphone':
-            if (!fromMove){
-              this.vibraphones[user].playing = false;
-              clearInterval(this.intervals[user]);
-            }
-            break;
-        case 'pluckedSynth':
-              if (!fromMove){
-                this.pluckedSynths[user].playing = false;
-                clearInterval(this.intervals[user]);
-              }
-              break;
-        case 'wildSynth':
-              if (!fromMove){
-                this.wildSynths[user].playing = false;
-                this.wildSynths[user].stopSound();
-                clearInterval(this.intervals[user]);
-              }
-              break;
-        }
+      if(!fromMove){
+        //this.instrumentObjects[instrument][user].stopSound();
+        this.instrumentObjects[instrument][user].playing = false;
+        clearInterval(this.intervals[user]);
+      }
     }
 
-    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval, internal){
+    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval){
       var that = this;
-      if (internal){
-        inst.frequency = frequencies[row];
-      } else {
-        inst.frequency = row;
-      }
-      inst.playSound();
+      inst.frequency = row;
+      inst.playSound(row);
       this.intervals[user] = setInterval(function(){
         that.updateAnalyser();
         inst.playSound();

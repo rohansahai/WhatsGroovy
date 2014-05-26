@@ -10,7 +10,7 @@ var TriangleWah = window.TriangleWah = function(ctx) {
 
   this.oscillator.start(0);
   this.gainNode.gain.value = 0;
-  this.frequency;
+
 };
 
 TriangleWah.prototype.createTunaFx = function(){
@@ -51,17 +51,19 @@ TriangleWah.prototype.createTunaFx = function(){
 }
 
 // Play a note.
-TriangleWah.prototype.playSound = function(freq) {
+TriangleWah.prototype.playSound = function(row) {
 
+  if (this.frequency < 100){ this.frequency = undefined }; //this is a bit hacky, since all the other instruments use the row value to set their note we have to do it differently for internal instruments
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
+  var freq = this.frequency || frequencies[row];
 
   this.oscillator.connect(this.tunaWahWah.input);
   this.tunaWahWah.connect(this.gainNode);
   this.gainNode.connect(this.ctx.destination);
 
   var now = this.ctx.currentTime;
-  this.oscillator.frequency.value = this.frequency;
+  this.oscillator.frequency.value = freq;
 
   this.gainNode.gain.setTargetValueAtTime(1, timeToPlay, 0.01);
 
@@ -73,13 +75,10 @@ TriangleWah.prototype.playSound = function(freq) {
 // Stop the audio.
 TriangleWah.prototype.stopSound = function() {
   var now = this.ctx.currentTime;
-  //this.gainNode.gain.linearRampToValueAtTime(0.0, now + 0.5);
   this.gainNode.gain.setTargetValueAtTime(0.0, now, 0.3);
-  //this.oscillator.stop(0);
 };
 
 // Update the note frequency.
 TriangleWah.prototype.updateFrequency = function(row) {
-  //this.oscillator.start(0);
   this.frequency = frequencies[row];
 };
