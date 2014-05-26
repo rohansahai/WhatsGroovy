@@ -13,6 +13,7 @@ frequencies = {
 
 $(function(){
     var AudioApp = window.AudioApp = function() {
+        this.initializeAudioHashes();
         this.myAudioContext = new webkitAudioContext();
 
         this.analyser = this.myAudioContext.createAnalyser();
@@ -23,7 +24,8 @@ $(function(){
           'wildSynth': WildSynth,
           'organSynth': OrganSynth,
           'vibraphone': Vibraphone,
-          'pluckedSynth': PluckedSynth
+          'pluckedSynth': PluckedSynth,
+          'triangleWah': TriangleWah
         }
 
         //http://localhost:8080 local hosting!
@@ -37,12 +39,7 @@ $(function(){
       var that = this;
       switch (instrument) {
         case 'triangleWah':
-          if (!this.triangleWahs[user] || this.triangleWahs[user].playing === false){
-            this.triangleWahs[user] = new TriangleWah(this.myAudioContext);
-            this.playApiInstrument(this.triangleWahs[user], user, frequencies[row]);
-          } else {
-            this.triangleWahs[user].updateFrequency(frequencies[row]);
-          }
+          this.triangleWahs[user] = this.checkInstrument(this.triangleWahs[user], instrument, user, row);
           break;
         case 'organSynth':
           this.organSynths[user] = this.checkInstrument(this.organSynths[user], instrument, user, row);
@@ -107,18 +104,22 @@ $(function(){
         }
     }
 
-    AudioApp.prototype.playApiInstrument = function(inst, user, freq){
+    AudioApp.prototype.playApiInstrument = function(inst, user, row){
       inst.playing = true;
-      inst.frequency = freq;
+      inst.frequency = frequencies[row];
       inst.playSound();
       this.intervals[user] = setInterval(function(){
         inst.playSound();
       }, 125);
     }
 
-    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval){
+    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval, internal){
       var that = this;
-      inst.frequency = row;
+      if (internal){
+        inst.frequency = frequencies[row];
+      } else {
+        inst.frequency = row;
+      }
       inst.playSound();
       this.intervals[user] = setInterval(function(){
         that.updateAnalyser();

@@ -79,7 +79,7 @@ TriangleWah.prototype.stopSound = function() {
 };
 
 // Update the note frequency.
-TriangleWah.prototype.updateFrequency = function(freq) {
+TriangleWah.prototype.updateFrequency = function(row) {
   //this.oscillator.start(0);
-  this.frequency = freq;
+  this.frequency = frequencies[row];
 };
