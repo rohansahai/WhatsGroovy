@@ -22,11 +22,11 @@
 
     socket.on('playAudioSend', function(data){
       console.log('received audio from server');
-      audioApp.playCurrentInstrument(data.row, data.instrument, data.socketId);
+      audioApp.playCurrentInstrument(data.row, data.instrument, data.nickname);
     });
 
     socket.on('stopAudioSend', function(data){
-      audioApp.stopCurrentInstrument(data.row, data.fromMove, data.socketId, data.instrument);
+      audioApp.stopCurrentInstrument(data.row, data.fromMove, data.nickname, data.instrument);
     });
 
     socket.on('moveCursorSend', function(data){

@@ -16,7 +16,7 @@ window.startGame = function startGame(nickname){
     Canvas.draw(ctx, canvas.width, canvas.height);
     Canvas.drawCursors(ctx, audioApp.clicked);
     Canvas.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
-  }, 1000);
+  }, 10);
 
   setUpMouseEvents();
 
@@ -90,12 +90,12 @@ window.startGame = function startGame(nickname){
 
   function playAudio(mousePosY) {
     currentAudioRow = getRow(mousePosY);
-    audioApp.playCurrentInstrument(currentAudioRow, audioApp.currentInstrument, 0);
+    audioApp.playCurrentInstrument(currentAudioRow, audioApp.currentInstrument, nickname);
     chatApp.sendAudio(currentAudioRow, audioApp.currentInstrument);
   }
 
   function stopAudio(fromMove) {
-    audioApp.stopCurrentInstrument(currentAudioRow, fromMove, 0, audioApp.currentInstrument);
+    audioApp.stopCurrentInstrument(currentAudioRow, fromMove, nickname, audioApp.currentInstrument);
     chatApp.stopAudio(currentAudioRow, fromMove, audioApp.currentInstrument);
   }
 }
