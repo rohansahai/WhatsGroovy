@@ -31,6 +31,9 @@
 
 <body>
 
+  <div class="alert alert-danger text-center errors hide">
+  </div>
+
   <h1 class="text-center">
     What's Groovy?
   </h1>
@@ -40,12 +43,15 @@
   </div>
 
 
-  <form class="join-room text-center">
-    <label for="room-name">Room:</label>
-    <input id="room-name" type="text">
-    <label for="nickname">Nickname:</label>
-    <input id="nickname" type="text">
-    <input id="join-button" type="submit" value="Yam">
+  <form class="join-room text-center" role='form'>
+    <div class="form-group">
+      <label for="room-name"><h4>Room:</h4></label>
+      <input id="room-name" type="text" placeholder="Enter Room Name">
+      <label for="nickname"><h4>Name:</h4></label>
+      <input id="nickname" type="text" placeholder="Enter Nickname">
+      <!-- <input id="join-button" type="submit" value="Yam"> -->
+      <button type="submit" class="btn btn-default" id='join-button'>Yam</button>
+    </div>
   </form>
 
   <div class="text-center">

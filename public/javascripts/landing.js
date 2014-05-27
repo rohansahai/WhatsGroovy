@@ -28,9 +28,12 @@
     var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
     socket.on('renderHomePage', function(nickname){
       $('body').html(gameHtml);
-      $('#cursor-nickname').append(nickname);
       startGame(nickname);
-      //startGameUI();
+    });
+
+    socket.on('renderError', function(data){
+      $('.errors').removeClass('hide');
+      $('.errors').html('<strong>Warning! </strong>' + data.text);
     });
   })
 
