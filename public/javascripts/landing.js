@@ -11,14 +11,22 @@
       $('#current-rooms').empty();
 			
 			if (rooms.length === 0){
-				$("#current-rooms").append("<li>No rooms open right meow. Start you're own!</li>");
+				$("#current-rooms").html("<li>No rooms open right meow. Start you're own!</li>");
 			}
 			else {
+				$("#current-rooms").empty();
 	      for (var i = 0; i < rooms.length; i++) {
 	        if ($('#current-rooms').children().length < rooms.length){
-	          $("#current-rooms").append('<li>' + rooms[i] + '</li>');
+	          $("#current-rooms").append
+						('<li ><a href="#" id=room-'+rooms[i]+' class="room-li">' + rooms[i] + '</a></li>');
 	        }
 	      }
+				
+				$('.room-li').click(function(event){
+					var roomName = $(event.currentTarget).html();
+					$('#room-name').val(roomName);
+					$('.modal').modal('hide');
+				});
 			}
     });
 
@@ -29,6 +37,10 @@
       var nickname = $('#nickname').val();
       chatApp.enterRoom(room, nickname);
     })
+		
+		$('#room-list-modal').click(function(){
+			$('.modal').modal('show')
+		});
 
     var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
     socket.on('renderHomePage', function(nickname){
