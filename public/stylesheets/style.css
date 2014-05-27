@@ -173,8 +173,9 @@ h1 {
   background-image: -o-linear-gradient(top, #f7f7f7, #e7e7e7); 
   color: #a7a7a7;
   margin: 36px;
-  width: 70px;
-  height: 70px;
+	margin-bottom: 15px;
+  width: 45px;
+  height: 45px;
   position: relative;
   text-align: center;
   line-height: 144px;
@@ -188,10 +189,10 @@ h1 {
   background: #fff;
   border-top: 2px solid #ddd;
   position: absolute;
-  top: -9px;
-  left: -9px;
-  bottom: -9px;
-  right: -9px;
+  top: -7px;
+  left: -7px;
+  bottom: -7px;
+  right: -7px;
   z-index: -1;
   border-radius: 50%;
   box-shadow: inset 0px 8px 48px #ddd;
@@ -201,4 +202,34 @@ h1 {
   text-decoration: none;
   color: #555;
   background: #f5f5f5;
+}
+
+/* From bootstrap sticky footer */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -50px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 50px;
+  background-color: black;
+	color: white;
+}
+
+#footer-text{
+	position: relative;
+	top: 15px;
 }

@@ -7,7 +7,7 @@
   }
 	
 	var backgroundImage = new Image();
-  backgroundImage.src = 'images/hanging.jpg';
+  backgroundImage.src = 'images/hangingBlackOrange.jpg';
 
   CanvasCursor.prototype.drawCursor = function(ctx, clicked){
     ctx.beginPath();
@@ -46,7 +46,7 @@
     for (var i = 0; i < 10; i++) {
       ctx.beginPath();
       ctx.lineWidth="3";
-      ctx.strokeStyle="black";
+      ctx.strokeStyle="#F38630";
       ctx.moveTo(0,i*rowHeight);
       ctx.lineTo(canvasWidth,i*rowHeight);
       ctx.stroke();
@@ -67,10 +67,18 @@
     var rowWidth = canvasWidth/data.length;
     for (var i = 0; i < data.length; i++) {
       var height = data[i];
+			ctx.save();
+			
       ctx.beginPath();
       ctx.strokeStyle="blue";
+			ctx.shadowOffsetX = 5;
+			ctx.shadowOffsetY = 5;
+			ctx.shadowBlur = 10;
+			ctx.shadowColor = "blue";
       ctx.rect(i*rowWidth, canvasHeight - height, rowWidth, height);
       ctx.stroke();
+			ctx.closePath();
+			ctx.restore();
     }
   };
 
