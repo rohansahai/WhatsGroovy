@@ -3,8 +3,11 @@
 
   var CanvasCursor = Canvas.CanvasCursor =  function(nickname) {
     this.nickname = nickname;
-    this.pos = [0, 0];
+    this.pos = [0, 0];	
   }
+	
+	var backgroundImage = new Image();
+  backgroundImage.src = 'images/hanging.jpg';
 
   CanvasCursor.prototype.drawCursor = function(ctx, clicked){
     ctx.beginPath();
@@ -31,8 +34,9 @@
 
   Canvas.draw = function(ctx, canvasWidth, canvasHeight){
     ctx.clearRect(0,0,canvasWidth,canvasHeight);
-    ctx.fillStyle = "black";
-    ctx.fillRect(0,0,canvasWidth,canvasHeight);
+		ctx.drawImage(backgroundImage, 0, 0, canvasWidth, canvasHeight);
+    //ctx.fillStyle = "#A7DBD8";
+    //ctx.fillRect(0,0,canvasWidth,canvasHeight);
     Canvas.drawRows(ctx, canvasWidth, canvasHeight);
   }
 
@@ -41,8 +45,8 @@
 
     for (var i = 0; i < 10; i++) {
       ctx.beginPath();
-      ctx.lineWidth="5";
-      ctx.strokeStyle="green";
+      ctx.lineWidth="3";
+      ctx.strokeStyle="black";
       ctx.moveTo(0,i*rowHeight);
       ctx.lineTo(canvasWidth,i*rowHeight);
       ctx.stroke();

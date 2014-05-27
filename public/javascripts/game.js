@@ -1,7 +1,7 @@
 window.startGame = function startGame(nickname){
   $('body').css('background-color', 'white')
   var canvas = document.getElementById("music");
-  canvas.width  = window.innerWidth;
+  canvas.width  = window.innerWidth - 150;
   canvas.height = window.innerHeight - 150;
 
   cursors[nickname] = new Canvas.CanvasCursor(nickname);
