@@ -9,12 +9,12 @@
 
     socket.on('showCurrentRooms', function(rooms) {
       $('#current-rooms').empty();
+			console.log("ROOMS-" + rooms);
 			
 			if (rooms.length === 0){
 				$("#current-rooms").html("<li>No rooms open right meow. Start you're own!</li>");
 			}
 			else {
-				$("#current-rooms").empty();
 	      for (var i = 0; i < rooms.length; i++) {
 	        if ($('#current-rooms').children().length < rooms.length){
 	          $("#current-rooms").append
