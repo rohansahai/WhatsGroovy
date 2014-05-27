@@ -14,9 +14,9 @@ window.startGame = function startGame(nickname){
   setInterval(function(){
     audioApp.updateAnalyser();
     Canvas.draw(ctx, canvas.width, canvas.height);
-    Canvas.drawCursors(ctx);
+    Canvas.drawCursors(ctx, audioApp.clicked);
     Canvas.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
-  }, 10);
+  }, 1000);
 
   setUpMouseEvents();
 

@@ -6,12 +6,12 @@
     this.pos = [0, 0];
   }
 
-  CanvasCursor.prototype.drawCursor = function(ctx){
+  CanvasCursor.prototype.drawCursor = function(ctx, clicked){
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
     ctx.lineWidth="1";
     ctx.strokeStyle="black";
-    ctx.fillStyle = "red";
+    if (clicked){ ctx.fillStyle = "red"; }
     ctx.fill();
     ctx.stroke();
 
@@ -43,10 +43,16 @@
     }
   };
 
-  Canvas.drawCursors = function(ctx){
+  Canvas.drawCursors = function(ctx, clicked){
 
     for (var key in cursors){
-      cursors[key].drawCursor(ctx);
+      console.log(clicked);
+      console.log(cursors);
+      if (clicked[key] === true){
+        cursors[key].drawCursor(ctx, true);
+      } else{
+        cursors[key].drawCursor(ctx);
+      }
     }
   };
 

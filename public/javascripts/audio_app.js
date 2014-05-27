@@ -38,7 +38,7 @@ $(function(){
         //http://whatsgroovy.herokuapp.com  heroku hosting!
         hostUrl = "http://localhost:8080";
         this.preLoadFiles();
-
+        this.clicked = {};
     };
 
     AudioApp.prototype.setUpVisualizer = function(){
@@ -48,7 +48,8 @@ $(function(){
     };
 
     AudioApp.prototype.playCurrentInstrument = function(row, instrument, user) {
-      this.instrumentObjects[instrument][user] = this.checkInstrument(this.instrumentObjects[instrument][user], instrument, user, row);
+      this.instrumentObjects[instrument][user] = this.checkInstrument(
+        this.instrumentObjects[instrument][user], instrument, user, row);
     }
 
     AudioApp.prototype.checkInstrument = function(obj, instr, user, row){
@@ -63,18 +64,18 @@ $(function(){
 
     AudioApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
       if(!fromMove){
-        //this.instrumentObjects[instrument][user].stopSound();
+        this.clicked[user] = false;
         this.instrumentObjects[instrument][user].playing = false;
         clearInterval(this.intervals[user]);
       }
     }
 
     AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval){
+      this.clicked[user] = true;
       var that = this;
       inst.frequency = row;
       inst.playSound(row);
       this.intervals[user] = setInterval(function(){
-        //that.updateAnalyser();
         inst.playSound();
       }, interval);
     }
