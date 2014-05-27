@@ -43,12 +43,9 @@
     }
   };
 
-  Canvas.drawCursors = function(ctx, clicked){
-
+  Canvas.drawCursors = function(ctx, clickedObj){
     for (var key in cursors){
-      console.log(clicked);
-      console.log(cursors);
-      if (clicked[key] === true){
+      if (clickedObj[key] === true){
         cursors[key].drawCursor(ctx, true);
       } else{
         cursors[key].drawCursor(ctx);

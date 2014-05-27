@@ -21,7 +21,6 @@
   	window.chatApp = new ChatApp.Chat(socket);
 
     socket.on('playAudioSend', function(data){
-      console.log('received audio from server');
       audioApp.playCurrentInstrument(data.row, data.instrument, data.nickname);
     });
 
