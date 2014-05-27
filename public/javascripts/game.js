@@ -9,8 +9,8 @@ window.startGame = function startGame(nickname){
   window.audioApp = new AudioApp();
   var currentAudioRow = 0;
   var numRows = 10;
-
   var ctx = canvas.getContext("2d");
+
   setInterval(function(){
     audioApp.updateAnalyser();
     Canvas.draw(ctx, canvas.width, canvas.height);
@@ -47,89 +47,26 @@ window.startGame = function startGame(nickname){
 
   }, false);
 
-  $('#triangle-wah-button').click(function(event){
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'triangleWah'){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'triangleWah';
-      $target.addClass("active");
+  var instrumentNames = ['triangleWah', 'vibraphone', 'pluckedSynth',
+                     'wildSynth', 'organSynth'];
+  setUpButtonEvents(instrumentNames);
+
+  function setUpButtonEvents(instruments){
+    for (var i = 0; i < instruments.length; i++) {
+      (function(i){
+        $('#' + instruments[i] + '-button').click(function(event){
+          var $target = $(event.currentTarget);
+          if (audioApp.currentInstrument === instruments[i]){
+            audioApp.currentInstrument = '';
+            $target.removeClass("active");
+          } else {
+            audioApp.currentInstrument = instruments[i];
+            $target.addClass("active");
+          }
+        })
+      })(i);
     }
-  })
-
-  $('#vibraphone-button').click(function(event){
-
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'vibraphone'){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'vibraphone';
-      $target.addClass("active");
-    }
-  })
-
-  $('#plucked-synth-button').click(function(event){
-
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'pluckedSynth'){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'pluckedSynth';
-      $target.addClass("active");
-    }
-  })
-
-  $('#wild-synth-button').click(function(event){
-
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'wildSynth'){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'wildSynth';
-      $target.addClass("active");
-    }
-  })
-
-  $('#organ-synth-button').click(function(event){
-    var $target = $(event.currentTarget);
-    if (audioApp.currentInstrument === 'organSynth'){
-      audioApp.currentInstrument = '';
-      $target.removeClass("active");
-    } else {
-      audioApp.currentInstrument = 'organSynth';
-      $target.addClass("active");
-    }
-  })
-
-  $('#kick-button').click(function(event){
-    var $target = $(event.currentTarget);
-    if ($target.html() === "Kick ON"){
-      audioApp.playKick();
-      $target.html("Kick OFF")
-      $target.addClass("active")
-    } else {
-      audioApp.stopInstrument(audioApp.kickEvent);
-      $target.html("Kick ON")
-      $target.removeClass("active")
-    }
-  })
-
-  $('#shaker-button').click(function(){
-    var $target = $(event.currentTarget);
-    if ($target.html() === "Shaker ON"){
-      audioApp.playShaker();
-      $target.html("Shaker OFF")
-      $target.addClass("active")
-    } else {
-      audioApp.stopInstrument(audioApp.shakerEvent);
-      $target.html("Shaker ON")
-      $target.removeClass("active")
-    }
-  })
+  }
 
   function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
