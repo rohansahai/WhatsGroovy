@@ -1,20 +1,19 @@
 body {
-	/*background-image: url('/images/headphones.jpg');
+	background-image: url('/images/headphones.jpg');
 	-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
 	background-size: cover;
 	background-repeat:no-repeat;
-	min-height: 1000px;
-	overflow: hidden;*/
-	background-color: #D1F2A5;
+/*	min-height: 1000px;*/
+	overflow: hidden;
+
+/*	background-color: #F38630;*/
 }
 
-#chat-messages {
-	min-width: 100px;
-	width: 80%;
-	background: #cecece;
-	min-height: 100px;
+#name-room-inputs{
+	border-radius: 5px;
+	border: solid 5px white;
 }
 
 .cursor{
@@ -22,6 +21,18 @@ body {
 	width: 20px;
 	height: 40px;
 	z-index: -1;
+}
+
+.rooms{
+	min-height: 200px;
+	background-color: white;
+	opacity:0.9;
+	width: 300px;
+	margin: 0 auto;
+	border-radius: 5px;
+	border: solid 2px;
+	overflow: scroll;
+	list-style-type: none;
 }
 
 #audio-interface{

@@ -9,12 +9,17 @@
 
     socket.on('showCurrentRooms', function(rooms) {
       $('#current-rooms').empty();
-      for (var i = 0; i < rooms.length; i++) {
-        if ($('#current-rooms').children().length < rooms.length){
-          $("#current-rooms").append('<li>' + rooms[i] + '</li>');
-        }
-        //$('#room-name').append("<option value=" + rooms[i] + ">" + rooms[i] + "</option>");
-      }
+			
+			if (rooms.length === 0){
+				$("#current-rooms").append("<li>No rooms open right meow. Start you're own!</li>");
+			}
+			else {
+	      for (var i = 0; i < rooms.length; i++) {
+	        if ($('#current-rooms').children().length < rooms.length){
+	          $("#current-rooms").append('<li>' + rooms[i] + '</li>');
+	        }
+	      }
+			}
     });
 
 
@@ -27,6 +32,7 @@
 
     var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
     socket.on('renderHomePage', function(nickname){
+			$('body').css('background-image', 'none');
       $('body').html(gameHtml);
       startGame(nickname);
     });
