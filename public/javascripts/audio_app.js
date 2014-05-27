@@ -24,7 +24,8 @@ $(function(){
           'organSynth': OrganSynth,
           'vibraphone': Vibraphone,
           'pluckedSynth': PluckedSynth,
-          'triangleWah': TriangleWah
+          'triangleWah': TriangleWah,
+					'bassSynth': BassSynth
         }
 
         this.instrumentObjects = {
@@ -32,7 +33,8 @@ $(function(){
           'organSynth': this.organSynths,
           'vibraphone': this.vibraphones,
           'pluckedSynth': this.pluckedSynths,
-          'triangleWah': this.triangleWahs
+          'triangleWah': this.triangleWahs,
+					'bassSynth': this.bassSynths
         }
 
         //http://localhost:8080 local hosting!
@@ -102,6 +104,7 @@ $(function(){
       this.vibraphones = {};
       this.pluckedSynths = {};
       this.wildSynths = {};
+			this.bassSynths = {};
       this.intervals = {};
     };
 
@@ -110,6 +113,7 @@ $(function(){
       Vibraphone.loadAllFiles(this.myAudioContext);
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
+			BassSynth.loadAllFiles(this.myAudioContext);
       this.playKick();
     }
 });
