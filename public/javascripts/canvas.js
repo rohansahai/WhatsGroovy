@@ -11,8 +11,14 @@
     ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
     ctx.lineWidth="1";
     ctx.strokeStyle="black";
-    if (clicked){ ctx.fillStyle = "red"; }
-    ctx.fill();
+    if (clicked){
+      ctx.fillStyle = "red";
+      ctx.fill();
+    } else {
+      ctx.fillStyle = "blue";
+      ctx.fill();
+    }
+
     ctx.stroke();
 
     ctx.beginPath();
