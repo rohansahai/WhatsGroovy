@@ -1,14 +1,15 @@
 var pluckedSynthFiles = {
-  1: '/audios/plucked-synth/g4.wav',
-  2: '/audios/plucked-synth/e4.wav',
-  3: '/audios/plucked-synth/d4.wav',
-  4: '/audios/plucked-synth/c4.wav',
-  5: '/audios/plucked-synth/a4.wav',
-  6: '/audios/plucked-synth/g3.wav',
-  7: '/audios/plucked-synth/e3.wav',
-  8: '/audios/plucked-synth/d3.wav',
-  9: '/audios/plucked-synth/c3.wav',
-  10: '/audios/plucked-synth/a3.wav'
+	1: '/audios/plucked-synth/a5.wav',
+  2: '/audios/plucked-synth/g4.wav',
+  3: '/audios/plucked-synth/e4.wav',
+  4: '/audios/plucked-synth/d4.wav',
+  5: '/audios/plucked-synth/c4.wav',
+  6: '/audios/plucked-synth/a4.wav',
+  7: '/audios/plucked-synth/g3.wav',
+  8: '/audios/plucked-synth/e3.wav',
+  9: '/audios/plucked-synth/d3.wav',
+  10: '/audios/plucked-synth/c3.wav',
+  11: '/audios/plucked-synth/a3.wav'
 }
 
 pluckedSynthAudioBuffer = {};

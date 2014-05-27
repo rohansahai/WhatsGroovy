@@ -8,7 +8,7 @@ window.startGame = function startGame(nickname){
 
   window.audioApp = new AudioApp();
   var currentAudioRow = 0;
-  var numRows = 10;
+  var numRows = 11;
   var ctx = canvas.getContext("2d");
 
   setInterval(function(){

@@ -50,9 +50,10 @@
   }
 
   Canvas.drawRows = function(ctx, canvasWidth, canvasHeight){
-    var rowHeight = canvasHeight/10;
+		var numRows = 11;
+    var rowHeight = canvasHeight/numRows;
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < numRows; i++) {
       ctx.beginPath();
       ctx.lineWidth="3";
       ctx.strokeStyle="#F38630";
