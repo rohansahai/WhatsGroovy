@@ -18,38 +18,42 @@ window.startGame = function startGame(nickname){
     Canvas.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
   }, 10);
 
-  canvas.addEventListener('mousedown', function(evt) {
-    var mousePos = getMousePos(canvas, evt);
-    var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-    playAudio(mousePos.y);
-  }, false);
-
-  canvas.addEventListener('mouseup', function(evt) {
-    stopAudio();
-    currentAudioRow = 0;
-  }, false);
-
-  canvas.addEventListener('mousemove', function(evt) {
-    var mousePos = getMousePos(canvas, evt);
-    var row = getRow(mousePos.y);
-    if (currentAudioRow !== 0 && row !== currentAudioRow){
-      stopAudio(true);
-      playAudio(mousePos.y)
-    }
-
-    var canvasWidth = $('#music').width();
-    var canvasHeight = $('#music').height();
-    chatApp.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
-    $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
-
-    cursors[nickname].pos[0] = evt.offsetX;
-    cursors[nickname].pos[1] = evt.offsetY;
-
-  }, false);
+  setUpMouseEvents();
 
   var instrumentNames = ['triangleWah', 'vibraphone', 'pluckedSynth',
                      'wildSynth', 'organSynth'];
   setUpButtonEvents(instrumentNames);
+
+  function setUpMouseEvents(){
+    canvas.addEventListener('mousedown', function(evt) {
+      var mousePos = getMousePos(canvas, evt);
+      var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+      playAudio(mousePos.y);
+    }, false);
+
+    canvas.addEventListener('mouseup', function(evt) {
+      stopAudio();
+      currentAudioRow = 0;
+    }, false);
+
+    canvas.addEventListener('mousemove', function(evt) {
+      var mousePos = getMousePos(canvas, evt);
+      var row = getRow(mousePos.y);
+      if (currentAudioRow !== 0 && row !== currentAudioRow){
+        stopAudio(true);
+        playAudio(mousePos.y)
+      }
+
+      var canvasWidth = $('#music').width();
+      var canvasHeight = $('#music').height();
+      chatApp.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
+      $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
+
+      cursors[nickname].pos[0] = evt.offsetX;
+      cursors[nickname].pos[1] = evt.offsetY;
+
+    }, false);
+  }
 
   function setUpButtonEvents(instruments){
     for (var i = 0; i < instruments.length; i++) {
