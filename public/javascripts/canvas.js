@@ -3,8 +3,17 @@
 
   var CanvasCursor = Canvas.CanvasCursor =  function(nickname) {
     this.nickname = nickname;
+		this.instrument;
     this.pos = [0, 0];	
   }
+	
+  var instrumentColors = {
+    'wildSynth': "#69D2E7",
+    'organSynth': "#F38630",
+    'triangleWah': "#E0E4CC",
+    'vibraphone': "#FA6900",
+    'pluckedSynth': "#A7DBD8"
+  };
 	
 	var backgroundImage = new Image();
   backgroundImage.src = 'images/hangingBlackOrange.jpg';
@@ -12,13 +21,13 @@
   CanvasCursor.prototype.drawCursor = function(ctx, clicked){
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
-    ctx.lineWidth="1";
-    ctx.strokeStyle="black";
+    ctx.lineWidth="2";
+    ctx.strokeStyle="blue";
     if (clicked){
       ctx.fillStyle = "red";
       ctx.fill();
     } else {
-      ctx.fillStyle = "blue";
+      ctx.fillStyle = instrumentColors[this.instrument];
       ctx.fill();
     }
 

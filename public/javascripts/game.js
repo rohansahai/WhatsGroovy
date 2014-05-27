@@ -26,6 +26,7 @@ window.startGame = function startGame(nickname){
 
   function setUpMouseEvents(){
     canvas.addEventListener('mousedown', function(evt) {
+			evt.preventDefault();
       var mousePos = getMousePos(canvas, evt);
       var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
       playAudio(mousePos.y);
@@ -53,12 +54,17 @@ window.startGame = function startGame(nickname){
       cursors[nickname].pos[1] = evt.offsetY;
 
     }, false);
+		
+		canvas.addEventListener('dblclick', function(evt){ 
+			evt.preventDefault();
+		});
   }
 
   function setUpButtonEvents(instruments){
     for (var i = 0; i < instruments.length; i++) {
       (function(i){
         $('#' + instruments[i] + '-button').click(function(event){
+					
           var $target = $(event.currentTarget);
           if (audioApp.currentInstrument === instruments[i]){
             audioApp.currentInstrument = '';
@@ -67,6 +73,9 @@ window.startGame = function startGame(nickname){
             audioApp.currentInstrument = instruments[i];
             $target.addClass("active");
           }
+					
+					cursors[nickname].instrument = audioApp.currentInstrument;
+					
         })
       })(i);
     }

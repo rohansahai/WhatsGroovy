@@ -48,6 +48,7 @@ $(function(){
     };
 
     AudioApp.prototype.playCurrentInstrument = function(row, instrument, user) {
+			cursors[user].instrument = instrument;
       this.instrumentObjects[instrument][user] = this.checkInstrument(
         this.instrumentObjects[instrument][user], instrument, user, row);
     }
