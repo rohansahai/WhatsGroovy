@@ -41,18 +41,18 @@ KickDrum.playSound = function(ctx, analyser) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
   var timeToPlay = (Math.floor(now) + 1);
-  var gainNode = ctx.createGainNode();
+  var gainNode = ctx.createGain();
   var source = ctx.createBufferSource();
 
   source.buffer = kickDrumAudioBuffer[1];
   source.loop = false;
 
-  //gainNode.gain.setTargetValueAtTime(0.5, timeToPlay, 0.01);
-  gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + 3.9, 0.1);
+  //gainNode.gain.setTargetAtTime(0.5, timeToPlay, 0.01);
+  gainNode.gain.setTargetAtTime(0.0, timeToPlay + 3.9, 0.1);
 
   source.connect(gainNode);
   gainNode.connect(analyser);
   analyser.connect(ctx.destination);
 
-  source.noteOn(timeToPlay);
+  source.start(timeToPlay);
 }

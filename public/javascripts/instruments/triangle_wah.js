@@ -6,7 +6,7 @@ var TriangleWah = window.TriangleWah = function(ctx, analyser) {
 
   this.oscillator = this.ctx.createOscillator();
 
-  this.gainNode = this.ctx.createGainNode();
+  this.gainNode = this.ctx.createGain();
   this.oscillator.type = 'triangle';
 
   this.oscillator.start(0);
@@ -67,9 +67,9 @@ TriangleWah.prototype.playSound = function(row) {
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = freq;
 
-  this.gainNode.gain.setTargetValueAtTime(1, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
 
-  this.gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + .05, 0.05);
+  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .05, 0.05);
 
 };
 
@@ -77,7 +77,7 @@ TriangleWah.prototype.playSound = function(row) {
 // Stop the audio.
 TriangleWah.prototype.stopSound = function() {
   var now = this.ctx.currentTime;
-  this.gainNode.gain.setTargetValueAtTime(0.0, now, 0.3);
+  this.gainNode.gain.setTargetAtTime(0.0, now, 0.3);
 };
 
 // Update the note frequency.

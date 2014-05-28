@@ -56,19 +56,19 @@ BassSynth.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
-  this.gainNode = this.ctx.createGainNode();
+  this.gainNode = this.ctx.createGain();
   this.source = this.ctx.createBufferSource();
 
   //this.source.buffer = this.audioBuffer;
   this.source.buffer = bassSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetValueAtTime(1, timeToPlay, 0.01);
-  this.gainNode.gain.setTargetValueAtTime(0.0, timeToPlay + .5, 0.1);
+  this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .5, 0.1);
 
   this.source.connect(this.gainNode);;
   this.gainNode.connect(this.analyser);
   this.analyser.connect(this.ctx.destination);
 
-  this.source.noteOn(timeToPlay); // Play immediately.
+  this.source.start(timeToPlay); // Play immediately.
 }

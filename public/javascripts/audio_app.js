@@ -15,7 +15,7 @@ frequencies = {
 $(function(){
     var AudioApp = window.AudioApp = function() {
         this.initializeAudioHashes();
-        this.myAudioContext = new webkitAudioContext();
+        this.myAudioContext = new AudioContext();
 
         this.setUpVisualizer();
 
@@ -41,7 +41,7 @@ $(function(){
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://whatsgroovy.herokuapp.com";
+        hostUrl = "http://localhost:8080";
         this.preLoadFiles();
         this.clicked = {};
     };

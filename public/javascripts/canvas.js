@@ -46,7 +46,6 @@
 			var valueMin = 0;
 			
 			var radius = (((scaleMax - scaleMin)*(middle - valueMin))/(valueMax - valueMin)) + scaleMin;
-			console.log(radius);
 			if (radius < 15){ radius = 15 };
 			if (radius > 30){ radius = 30 };
 			ctx.arc(this.pos[0], this.pos[1], radius, 0, 2*Math.PI);
