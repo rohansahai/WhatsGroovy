@@ -1,5 +1,6 @@
 window.startGame = function startGame(nickname){
-  $('body').css('background-color', 'white')
+  $('body').css('background-color', 'white');
+	$('.modal-loading').modal('show');
   var canvas = document.getElementById("music");
 	//console.log($('.game-container').css('width'));
   canvas.width  = window.innerWidth - 150;
@@ -71,7 +72,7 @@ window.startGame = function startGame(nickname){
 		});
 		
 		$('#footer-logo').click(function(){
-			$('.modal').modal('show')
+			$('.modal-about').modal('show')
 		});
   }
 
