@@ -43,28 +43,28 @@
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
     ctx.lineWidth="2";
-    ctx.strokeStyle="blue";
+    ctx.strokeStyle=instrumentColors[this.instrument];
     if (clicked){
       ctx.fillStyle = "red";
       ctx.fill();
     } else {
-      ctx.fillStyle = instrumentColors[this.instrument];
+      ctx.fillStyle = 'transparent';
       ctx.fill();
     }
 
     ctx.stroke();
-
+		
     ctx.beginPath();
     ctx.font="15px Georgia";
+		ctx.fillStyle = "red";
     ctx.fillText(this.nickname, this.pos[0] + 15, this.pos[1]);
-    ctx.fillStyle = "red";
+    
     ctx.fill();
     ctx.stroke();
   };
 
   Canvas.draw = function(ctx, canvasWidth, canvasHeight){
     ctx.clearRect(0,0,canvasWidth,canvasHeight);
-		//ctx.drawImage(backgroundImage, 0, 0, canvasWidth, canvasHeight);
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,canvasWidth,canvasHeight);
 		Canvas.drawLogo(ctx, canvasWidth, canvasHeight);
