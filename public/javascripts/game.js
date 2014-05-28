@@ -21,6 +21,7 @@ window.startGame = function startGame(nickname){
   }, 10);
 
   setUpMouseEvents();
+	setButtonState();
 
   var instrumentNames = ['triangleWah', 'vibraphone', 'pluckedSynth',
                      'wildSynth', 'organSynth', 'bassSynth', 'harpChord'];
@@ -76,12 +77,10 @@ window.startGame = function startGame(nickname){
         $('#' + instruments[i] + '-button').click(function(event){
 					
           var $target = $(event.currentTarget);
-          if (audioApp.currentInstrument === instruments[i]){
-            audioApp.currentInstrument = '';
-            $target.removeClass("active");
-          } else {
+          if (!(audioApp.currentInstrument === instruments[i])){
+						$('#' + audioApp.currentInstrument + '-button').removeClass("selected-button");
             audioApp.currentInstrument = instruments[i];
-            $target.addClass("active");
+						setButtonState();
           }
 					
 					cursors[nickname].instrument = audioApp.currentInstrument;
@@ -117,4 +116,8 @@ window.startGame = function startGame(nickname){
     audioApp.stopCurrentInstrument(currentAudioRow, fromMove, nickname, audioApp.currentInstrument);
     chatApp.stopAudio(currentAudioRow, fromMove, audioApp.currentInstrument);
   }
+	
+	function setButtonState(){
+		$('#' + audioApp.currentInstrument + '-button').addClass("selected-button");
+	}
 }
