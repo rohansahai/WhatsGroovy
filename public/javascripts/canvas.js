@@ -18,6 +18,9 @@
 	
 	var backgroundImage = new Image();
   backgroundImage.src = 'images/hangingBlackOrange.jpg';
+	
+	var logoImage = new Image();
+	logoImage.src = 'images/logoWhite.png'
 
   CanvasCursor.prototype.drawCursor = function(ctx, clicked){
     ctx.beginPath();
@@ -44,11 +47,17 @@
 
   Canvas.draw = function(ctx, canvasWidth, canvasHeight){
     ctx.clearRect(0,0,canvasWidth,canvasHeight);
-		ctx.drawImage(backgroundImage, 0, 0, canvasWidth, canvasHeight);
-    //ctx.fillStyle = "#A7DBD8";
-    //ctx.fillRect(0,0,canvasWidth,canvasHeight);
+		//ctx.drawImage(backgroundImage, 0, 0, canvasWidth, canvasHeight);
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvasWidth,canvasHeight);
+		Canvas.drawLogo(ctx, canvasWidth, canvasHeight);
     Canvas.drawRows(ctx, canvasWidth, canvasHeight);
   }
+	
+	Canvas.drawLogo = function(ctx, canvasWidth, canvasHeight){
+		//image is 356 x 199
+		ctx.drawImage(logoImage, canvasWidth/2 -356/2, canvasHeight/2 - 199/2);
+	};
 
   Canvas.drawRows = function(ctx, canvasWidth, canvasHeight){
 		var numRows = 11;
@@ -57,7 +66,7 @@
     for (var i = 0; i < numRows; i++) {
       ctx.beginPath();
       ctx.lineWidth="3";
-      ctx.strokeStyle="#F38630";
+      ctx.strokeStyle="white";
       ctx.moveTo(0,i*rowHeight);
       ctx.lineTo(canvasWidth,i*rowHeight);
       ctx.stroke();
