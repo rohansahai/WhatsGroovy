@@ -48,7 +48,7 @@ $(function(){
 
     AudioApp.prototype.setUpVisualizer = function(){
       this.analyser = this.myAudioContext.createAnalyser();
-      this.analyser.fftSize = 64;
+      this.analyser.fftSize = 128;
       this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
     };
 
@@ -118,6 +118,6 @@ $(function(){
       WildSynth.loadAllFiles(this.myAudioContext);
 			BassSynth.loadAllFiles(this.myAudioContext);
 			HarpChord.loadAllFiles(this.myAudioContext);
-      this.playKick();
+      //this.playKick();
     }
 });

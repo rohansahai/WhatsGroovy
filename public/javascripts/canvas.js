@@ -6,14 +6,31 @@
 		this.instrument;
     this.pos = [0, 0];	
   }
-	//We are using #fbb735 #e98931 #eb403b #5c4399 #1f5ea8 #2ab0c5
+	//We are using #fbb735 #e98931 #eb403b #5c4399 #1f5ea8 #2ab0c5 #39c0b3
   var instrumentColors = {
     'wildSynth': "#fbb735",
     'organSynth': "#e98931",
     'triangleWah': "#eb403b",
     'vibraphone': "#5c4399",
     'pluckedSynth': "#1f5ea8",
-		'bassSynth': "#2ab0c5"
+		'bassSynth': "#2ab0c5",
+		'harpChord': "#39c0b3"
+  };
+	
+	/*#fbb735 #e98931 #eb403b #b32e37 #6c2a6a #5c4399
+	#274389 #1f5ea8 #227fb0 #2ab0c5 #39c0b3*/
+  var visualizerColors = {
+    0: "#fbb735",
+    1: "#e98931",
+		2: "#eb403b",
+		3: "#b32e37",
+		4: "#6c2a6a",
+    5: "#5c4399",
+		6: "#274389",
+    7: "#1f5ea8",
+		8: "#227fb0",
+		9: "#2ab0c5",
+		10: "#39c0b3"
   };
 	
 	var backgroundImage = new Image();
@@ -85,21 +102,24 @@
 
   Canvas.drawVisualizer = function(ctx, data, canvasWidth, canvasHeight){
     var rowWidth = canvasWidth/data.length;
-    for (var i = 0; i < data.length; i++) {
-      var height = data[i];
-			ctx.save();
+		var numColors = Object.keys(visualizerColors).length;
+    for (var i = 0; i < data.length/numColors; i++) {
+			for(var j = 0; j < numColors; j++){
+	      var height = data[j+i*numColors];
+				ctx.save();
 			
-      ctx.beginPath();
-      ctx.strokeStyle="blue";
-			ctx.shadowOffsetX = 5;
-			ctx.shadowOffsetY = 5;
-			ctx.shadowBlur = 10;
-			ctx.shadowColor = "blue";
-      ctx.rect(i*rowWidth, canvasHeight - height, rowWidth, height);
-      ctx.stroke();
-			ctx.closePath();
-			ctx.restore();
-    }
+	      ctx.beginPath();
+	      ctx.strokeStyle= visualizerColors[j];
+				ctx.shadowOffsetX = 5;
+				ctx.shadowOffsetY = 5;
+				ctx.shadowBlur = 10;
+				ctx.shadowColor = visualizerColors[j];
+	      ctx.rect((j+i*numColors)*rowWidth, canvasHeight - height, rowWidth, height);
+	      ctx.stroke();
+				ctx.closePath();
+				ctx.restore();
+			}
+		}
   };
 
 })(this);
