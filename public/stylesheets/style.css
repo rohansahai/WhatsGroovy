@@ -131,7 +131,11 @@ h1 {
 }
 
 /*#fbb735 #e98931 #eb403b #b32e37 #6c2a6a #5c4399
-#274389 #1f5ea8 #227fb0 #2ab0c5 #39c0b3*/
+#274389 #1f5ea8 #227fb0 #2ab0c5 #39c0b3
+
+We are using #fbb735 #e98931 #eb403b #5c4399 #1f5ea8 #2ab0c5
+
+*/
 #wildSynth-button {
   background-image: -webkit-linear-gradient(top, #fbb735, #fbb735); 	
 }
@@ -226,10 +230,5 @@ body {
 
 #footer-text{
 	position: relative;
-	top: 15px;
+	top: 5px;
 }
-
-/* drop down stack overdlow example */
-
-/*#dropdown { position:absolute; width:200px; display:none; }
-#dropdown li:hover { background:#ccc; cursor:pointer; }*/

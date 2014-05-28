@@ -1,12 +1,14 @@
 window.startGame = function startGame(nickname){
   $('body').css('background-color', 'white')
   var canvas = document.getElementById("music");
+	//console.log($('.game-container').css('width'));
   canvas.width  = window.innerWidth - 150;
   canvas.height = window.innerHeight - 170;
 
   cursors[nickname] = new Canvas.CanvasCursor(nickname);
 
   window.audioApp = new AudioApp();
+	audioApp.currentInstrument = 'organSynth'; //default to organ because why not
   var currentAudioRow = 0;
   var numRows = 11;
   var ctx = canvas.getContext("2d");
