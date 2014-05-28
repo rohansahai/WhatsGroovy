@@ -6,13 +6,14 @@
 		this.instrument;
     this.pos = [0, 0];	
   }
-	
+	//We are using #fbb735 #e98931 #eb403b #5c4399 #1f5ea8 #2ab0c5
   var instrumentColors = {
-    'wildSynth': "#69D2E7",
-    'organSynth': "#F38630",
-    'triangleWah': "#E0E4CC",
-    'vibraphone': "#FA6900",
-    'pluckedSynth': "#A7DBD8"
+    'wildSynth': "#fbb735",
+    'organSynth': "#e98931",
+    'triangleWah': "#eb403b",
+    'vibraphone': "#5c4399",
+    'pluckedSynth': "#1f5ea8",
+		'bassSynth': "#2ab0c5"
   };
 	
 	var backgroundImage = new Image();
