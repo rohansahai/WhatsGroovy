@@ -114,6 +114,6 @@ $(function(){
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
 			BassSynth.loadAllFiles(this.myAudioContext);
-      this.playKick();
+      //this.playKick();
     }
 });

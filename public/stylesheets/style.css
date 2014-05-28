@@ -58,6 +58,7 @@ canvas {
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
+		margin-top: 7px;
     display: block;
 		border: groove 3px;
 		border-color: #E0E4CC;
