@@ -41,7 +41,7 @@ $(function(){
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://localhost:8080";
+        hostUrl = window.location.origin;
         this.preLoadFiles();
         this.clicked = {};
     };
