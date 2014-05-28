@@ -55,8 +55,8 @@
     ctx.stroke();
 		
     ctx.beginPath();
-    ctx.font="15px Georgia";
-		ctx.fillStyle = "red";
+    ctx.font="15pt Arial";
+		ctx.fillStyle = "white";
     ctx.fillText(this.nickname, this.pos[0] + 15, this.pos[1]);
     
     ctx.fill();
