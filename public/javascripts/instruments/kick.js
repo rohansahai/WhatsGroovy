@@ -41,8 +41,8 @@ KickDrum.playSound = function(ctx, analyser) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
   var timeToPlay = (Math.floor(now) + 1);
-	console.log("time now: " + now);
-	console.log("time to play: " + timeToPlay);
+	// console.log("time now: " + now);
+// 	console.log("time to play: " + timeToPlay);
 	$('.modal-loading').modal('hide')
   var gainNode = ctx.createGain();
   var source = ctx.createBufferSource();

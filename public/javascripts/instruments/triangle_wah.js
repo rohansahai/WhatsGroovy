@@ -14,7 +14,7 @@ var TriangleWah = window.TriangleWah = function(ctx, analyser) {
 	
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = -.7;
+	var xPan = panning['TriangleWah'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
 };

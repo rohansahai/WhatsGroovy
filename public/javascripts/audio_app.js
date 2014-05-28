@@ -12,6 +12,16 @@ frequencies = {
 	1: 440
 }
 
+panning = {
+	'BassSynth': -.1,
+	'HarpChord': .7,
+	'OrganSynth': .5,
+	'PluckedSynth': -.7,
+	'TriangleWah': -.7,
+	'Vibraphone': .5,
+	'WildSynth': .1
+}
+
 $(function(){
     var AudioApp = window.AudioApp = function() {
         this.initializeAudioHashes();

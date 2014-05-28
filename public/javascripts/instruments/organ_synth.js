@@ -60,7 +60,7 @@ OrganSynth.prototype.playSound = function() {
   this.source = this.ctx.createBufferSource();
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = .5;
+	var xPan = panning['OrganSynth'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 	
 

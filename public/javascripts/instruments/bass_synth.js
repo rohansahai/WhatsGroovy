@@ -60,8 +60,9 @@ BassSynth.prototype.playSound = function() {
   this.source = this.ctx.createBufferSource();
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = -.1;
+	var xPan = panning['BassSynth'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
+	
 
   //this.source.buffer = this.audioBuffer;
   this.source.buffer = bassSynthAudioBuffer[this.frequency];

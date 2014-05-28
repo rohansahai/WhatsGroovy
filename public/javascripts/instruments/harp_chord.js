@@ -61,7 +61,7 @@ HarpChord.prototype.playSound = function() {
 	
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = .7;
+	var xPan = panning['HarpChord'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
   //this.source.buffer = this.audioBuffer;
