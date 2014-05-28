@@ -11,6 +11,11 @@ var TriangleWah = window.TriangleWah = function(ctx, analyser) {
 
   this.oscillator.start(0);
   this.gainNode.gain.value = 0;
+	
+	this.panner = this.ctx.createPanner();
+	this.panner.panningModel = 'equalpower';
+	var xPan = -.7;
+	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
 };
 
@@ -58,9 +63,12 @@ TriangleWah.prototype.playSound = function(row) {
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
   var freq = this.frequency || frequencies[row];
+	
+	
 
   this.oscillator.connect(this.tunaWahWah.input);
-  this.tunaWahWah.connect(this.gainNode);
+  this.tunaWahWah.connect(this.panner);
+	this.panner.connect(this.gainNode);
   this.gainNode.connect(this.analyser);
   this.analyser.connect(this.ctx.destination);
 

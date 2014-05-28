@@ -58,6 +58,11 @@ WildSynth.prototype.playSound = function() {
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
   this.gainNode = this.ctx.createGain();
   this.source = this.ctx.createBufferSource();
+	
+	this.panner = this.ctx.createPanner();
+	this.panner.panningModel = 'equalpower';
+	var xPan = .1;
+	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
   //this.source.buffer = this.audioBuffer;
   this.source.buffer = wildSynthAudioBuffer[this.frequency];
@@ -66,7 +71,8 @@ WildSynth.prototype.playSound = function() {
   this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
-  this.source.connect(this.gainNode);
+  this.source.connect(this.panner);
+	this.panner.connect(this.gainNode);
   //this.feedbackGainNode.connect(this.delayNode);
   this.gainNode.connect(this.analyser);
   this.analyser.connect(this.ctx.destination);
