@@ -23,7 +23,7 @@ window.startGame = function startGame(nickname){
   setUpMouseEvents();
 
   var instrumentNames = ['triangleWah', 'vibraphone', 'pluckedSynth',
-                     'wildSynth', 'organSynth', 'bassSynth'];
+                     'wildSynth', 'organSynth', 'bassSynth', 'harpChord'];
   setUpButtonEvents(instrumentNames);
 
   function setUpMouseEvents(){

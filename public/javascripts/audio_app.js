@@ -25,7 +25,8 @@ $(function(){
           'vibraphone': Vibraphone,
           'pluckedSynth': PluckedSynth,
           'triangleWah': TriangleWah,
-					'bassSynth': BassSynth
+					'bassSynth': BassSynth,
+					'harpChord': HarpChord
         }
 
         this.instrumentObjects = {
@@ -34,12 +35,13 @@ $(function(){
           'vibraphone': this.vibraphones,
           'pluckedSynth': this.pluckedSynths,
           'triangleWah': this.triangleWahs,
-					'bassSynth': this.bassSynths
+					'bassSynth': this.bassSynths,
+					'harpChord': this.harpChords
         }
 
         //http://localhost:8080 local hosting!
         //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = "http://whatsgroovy.herokuapp.com";
+        hostUrl = "http://localhost:8080";
         this.preLoadFiles();
         this.clicked = {};
     };
@@ -105,6 +107,7 @@ $(function(){
       this.pluckedSynths = {};
       this.wildSynths = {};
 			this.bassSynths = {};
+			this.harpChords = {};
       this.intervals = {};
     };
 
@@ -114,6 +117,7 @@ $(function(){
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
 			BassSynth.loadAllFiles(this.myAudioContext);
+			HarpChord.loadAllFiles(this.myAudioContext);
       this.playKick();
     }
 });
