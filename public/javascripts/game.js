@@ -57,6 +57,14 @@ window.startGame = function startGame(nickname){
 
     }, false);
 		
+		canvas.addEventListener('mouseleave', function(){
+			clearInterval(audioApp.intervals[nickname]);
+			audioApp.clicked[nickname] = false;
+			currentAudioRow = 0;
+			audioApp.instrumentObjects[audioApp.currentInstrument][nickname].playing = false;
+			// get rids of bug where music continues to play when mouse leaves
+		});
+		
 		canvas.addEventListener('dblclick', function(evt){ 
 			evt.preventDefault();
 		});
