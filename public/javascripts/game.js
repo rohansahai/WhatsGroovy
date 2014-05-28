@@ -16,7 +16,7 @@ window.startGame = function startGame(nickname){
   setInterval(function(){
     audioApp.updateAnalyser();
     Canvas.draw(ctx, canvas.width, canvas.height);
-    Canvas.drawCursors(ctx, audioApp.clicked);
+    Canvas.drawCursors(ctx, audioApp.clicked, audioApp.frequencyData);
     Canvas.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
   }, 10);
 
@@ -68,6 +68,10 @@ window.startGame = function startGame(nickname){
 		
 		canvas.addEventListener('dblclick', function(evt){ 
 			evt.preventDefault();
+		});
+		
+		$('#footer-logo').click(function(){
+			$('.modal').modal('show')
 		});
   }
 

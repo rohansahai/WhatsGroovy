@@ -33,15 +33,26 @@
 		10: "#39c0b3"
   };
 	
-	var backgroundImage = new Image();
-  backgroundImage.src = 'images/hangingBlackOrange.jpg';
-	
 	var logoImage = new Image();
 	logoImage.src = 'images/logoWhite.png'
 
-  CanvasCursor.prototype.drawCursor = function(ctx, clicked){
+  CanvasCursor.prototype.drawCursor = function(ctx, clicked, data){
     ctx.beginPath();
-    ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
+		if (data){
+			var middle = data[Math.floor(data.length/2)];
+			var scaleMax = 30;
+			var scaleMin = 15;
+			var valueMax = 200;
+			var valueMin = 0;
+			
+			var radius = (((scaleMax - scaleMin)*(middle - valueMin))/(valueMax - valueMin)) + scaleMin;
+			console.log(radius);
+			if (radius < 15){ radius = 15 };
+			if (radius > 30){ radius = 30 };
+			ctx.arc(this.pos[0], this.pos[1], radius, 0, 2*Math.PI);
+		} else {
+			ctx.arc(this.pos[0], this.pos[1], 15, 0, 2*Math.PI);
+		}
     ctx.lineWidth="2";
     ctx.strokeStyle=instrumentColors[this.instrument];
     if (clicked){
@@ -90,10 +101,10 @@
     }
   };
 
-  Canvas.drawCursors = function(ctx, clickedObj){
+  Canvas.drawCursors = function(ctx, clickedObj, data){
     for (var key in cursors){
       if (clickedObj[key] === true){
-        cursors[key].drawCursor(ctx, true);
+        cursors[key].drawCursor(ctx, true, data);
       } else{
         cursors[key].drawCursor(ctx);
       }

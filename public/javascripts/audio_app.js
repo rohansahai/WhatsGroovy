@@ -118,6 +118,6 @@ $(function(){
       WildSynth.loadAllFiles(this.myAudioContext);
 			BassSynth.loadAllFiles(this.myAudioContext);
 			HarpChord.loadAllFiles(this.myAudioContext);
-      //this.playKick();
+      this.playKick();
     }
 });
