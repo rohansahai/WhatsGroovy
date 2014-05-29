@@ -43,10 +43,12 @@
 		});
 
     var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
-    socket.on('renderHomePage', function(nickname){
+    socket.on('renderHomePage', function(data){
 			$('body').css('background-image', 'none');
       $('body').html(gameHtml);
-      startGame(nickname);
+			chatApp.room = data.room;
+			console.log(data.nickname);
+      startGame(data.nickname);
     });
 
     socket.on('renderError', function(data){
