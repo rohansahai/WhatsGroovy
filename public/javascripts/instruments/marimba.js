@@ -1,58 +1,58 @@
-var steelDrumFiles = {
-	1: '/audios/steel-drums/a5.mp3',
-  2: '/audios/steel-drums/g4.mp3',
-  3: '/audios/steel-drums/e4.mp3',
-  4: '/audios/steel-drums/d4.mp3',
-  5: '/audios/steel-drums/c4.mp3',
-  6: '/audios/steel-drums/a4.mp3',
-  7: '/audios/steel-drums/g3.mp3',
-  8: '/audios/steel-drums/e3.mp3',
-  9: '/audios/steel-drums/d3.mp3',
-  10: '/audios/steel-drums/c3.mp3',
-  11: '/audios/steel-drums/a3.mp3'
+var marimbaFiles = {
+	1: '/audios/marimba/a5.mp3',
+  2: '/audios/marimba/g4.mp3',
+  3: '/audios/marimba/e4.mp3',
+  4: '/audios/marimba/d4.mp3',
+  5: '/audios/marimba/c4.mp3',
+  6: '/audios/marimba/a4.mp3',
+  7: '/audios/marimba/g3.mp3',
+  8: '/audios/marimba/e3.mp3',
+  9: '/audios/marimba/d3.mp3',
+  10: '/audios/marimba/c3.mp3',
+  11: '/audios/marimba/a3.mp3'
 }
 
-steelDrumAudioBuffer = {};
+marimbaAudioBuffer = {};
 
-var SteelDrum = window.SteelDrum = function(ctx, analyser) {
+var Marimba = window.Marimba = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
   this.source = null;
   this.analyser = analyser;
 };
 
-SteelDrum.loadAllFiles = function(ctx){
-  for (var key in steelDrumFiles) {
-    SteelDrum.loadSoundFile(steelDrumFiles[key], key, ctx);
+Marimba.loadAllFiles = function(ctx){
+  for (var key in marimbaFiles) {
+    Marimba.loadSoundFile(marimbaFiles[key], key, ctx);
   }
 }
 
-SteelDrum.loadSoundFile = function(url, freq, ctx) {
+Marimba.loadSoundFile = function(url, freq, ctx) {
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
   //http://whatsgroovy.herokuapp.com  heroku hosting!
   xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
-    SteelDrum.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
+    Marimba.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
   };
   xhr.send();
 }
 
 
-SteelDrum.initSound = function(arrayBuffer, freq, ctx) {
+Marimba.initSound = function(arrayBuffer, freq, ctx) {
   ctx.decodeAudioData(arrayBuffer, function(buffer) {
-    steelDrumAudioBuffer[freq] = buffer;
+    marimbaAudioBuffer[freq] = buffer;
   }, function(e) {
     console.log('Error decoding file', e);
   });
 }
 
-SteelDrum.prototype.updateFrequency = function(row) {
+Marimba.prototype.updateFrequency = function(row) {
   this.frequency = row;
 }
 
-SteelDrum.prototype.playSound = function() {
+Marimba.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
@@ -61,14 +61,14 @@ SteelDrum.prototype.playSound = function() {
 	
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = panning['SteelDrum'];
+	var xPan = panning['Marimba'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
   //this.source.buffer = this.audioBuffer;
-  this.source.buffer = steelDrumAudioBuffer[this.frequency];
+  this.source.buffer = marimbaAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(instrumentGains['SteelDrum'], timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['Marimba'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + 1, 0.1);
 
   this.source.connect(this.panner);
