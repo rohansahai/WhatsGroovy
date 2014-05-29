@@ -23,14 +23,14 @@ panning = {
 }
 
 instrumentGains = {
-	'BassSynth': 1,
-	'HarpChord': 1.5,
-	'OrganSynth': 2,
-	'PluckedSynth': 3,
+	'BassSynth': .4,
+	'HarpChord': .8,
+	'OrganSynth': 1,
+	'PluckedSynth': 2,
 	'TriangleWah': 1,
 	'Vibraphone': 1,
-	'WildSynth': 1,
-	'Drums': 1
+	'WildSynth': .5,
+	'Drums': .5
 }
 
 $(function(){
