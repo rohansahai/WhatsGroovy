@@ -42,7 +42,7 @@ $(function(){
         this.instrumentTempos = {
           'wildSynth': 125,
           'organSynth': 125,
-          'vibraphone': 1000,
+          'vibraphone': 250,
           'pluckedSynth': 125,
           'triangleWah': 125,
 					'bassSynth': 125,
