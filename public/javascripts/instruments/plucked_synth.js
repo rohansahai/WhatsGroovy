@@ -68,7 +68,7 @@ PluckedSynth.prototype.playSound = function() {
   this.source.buffer = pluckedSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(3, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['PluckedSynth'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .5, 0.1);
 
   this.source.connect(this.panner);

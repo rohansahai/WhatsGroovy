@@ -68,7 +68,7 @@ BassSynth.prototype.playSound = function() {
   this.source.buffer = bassSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['BassSynth'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .5, 0.1);
 
   this.source.connect(this.panner);

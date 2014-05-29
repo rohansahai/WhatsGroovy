@@ -75,7 +75,7 @@ TriangleWah.prototype.playSound = function(row) {
   var now = this.ctx.currentTime;
   this.oscillator.frequency.value = freq;
 
-  this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['TriangleWah'], timeToPlay, 0.01);
 
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .05, 0.05);
 

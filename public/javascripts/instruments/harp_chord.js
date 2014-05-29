@@ -68,7 +68,7 @@ HarpChord.prototype.playSound = function() {
   this.source.buffer = harpChordAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(1.5, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['HarpChord'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .5, 0.1);
 
   this.source.connect(this.panner);

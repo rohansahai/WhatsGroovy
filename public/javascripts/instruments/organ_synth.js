@@ -68,7 +68,7 @@ OrganSynth.prototype.playSound = function() {
   this.source.buffer = organSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(2, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['OrganSynth'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
   this.source.connect(this.gainNode);

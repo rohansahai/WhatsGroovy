@@ -50,7 +50,7 @@ KickDrum.playSound = function(ctx, analyser) {
   source.buffer = kickDrumAudioBuffer[1];
   source.loop = false;
 
-  //gainNode.gain.setTargetAtTime(0.5, timeToPlay, 0.01);
+  gainNode.gain.setTargetAtTime(0.5, timeToPlay, 0.01);
   gainNode.gain.setTargetAtTime(0.0, timeToPlay + 3.9, 0.1);
 
   source.connect(gainNode);

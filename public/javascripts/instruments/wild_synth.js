@@ -68,7 +68,7 @@ WildSynth.prototype.playSound = function() {
   this.source.buffer = wildSynthAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['WildSynth'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
   this.source.connect(this.panner);
