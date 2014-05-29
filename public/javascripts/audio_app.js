@@ -18,7 +18,7 @@ panning = {
 	'OrganSynth': .3,
 	'PluckedSynth': -.7,
 	'TriangleWah': -.5,
-	'Vibraphone': .5,
+	'Vibraphone': .55,
 	'WildSynth': .1
 }
 
@@ -28,7 +28,7 @@ instrumentGains = {
 	'OrganSynth': 1,
 	'PluckedSynth': 2,
 	'TriangleWah': 1,
-	'Vibraphone': 1,
+	'Vibraphone': .3,
 	'WildSynth': .5,
 	'Drums': .5
 }
