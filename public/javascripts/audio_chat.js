@@ -1,10 +1,10 @@
 (function(root){
-  var ChatApp = root.ChatApp = (root.ChatApp || {});
-  var Chat = ChatApp.Chat = function(socket){
+  var AudioApp = root.AudioApp = (root.AudioApp || {});
+  var AudioChat = AudioApp.AudioChat = function(socket){
   	this.socket = socket;
   }
 
-  Chat.prototype.enterRoom = function(room, nickname){
+  AudioChat.prototype.enterRoom = function(room, nickname){
     //this.room = room; handling this on server side because of auto assigned rooms
     this.socket.emit('enterRoomRequest', {
       room: room,
@@ -12,7 +12,7 @@
     });
   }
 
-  Chat.prototype.sendAudio = function(row, instrument){
+  AudioChat.prototype.sendAudio = function(row, instrument){
     this.socket.emit('playAudioRequest', {
       row: row,
       instrument: instrument,
@@ -20,7 +20,7 @@
     });
   }
 
-  Chat.prototype.stopAudio = function(row, fromMove, instrument){
+  AudioChat.prototype.stopAudio = function(row, fromMove, instrument){
     this.socket.emit('stopAudioRequest', {
       row: row,
       fromMove: fromMove,
@@ -29,7 +29,7 @@
     });
   }
 
-  Chat.prototype.sendMouseCoords = function(mouseX, mouseY){
+  AudioChat.prototype.sendMouseCoords = function(mouseX, mouseY){
     this.socket.emit('moveCursorRequest', {
       mouseX: mouseX,
       mouseY: mouseY,

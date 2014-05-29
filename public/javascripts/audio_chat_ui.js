@@ -1,5 +1,5 @@
 (function(root){
-  var ChatApp = root.ChatApp = (root.ChatApp || {});
+  var AudioApp = root.AudioApp = (root.AudioApp || {});
   var socket = io.connect();
 
   window.cursors = {};
@@ -18,7 +18,7 @@
   }
 
   $(document).ready(function() {
-  	window.chatApp = new ChatApp.Chat(socket);
+  	//window.audioChat = new AudioApp.AudioChat(socket);
 
     socket.on('playAudioSend', function(data){
       audioApp.playCurrentInstrument(data.row, data.instrument, data.nickname);

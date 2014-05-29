@@ -1,11 +1,11 @@
 (function(root){
 
 
-  var ChatApp = root.ChatApp = (root.ChatApp || {});
+  var AudioApp = root.AudioApp = (root.AudioApp || {});
   var socket = io.connect();
 
   $(function(){
-    window.chatApp = new ChatApp.Chat(socket);
+    window.audioChat = new AudioApp.AudioChat(socket);
 
     socket.on('showCurrentRooms', function(rooms) {
       $('.room-choices').html("\
@@ -34,7 +34,7 @@
       event.preventDefault();
       var room = $('#room-name').val();
       var nickname = $('#nickname').val();
-      chatApp.enterRoom(room, nickname);
+      audioChat.enterRoom(room, nickname);
     })
 		
 		$('#room-list-modal').click(function(){
@@ -46,7 +46,7 @@
 			$('body').css('background-image', 'none');
 			$('body').css('overflow', 'hidden');
       $('body').html(gameHtml);
-			chatApp.room = data.room;
+			audioChat.room = data.room;
       startGame(data.nickname);
     });
 
