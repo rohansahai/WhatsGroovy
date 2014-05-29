@@ -27,8 +27,8 @@ instrumentGains = {
 	'HarpChord': .8,
 	'OrganSynth': 1,
 	'PluckedSynth': 2,
-	'TriangleWah': 1,
-	'SteelDrum': .3,
+	'TriangleWah': 1.3,
+	'SteelDrum': 1,
 	'WildSynth': .5,
 	'Drums': .5
 }
@@ -53,7 +53,7 @@ $(function(){
         this.instrumentTempos = {
           'wildSynth': 125,
           'organSynth': 125,
-          'steelDrum': 250,
+          'steelDrum': 125,
           'pluckedSynth': 125,
           'triangleWah': 125,
 					'bassSynth': 125,
