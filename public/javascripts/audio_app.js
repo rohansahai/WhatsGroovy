@@ -53,7 +53,7 @@ $(function(){
         this.instrumentTempos = {
           'wildSynth': 125,
           'organSynth': 125,
-          'steelDrum': 125,
+          'steelDrum': 250,
           'pluckedSynth': 125,
           'triangleWah': 125,
 					'bassSynth': 125,

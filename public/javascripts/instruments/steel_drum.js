@@ -1,15 +1,15 @@
 var steelDrumFiles = {
-	1: '/audios/steel-drums/a5.wav',
-  2: '/audios/steel-drums/g4.wav',
-  3: '/audios/steel-drums/e4.wav',
-  4: '/audios/steel-drums/d4.wav',
-  5: '/audios/steel-drums/c4.wav',
-  6: '/audios/steel-drums/a4.wav',
-  7: '/audios/steel-drums/g3.wav',
-  8: '/audios/steel-drums/e3.wav',
-  9: '/audios/steel-drums/d3.wav',
-  10: '/audios/steel-drums/c3.wav',
-  11: '/audios/steel-drums/a3.wav'
+	1: '/audios/steel-drums/a5.mp3',
+  2: '/audios/steel-drums/g4.mp3',
+  3: '/audios/steel-drums/e4.mp3',
+  4: '/audios/steel-drums/d4.mp3',
+  5: '/audios/steel-drums/c4.mp3',
+  6: '/audios/steel-drums/a4.mp3',
+  7: '/audios/steel-drums/g3.mp3',
+  8: '/audios/steel-drums/e3.mp3',
+  9: '/audios/steel-drums/d3.mp3',
+  10: '/audios/steel-drums/c3.mp3',
+  11: '/audios/steel-drums/a3.mp3'
 }
 
 steelDrumAudioBuffer = {};
@@ -69,7 +69,7 @@ SteelDrum.prototype.playSound = function() {
   this.source.loop = false;
 
   this.gainNode.gain.setTargetAtTime(instrumentGains['SteelDrum'], timeToPlay, 0.01);
-  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
+  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + 1, 0.1);
 
   this.source.connect(this.panner);
 	this.panner.connect(this.gainNode);

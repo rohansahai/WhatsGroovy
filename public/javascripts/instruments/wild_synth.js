@@ -1,15 +1,15 @@
 var wildSynthFiles = {
-  1: '/audios/wild-synth/a5.wav',
-  2: '/audios/wild-synth/g4.wav',
-  3: '/audios/wild-synth/e4.wav',
-  4: '/audios/wild-synth/d4.wav',
-  5: '/audios/wild-synth/c4.wav',
-  6: '/audios/wild-synth/a4.wav',
-  7: '/audios/wild-synth/g3.wav',
-  8: '/audios/wild-synth/e3.wav',
-  9: '/audios/wild-synth/d3.wav',
-  10: '/audios/wild-synth/c3.wav',
-  11: '/audios/wild-synth/a3.wav'
+  1: '/audios/wild-synth/a5.mp3',
+  2: '/audios/wild-synth/g4.mp3',
+  3: '/audios/wild-synth/e4.mp3',
+  4: '/audios/wild-synth/d4.mp3',
+  5: '/audios/wild-synth/c4.mp3',
+  6: '/audios/wild-synth/a4.mp3',
+  7: '/audios/wild-synth/g3.mp3',
+  8: '/audios/wild-synth/e3.mp3',
+  9: '/audios/wild-synth/d3.mp3',
+  10: '/audios/wild-synth/c3.mp3',
+  11: '/audios/wild-synth/a3.mp3'
 }
 
 wildSynthAudioBuffer = {};

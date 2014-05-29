@@ -47,7 +47,6 @@
 			$('body').css('background-image', 'none');
       $('body').html(gameHtml);
 			chatApp.room = data.room;
-			console.log(data.nickname);
       startGame(data.nickname);
     });
 

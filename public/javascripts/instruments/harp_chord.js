@@ -1,15 +1,15 @@
 var harpChordFiles = {
-	1: '/audios/harp-chord/a5.wav',
-  2: '/audios/harp-chord/g4.wav',
-  3: '/audios/harp-chord/e4.wav',
-  4: '/audios/harp-chord/d4.wav',
-  5: '/audios/harp-chord/c4.wav',
-  6: '/audios/harp-chord/a4.wav',
-  7: '/audios/harp-chord/g3.wav',
-  8: '/audios/harp-chord/e3.wav',
-  9: '/audios/harp-chord/d3.wav',
-  10: '/audios/harp-chord/c3.wav',
-  11: '/audios/harp-chord/a3.wav'
+	1: '/audios/harp-chord/a5.mp3',
+  2: '/audios/harp-chord/g4.mp3',
+  3: '/audios/harp-chord/e4.mp3',
+  4: '/audios/harp-chord/d4.mp3',
+  5: '/audios/harp-chord/c4.mp3',
+  6: '/audios/harp-chord/a4.mp3',
+  7: '/audios/harp-chord/g3.mp3',
+  8: '/audios/harp-chord/e3.mp3',
+  9: '/audios/harp-chord/d3.mp3',
+  10: '/audios/harp-chord/c3.mp3',
+  11: '/audios/harp-chord/a3.mp3'
 }
 
 harpChordAudioBuffer = {};

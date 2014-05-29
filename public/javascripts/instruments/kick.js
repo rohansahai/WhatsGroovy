@@ -1,5 +1,5 @@
 var kickDrumFiles = {
-  1: '/audios/drums/simplerBeat.wav',
+  1: '/audios/drums/simplerBeat.mp3',
 }
 
 kickDrumAudioBuffer = {};
