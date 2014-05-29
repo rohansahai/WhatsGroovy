@@ -9,7 +9,7 @@
 
     socket.on('showCurrentRooms', function(rooms) {
       $('.room-choices').html("\
-			<option value='' selected disabled>Choose A Room!</option>\
+			<option value='' selected disabled>Choose A Room! (optional)</option>\
 		  <option id='new-room'>Create A New Room</option>\
 			");
 
