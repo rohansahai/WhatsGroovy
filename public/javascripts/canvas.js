@@ -11,7 +11,7 @@
     'wildSynth': "#fbb735",
     'organSynth': "#e98931",
     'triangleWah': "#eb403b",
-    'brass': "#5c4399",
+    'steelDrum': "#5c4399",
     'pluckedSynth': "#1f5ea8",
 		'bassSynth': "#2ab0c5",
 		'harpChord': "#39c0b3"

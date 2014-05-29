@@ -1,58 +1,58 @@
-var brassFiles = {
-	1: '/audios/brass/a5.wav',
-  2: '/audios/brass/g4.wav',
-  3: '/audios/brass/e4.wav',
-  4: '/audios/brass/d4.wav',
-  5: '/audios/brass/c4.wav',
-  6: '/audios/brass/a4.wav',
-  7: '/audios/brass/g3.wav',
-  8: '/audios/brass/e3.wav',
-  9: '/audios/brass/d3.wav',
-  10: '/audios/brass/c3.wav',
-  11: '/audios/brass/a3.wav'
+var steelDrumFiles = {
+	1: '/audios/steel-drums/a5.wav',
+  2: '/audios/steel-drums/g4.wav',
+  3: '/audios/steel-drums/e4.wav',
+  4: '/audios/steel-drums/d4.wav',
+  5: '/audios/steel-drums/c4.wav',
+  6: '/audios/steel-drums/a4.wav',
+  7: '/audios/steel-drums/g3.wav',
+  8: '/audios/steel-drums/e3.wav',
+  9: '/audios/steel-drums/d3.wav',
+  10: '/audios/steel-drums/c3.wav',
+  11: '/audios/steel-drums/a3.wav'
 }
 
-brassAudioBuffer = {};
+steelDrumAudioBuffer = {};
 
-var Brass = window.Brass = function(ctx, analyser) {
+var SteelDrum = window.SteelDrum = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
   this.source = null;
   this.analyser = analyser;
 };
 
-Brass.loadAllFiles = function(ctx){
-  for (var key in brassFiles) {
-    Brass.loadSoundFile(brassFiles[key], key, ctx);
+SteelDrum.loadAllFiles = function(ctx){
+  for (var key in steelDrumFiles) {
+    SteelDrum.loadSoundFile(steelDrumFiles[key], key, ctx);
   }
 }
 
-Brass.loadSoundFile = function(url, freq, ctx) {
+SteelDrum.loadSoundFile = function(url, freq, ctx) {
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
   //http://whatsgroovy.herokuapp.com  heroku hosting!
   xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
-    Brass.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
+    SteelDrum.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
   };
   xhr.send();
 }
 
 
-Brass.initSound = function(arrayBuffer, freq, ctx) {
+SteelDrum.initSound = function(arrayBuffer, freq, ctx) {
   ctx.decodeAudioData(arrayBuffer, function(buffer) {
-    brassAudioBuffer[freq] = buffer;
+    steelDrumAudioBuffer[freq] = buffer;
   }, function(e) {
     console.log('Error decoding file', e);
   });
 }
 
-Brass.prototype.updateFrequency = function(row) {
+SteelDrum.prototype.updateFrequency = function(row) {
   this.frequency = row;
 }
 
-Brass.prototype.playSound = function() {
+SteelDrum.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
@@ -61,14 +61,14 @@ Brass.prototype.playSound = function() {
 	
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = panning['Brass'];
+	var xPan = panning['SteelDrum'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
   //this.source.buffer = this.audioBuffer;
-  this.source.buffer = brassAudioBuffer[this.frequency];
+  this.source.buffer = steelDrumAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(instrumentGains['Brass'], timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['SteelDrum'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
   this.source.connect(this.panner);

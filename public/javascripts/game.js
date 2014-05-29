@@ -24,7 +24,7 @@ window.startGame = function startGame(nickname){
   setUpMouseEvents();
 	setButtonState();
 
-  var instrumentNames = ['triangleWah', 'brass', 'pluckedSynth',
+  var instrumentNames = ['triangleWah', 'steelDrum', 'pluckedSynth',
                      'wildSynth', 'organSynth', 'bassSynth', 'harpChord'];
   setUpButtonEvents(instrumentNames);
 

@@ -18,7 +18,7 @@ panning = {
 	'OrganSynth': .3,
 	'PluckedSynth': -.7,
 	'TriangleWah': -.5,
-	'Brass': .55,
+	'SteelDrum': .55,
 	'WildSynth': .1
 }
 
@@ -28,7 +28,7 @@ instrumentGains = {
 	'OrganSynth': 1,
 	'PluckedSynth': 2,
 	'TriangleWah': 1,
-	'Brass': .3,
+	'SteelDrum': .3,
 	'WildSynth': .5,
 	'Drums': .5
 }
@@ -43,7 +43,7 @@ $(function(){
         this.instruments = {
           'wildSynth': WildSynth,
           'organSynth': OrganSynth,
-          'brass': Brass,
+          'steelDrum': SteelDrum,
           'pluckedSynth': PluckedSynth,
           'triangleWah': TriangleWah,
 					'bassSynth': BassSynth,
@@ -53,7 +53,7 @@ $(function(){
         this.instrumentTempos = {
           'wildSynth': 125,
           'organSynth': 125,
-          'brass': 250,
+          'steelDrum': 250,
           'pluckedSynth': 125,
           'triangleWah': 125,
 					'bassSynth': 125,
@@ -63,7 +63,7 @@ $(function(){
         this.instrumentObjects = {
           'wildSynth': this.wildSynths,
           'organSynth': this.organSynths,
-          'brass': this.brasss,
+          'steelDrum': this.steelDrums,
           'pluckedSynth': this.pluckedSynths,
           'triangleWah': this.triangleWahs,
 					'bassSynth': this.bassSynths,
@@ -134,7 +134,7 @@ $(function(){
     AudioApp.prototype.initializeAudioHashes = function() {
       this.triangleWahs = {};
       this.organSynths = {};
-      this.brasss = {};
+      this.steelDrums = {};
       this.pluckedSynths = {};
       this.wildSynths = {};
 			this.bassSynths = {};
@@ -144,7 +144,7 @@ $(function(){
 
     AudioApp.prototype.preLoadFiles = function() {
       OrganSynth.loadAllFiles(this.myAudioContext);
-      Brass.loadAllFiles(this.myAudioContext);
+      SteelDrum.loadAllFiles(this.myAudioContext);
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
 			BassSynth.loadAllFiles(this.myAudioContext);
