@@ -39,11 +39,19 @@ body {
 	margin: 50px;
 }
 
+#footer-left{
+	position: absolute;
+}
+
+#footer-left a{
+	color: white;
+}
+
 #footer-logo{
 	float: left; 
 	font-family: 'Lobster', cursive;
-	position: absolute;
 	color: white;
+	margin-right: 15px;
 }
 
 #audio-interface{

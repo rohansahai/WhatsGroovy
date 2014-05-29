@@ -75,7 +75,8 @@ window.startGame = function startGame(nickname){
     canvas.addEventListener("touchmove", touchHandler, true);
     canvas.addEventListener("touchend", touchHandler, true);
     canvas.addEventListener("touchcancel", touchHandler, true); 
-		$('#footer-logo').click(function(){
+		
+		$('#footer a').click(function(){
 			$('.modal-about').modal('show')
 		});
   }
