@@ -1,58 +1,58 @@
-var vibraphoneFiles = {
-	1: '/audios/vibraphone/a5.wav',
-  2: '/audios/vibraphone/g4.wav',
-  3: '/audios/vibraphone/e4.wav',
-  4: '/audios/vibraphone/d4.wav',
-  5: '/audios/vibraphone/c4.wav',
-  6: '/audios/vibraphone/a4.wav',
-  7: '/audios/vibraphone/g3.wav',
-  8: '/audios/vibraphone/e3.wav',
-  9: '/audios/vibraphone/d3.wav',
-  10: '/audios/vibraphone/c3.wav',
-  11: '/audios/vibraphone/a3.wav'
+var brassFiles = {
+	1: '/audios/brass/a5.wav',
+  2: '/audios/brass/g4.wav',
+  3: '/audios/brass/e4.wav',
+  4: '/audios/brass/d4.wav',
+  5: '/audios/brass/c4.wav',
+  6: '/audios/brass/a4.wav',
+  7: '/audios/brass/g3.wav',
+  8: '/audios/brass/e3.wav',
+  9: '/audios/brass/d3.wav',
+  10: '/audios/brass/c3.wav',
+  11: '/audios/brass/a3.wav'
 }
 
-vibraphoneAudioBuffer = {};
+brassAudioBuffer = {};
 
-var Vibraphone = window.Vibraphone = function(ctx, analyser) {
+var Brass = window.Brass = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
   this.source = null;
   this.analyser = analyser;
 };
 
-Vibraphone.loadAllFiles = function(ctx){
-  for (var key in vibraphoneFiles) {
-    Vibraphone.loadSoundFile(vibraphoneFiles[key], key, ctx);
+Brass.loadAllFiles = function(ctx){
+  for (var key in brassFiles) {
+    Brass.loadSoundFile(brassFiles[key], key, ctx);
   }
 }
 
-Vibraphone.loadSoundFile = function(url, freq, ctx) {
+Brass.loadSoundFile = function(url, freq, ctx) {
   var xhr = new XMLHttpRequest();
   //http://localhost:8080 local hosting!
   //http://whatsgroovy.herokuapp.com  heroku hosting!
   xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
-    Vibraphone.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
+    Brass.initSound(this.response, freq, ctx); // this.response is an ArrayBuffer.
   };
   xhr.send();
 }
 
 
-Vibraphone.initSound = function(arrayBuffer, freq, ctx) {
+Brass.initSound = function(arrayBuffer, freq, ctx) {
   ctx.decodeAudioData(arrayBuffer, function(buffer) {
-    vibraphoneAudioBuffer[freq] = buffer;
+    brassAudioBuffer[freq] = buffer;
   }, function(e) {
     console.log('Error decoding file', e);
   });
 }
 
-Vibraphone.prototype.updateFrequency = function(row) {
+Brass.prototype.updateFrequency = function(row) {
   this.frequency = row;
 }
 
-Vibraphone.prototype.playSound = function() {
+Brass.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
@@ -61,14 +61,14 @@ Vibraphone.prototype.playSound = function() {
 	
 	this.panner = this.ctx.createPanner();
 	this.panner.panningModel = 'equalpower';
-	var xPan = panning['Vibraphone'];
+	var xPan = panning['Brass'];
 	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
   //this.source.buffer = this.audioBuffer;
-  this.source.buffer = vibraphoneAudioBuffer[this.frequency];
+  this.source.buffer = brassAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(instrumentGains['Vibraphone'], timeToPlay, 0.01);
+  this.gainNode.gain.setTargetAtTime(instrumentGains['Brass'], timeToPlay, 0.01);
   this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
   this.source.connect(this.panner);
