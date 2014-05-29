@@ -8,5 +8,8 @@
     "mime": "~1.2.7",
     "node-static": "^0.7.3",
     "socket.io": "~0.9.6"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }

@@ -4,9 +4,9 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
 	background-size: cover;
-	background-repeat:no-repeat;
+	background-repeat:repeat;
 /*	min-height: 1000px;*/
-	overflow: hidden;
+	/*overflow: hidden;*/
 
 /*	background-color: #F38630;*/
 }

@@ -51,7 +51,9 @@
   <form class="join-room text-center" role='form'>
     <div class="form-group col-xs-4 col-xs-offset-4">
 			<div id="name-room-inputs">
-	      <input class ='form-control input-lg' id="room-name" type="text" placeholder="Enter Room Name(Optional)">
+				<select class="form-control room-choices input-lg" id='room-name'>
+				</select>
+	      <!-- <input class ='form-control input-lg' id="room-name" type="text" placeholder="Enter Room Name (Optional)"> -->
 	      <input class ='form-control input-lg' id="nickname" type="text" placeholder="Enter Nickname">
 			</div>
 			<br>
@@ -59,24 +61,6 @@
     </div>
   </form>
 </div>
-
-<!-- Room Listing Modal -->
-<button class="btn btn-primary" id="room-list-modal" data-target=".bs-example-modal-sm">Current Rooms</button>
-
-<div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Rooms</h4>
-      </div>
-      <div class="modal-body">
-		    <ul id='current-rooms'>
-		    </ul>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 </body>
 </html>

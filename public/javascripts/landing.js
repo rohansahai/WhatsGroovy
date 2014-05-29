@@ -8,28 +8,27 @@
     window.chatApp = new ChatApp.Chat(socket);
 
     socket.on('showCurrentRooms', function(rooms) {
-      $('#current-rooms').empty();
-			console.log("ROOMS-" + rooms);
-			
-			if (rooms.length === 0){
-				$("#current-rooms").html("<li>No rooms open right meow. Start you're own!</li>");
-			}
-			else {
-	      for (var i = 0; i < rooms.length; i++) {
-	        if ($('#current-rooms').children().length < rooms.length){
-	          $("#current-rooms").append
-						('<li ><a href="#" id=room-'+rooms[i]+' class="room-li">' + rooms[i] + '</a></li>');
-	        }
-	      }
-				
-				$('.room-li').click(function(event){
-					var roomName = $(event.currentTarget).html();
-					$('#room-name').val(roomName);
-					$('.modal').modal('hide');
-				});
-			}
-    });
+      $('.room-choices').html("\
+			<option value='' selected disabled>Choose A Room!</option>\
+		  <option id='new-room'>Create A New Room</option>\
+			");
 
+      for (var i = 0; i < rooms.length; i++) {
+        if ($('.room-choices').children().length - 2 < rooms.length){
+					$('.room-choices').append("<option>" + rooms[i] + "</option>");
+        }
+      }
+
+    });
+		
+		$('.room-choices').change(function(event){
+			if (event.currentTarget.value === "Create A New Room"){
+				$('#name-room-inputs').html("\
+	      <input class ='form-control input-lg' id='room-name' type='text' placeholder='Enter Room Name'>\
+	      <input class ='form-control input-lg' id='nickname' type='text' placeholder='Enter Nickname'>\
+				")
+			}
+		});
 
     $('.join-room').submit(function(event){
       event.preventDefault();
@@ -39,12 +38,13 @@
     })
 		
 		$('#room-list-modal').click(function(){
-			$('.modal').modal('show')
+			$('.rooms-modal').modal('show')
 		});
 
     var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
     socket.on('renderHomePage', function(data){
 			$('body').css('background-image', 'none');
+			$('body').css('overflow', 'hidden');
       $('body').html(gameHtml);
 			chatApp.room = data.room;
       startGame(data.nickname);
