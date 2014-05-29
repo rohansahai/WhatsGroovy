@@ -68,8 +68,8 @@ Vibraphone.prototype.playSound = function() {
   this.source.buffer = vibraphoneAudioBuffer[this.frequency];
   this.source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(3, timeToPlay, 0.01);
-  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
+  this.gainNode.gain.setTargetAtTime(1, timeToPlay, 0.01);
+  //this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
   this.source.connect(this.panner);
 	this.panner.connect(this.gainNode);
