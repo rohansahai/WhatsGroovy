@@ -27,8 +27,8 @@ instrumentGains = {
 	'HarpChord': .8,
 	'OrganSynth': 1,
 	'PluckedSynth': 1,
-	'TriangleWah': 1.3,
-	'Marimba': 1,
+	'TriangleWah': 1,
+	'Marimba': 1.3,
 	'WildSynth': .5,
 	'Drums': .5
 }
@@ -37,6 +37,11 @@ $(function(){
     var AudioApp = window.AudioApp = function() {
         this.initializeAudioHashes();
         this.myAudioContext = new AudioContext();
+				
+				if (!this.myAudioContext){
+					$('.modal-body').html("Sorry, this game isn't supported in your browser :(");
+				}
+				//what do we do if audio context undefined in browser?
 
         this.setUpVisualizer();
 
