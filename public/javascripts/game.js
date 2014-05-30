@@ -53,7 +53,7 @@
 
 	      var canvasWidth = $('#music').width();
 	      var canvasHeight = $('#music').height();
-	      audioChat.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
+	      AudioApp.audioChat.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
 	      $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
 
 	      AudioApp.cursors[nickname].pos[0] = evt.offsetX;
@@ -151,12 +151,12 @@
 	  function playAudio(mousePosY) {
 	    currentAudioRow = getRow(mousePosY);
 	    audioApp.playCurrentInstrument(currentAudioRow, audioApp.currentInstrument, nickname);
-	    audioChat.sendAudio(currentAudioRow, audioApp.currentInstrument);
+	    AudioApp.audioChat.sendAudio(currentAudioRow, audioApp.currentInstrument);
 	  }
 
 	  function stopAudio(fromMove) {
 	    audioApp.stopCurrentInstrument(currentAudioRow, fromMove, nickname, audioApp.currentInstrument);
-	    audioChat.stopAudio(currentAudioRow, fromMove, audioApp.currentInstrument);
+	    AudioApp.audioChat.stopAudio(currentAudioRow, fromMove, audioApp.currentInstrument);
 	  }
 	
 		function setButtonState(){

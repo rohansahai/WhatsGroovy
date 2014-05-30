@@ -5,7 +5,7 @@
   var socket = io.connect();
 
   $(function(){
-    window.audioChat = new AudioApp.AudioChat(socket);
+    var audioChat = AudioApp.audioChat = new AudioApp.AudioChat(socket);
 
     socket.on('showCurrentRooms', function(rooms) {
       $('.room-choices').html("\

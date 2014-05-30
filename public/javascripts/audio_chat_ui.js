@@ -18,8 +18,6 @@
   }
 
   $(document).ready(function() {
-  	//window.audioChat = new AudioApp.AudioChat(socket);
-
     socket.on('playAudioSend', function(data){
       AudioApp.audioApp.playCurrentInstrument(data.row, data.instrument, data.nickname);
     });
