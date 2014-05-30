@@ -128,6 +128,35 @@ $(function(){
     AudioApp.prototype.updateAnalyser = function(){
       this.analyser.getByteFrequencyData(this.frequencyData);
     }
+		
+		// AudioApp.prototype.playSound = function(instr) {
+		//   // source is global so we can call .noteOff() later.
+		//   var now = this.ctx.currentTime;
+		//   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
+		//   var gainNode = this.ctx.createGain();
+		//   var source = this.ctx.createBufferSource();
+		// 	var panner = this.ctx.createPanner();
+		// 	panner.panningModel = 'equalpower';
+		// 	var xPan = panning['WildSynth'];
+		// 	panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
+		// 
+		//   //this.source.buffer = this.audioBuffer;
+		//   source.buffer = wildSynthAudioBuffer[this.frequency];
+		//   source.loop = false;
+		// 
+		//   gainNode.gain.setTargetAtTime(instrumentGains['WildSynth'], timeToPlay, 0.01);
+		//   gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
+		// 
+		//   source.connect(panner);
+		// 	panner.connect(gainNode);
+		//   //this.feedbackGainNode.connect(this.delayNode);
+		//   gainNode.connect(this.analyser);
+		//   this.analyser.connect(this.ctx.destination);
+		// 
+		//   // this.pannerNode.connect(this.ctx.destination);
+		// 
+		//   source.start(timeToPlay); // Play immediately.
+		// }
 
     AudioApp.prototype.playKick = function(hostUrl) {
       var that = this;
