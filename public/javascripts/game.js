@@ -8,7 +8,7 @@ window.startGame = function startGame(nickname){
 
   cursors[nickname] = new Canvas.CanvasCursor(nickname);
 
-  window.audioApp = new AudioApp();
+  window.audioApp = new MasterAudio();
 	audioApp.currentInstrument = 'organSynth'; //default to organ because why not
   var currentAudioRow = 0;
   var numRows = 11;

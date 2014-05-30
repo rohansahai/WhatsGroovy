@@ -34,14 +34,13 @@ instrumentGains = {
 }
 
 $(function(){
-    var AudioApp = window.AudioApp = function() {
+    var MasterAudio = window.MasterAudio = function() {
         this.initializeAudioHashes();
         this.myAudioContext = new AudioContext();
 				
 				if (!this.myAudioContext){
 					$('.modal-body').html("Sorry, this game isn't supported in your browser :(");
 				}
-				//what do we do if audio context undefined in browser?
 
         this.setUpVisualizer();
 
@@ -82,19 +81,19 @@ $(function(){
         this.clicked = {};
     };
 
-    AudioApp.prototype.setUpVisualizer = function(){
+    MasterAudio.prototype.setUpVisualizer = function(){
       this.analyser = this.myAudioContext.createAnalyser();
       this.analyser.fftSize = 128;
       this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
     };
 
-    AudioApp.prototype.playCurrentInstrument = function(row, instrument, user) {
+    MasterAudio.prototype.playCurrentInstrument = function(row, instrument, user) {
 			cursors[user].instrument = instrument;
       this.instrumentObjects[instrument][user] = this.checkInstrument(
         this.instrumentObjects[instrument][user], instrument, user, row);
     }
 
-    AudioApp.prototype.checkInstrument = function(obj, instr, user, row){
+    MasterAudio.prototype.checkInstrument = function(obj, instr, user, row){
 
       if (!obj || obj.playing === false){
         obj = new this.instruments[instr](this.myAudioContext, this.analyser);
@@ -106,7 +105,7 @@ $(function(){
       return obj;
     }
 
-    AudioApp.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
+    MasterAudio.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
       if(!fromMove){
         this.clicked[user] = false;
         this.instrumentObjects[instrument][user].playing = false;
@@ -115,7 +114,7 @@ $(function(){
       }
     }
 
-    AudioApp.prototype.playExternalApiInstrument = function(inst, user, row, interval){
+    MasterAudio.prototype.playExternalApiInstrument = function(inst, user, row, interval){
       this.clicked[user] = true;
       var that = this;
       inst.frequency = row;
@@ -125,40 +124,11 @@ $(function(){
       }, interval);
     }
 
-    AudioApp.prototype.updateAnalyser = function(){
+    MasterAudio.prototype.updateAnalyser = function(){
       this.analyser.getByteFrequencyData(this.frequencyData);
     }
-		
-		// AudioApp.prototype.playSound = function(instr) {
-		//   // source is global so we can call .noteOff() later.
-		//   var now = this.ctx.currentTime;
-		//   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
-		//   var gainNode = this.ctx.createGain();
-		//   var source = this.ctx.createBufferSource();
-		// 	var panner = this.ctx.createPanner();
-		// 	panner.panningModel = 'equalpower';
-		// 	var xPan = panning['WildSynth'];
-		// 	panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
-		// 
-		//   //this.source.buffer = this.audioBuffer;
-		//   source.buffer = wildSynthAudioBuffer[this.frequency];
-		//   source.loop = false;
-		// 
-		//   gainNode.gain.setTargetAtTime(instrumentGains['WildSynth'], timeToPlay, 0.01);
-		//   gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
-		// 
-		//   source.connect(panner);
-		// 	panner.connect(gainNode);
-		//   //this.feedbackGainNode.connect(this.delayNode);
-		//   gainNode.connect(this.analyser);
-		//   this.analyser.connect(this.ctx.destination);
-		// 
-		//   // this.pannerNode.connect(this.ctx.destination);
-		// 
-		//   source.start(timeToPlay); // Play immediately.
-		// }
 
-    AudioApp.prototype.playKick = function(hostUrl) {
+    MasterAudio.prototype.playKick = function(hostUrl) {
       var that = this;
       KickDrum.loadAllFiles(this.myAudioContext, function(){
         KickDrum.playSound(that.myAudioContext, that.analyser);
@@ -168,7 +138,7 @@ $(function(){
       });
     };
 
-    AudioApp.prototype.initializeAudioHashes = function() {
+    MasterAudio.prototype.initializeAudioHashes = function() {
       this.triangleWahs = {};
       this.organSynths = {};
       this.marimbas = {};
@@ -179,7 +149,7 @@ $(function(){
       this.intervals = {};
     };
 
-    AudioApp.prototype.preLoadFiles = function() {
+    MasterAudio.prototype.preLoadFiles = function() {
       OrganSynth.loadAllFiles(this.myAudioContext);
       Marimba.loadAllFiles(this.myAudioContext);
       PluckedSynth.loadAllFiles(this.myAudioContext);
