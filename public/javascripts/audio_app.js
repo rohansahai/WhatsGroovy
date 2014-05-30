@@ -23,14 +23,14 @@ panning = {
 }
 
 instrumentGains = {
-	'BassSynth': .4,
-	'HarpChord': .8,
-	'OrganSynth': 1,
-	'PluckedSynth': 1,
-	'TriangleWah': 1,
-	'Marimba': 1.3,
-	'WildSynth': .5,
-	'Drums': .5
+	'BassSynth': .3,
+	'HarpChord': .7,
+	'OrganSynth': .9,
+	'PluckedSynth': .9,
+	'TriangleWah': .9,
+	'Marimba': 1.2,
+	'WildSynth': .4,
+	'Drums': .4
 }
 
 $(function(){
@@ -95,12 +95,12 @@ $(function(){
     }
 
     AudioApp.prototype.checkInstrument = function(obj, instr, user, row){
-			console.log("obj-" + obj);
-			if (obj){console.log(obj.playing)}
+
       if (!obj || obj.playing === false){
         obj = new this.instruments[instr](this.myAudioContext, this.analyser);
         this.playExternalApiInstrument(obj, user, row, this.instrumentTempos[instr]);
-      } else {
+      }
+			else {
         obj.updateFrequency(row, this.intervals[user]);
       }
       return obj;
