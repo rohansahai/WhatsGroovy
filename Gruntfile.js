@@ -6,25 +6,11 @@ module.exports = function(grunt) {
     uglify: {
 			my_target: {
 	      files: {
-	        'dest/output.min.js': 
+	        'public/javascripts/output.min.js': 
 					[
-					 'public/javascripts/audio_app.js',
-					 'public/javascripts/audio_chat.js',
-					 'public/javascripts/audio_chat_ui.js',
-					 'public/javascripts/canvas.js',
-					 'public/javascripts/game.js',
-					 'public/javascripts/landing.js',
-					 'public/javascripts/instruments/bass_synth.js',
- 					 'public/javascripts/instruments/harp_chord.js',
-					 'public/javascripts/instruments/kick.js',
-					 'public/javascripts/instruments/marimba.js',
-					 'public/javascripts/instruments/organ_synth.js',
-					 'public/javascripts/instruments/plucked_synth.js',
-					 'public/javascripts/instruments/triangle_wah.js',
-					 'public/javascripts/instruments/tuna.js',
-					 'public/javascripts/instruments/wild_synth.js',
-					 'public/javascripts/vendor/AudioContextMonkeyPatch.js',
-					 'public/javascripts/vendor/ejs.js',
+					 "public/javascripts/*.js",
+					 'public/javascripts/instruments/*.js',
+					 'public/javascripts/vendor/*.js',
 					 ]
 	      }
 			}
