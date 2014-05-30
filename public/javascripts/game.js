@@ -64,6 +64,7 @@ window.startGame = function startGame(nickname){
 			audioApp.clicked[nickname] = false;
 			currentAudioRow = 0;
 			audioApp.instrumentObjects[audioApp.currentInstrument][nickname].playing = false;
+			stopAudio();
 			// get rids of bug where music continues to play when mouse leaves
 		});
 		
