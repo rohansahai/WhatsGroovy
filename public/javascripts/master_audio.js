@@ -24,14 +24,14 @@
 	}
 
 	instrumentGains = {
-		'BassSynth': .3,
-		'HarpChord': .7,
-		'OrganSynth': .9,
-		'PluckedSynth': .9,
-		'TriangleWah': .9,
-		'Marimba': 1.2,
-		'WildSynth': .4,
-		'Drums': .4
+		'BassSynth': .5,
+		'HarpChord': .9,
+		'OrganSynth': 1.1,
+		'PluckedSynth': 1.1,
+		'TriangleWah': 1.1,
+		'Marimba': 1.4,
+		'WildSynth': .6,
+		'Drums': .5
 	}
 	
   var AudioApp = root.AudioApp = (root.AudioApp || {});
