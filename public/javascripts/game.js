@@ -2,16 +2,19 @@
   var AudioApp = root.AudioApp = (root.AudioApp || {});
 	
 	AudioApp.startGame = function startGame(nickname){
+		//set up design 
 	  $('body').css('background-color', 'white');
 		$('.modal-loading').modal('show');
 	  var canvas = document.getElementById("music");
 	  canvas.width  = window.innerWidth - 150;
 	  canvas.height = window.innerHeight - 170;
+	  var instrumentNames = ['triangleWah', 'marimba', 'pluckedSynth',
+	                     'wildSynth', 'organSynth', 'bassSynth', 'harpChord'];
 
+		
 	  AudioApp.cursors[nickname] = new AudioApp.CanvasCursor(nickname);
-
 	  var audioApp = AudioApp.audioApp = new AudioApp.MasterAudio();
-		audioApp.currentInstrument = 'organSynth'; //default to organ because why not
+		audioApp.currentInstrument = 'organSynth'; //default to organ, randomize?
 	  var currentAudioRow = 0;
 	  var numRows = 11;
 	  var ctx = canvas.getContext("2d");
@@ -25,11 +28,8 @@
 
 	  setUpMouseEvents();
 		setButtonState();
-
-	  var instrumentNames = ['triangleWah', 'marimba', 'pluckedSynth',
-	                     'wildSynth', 'organSynth', 'bassSynth', 'harpChord'];
 	  setUpButtonEvents(instrumentNames);
-
+		
 	  function setUpMouseEvents(){
 	    canvas.addEventListener('mousedown', function(evt) {
 				evt.preventDefault();
