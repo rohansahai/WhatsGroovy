@@ -47,7 +47,7 @@
 			$('body').css('overflow', 'hidden');
       $('body').html(gameHtml);
 			audioChat.room = data.room;
-      startGame(data.nickname);
+      AudioApp.startGame(data.nickname);
     });
 
     socket.on('renderError', function(data){

@@ -2,7 +2,7 @@
   var AudioApp = root.AudioApp = (root.AudioApp || {});
   var socket = io.connect();
 
-  window.cursors = {};
+  var cursors = AudioApp.cursors = {};
 
   var escapeDivText = function(text) {
   	return $("<div></div>").text(text);
@@ -21,17 +21,17 @@
   	//window.audioChat = new AudioApp.AudioChat(socket);
 
     socket.on('playAudioSend', function(data){
-      audioApp.playCurrentInstrument(data.row, data.instrument, data.nickname);
+      AudioApp.audioApp.playCurrentInstrument(data.row, data.instrument, data.nickname);
     });
 
     socket.on('stopAudioSend', function(data){
-      audioApp.stopCurrentInstrument(data.row, data.fromMove, data.nickname, data.instrument);
+      AudioApp.audioApp.stopCurrentInstrument(data.row, data.fromMove, data.nickname, data.instrument);
     });
 
     socket.on('moveCursorSend', function(data){
       // create a cursor for the user if one doesnt exist
       if (!cursors[data.nickname]){
-        cursors[data.nickname] = new Canvas.CanvasCursor(data.nickname);
+        cursors[data.nickname] = new AudioApp.CanvasCursor(data.nickname);
       }
       updateMousePosition(data);
     });

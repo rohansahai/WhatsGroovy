@@ -1,7 +1,7 @@
 (function(root){
-  var Canvas = root.Canvas = (root.Canvas || {});
+  var AudioApp = root.AudioApp = (root.AudioApp || {});
 
-  var CanvasCursor = Canvas.CanvasCursor =  function(nickname) {
+  var CanvasCursor = AudioApp.CanvasCursor =  function(nickname) {
     this.nickname = nickname;
 		this.instrument;
     this.pos = [0, 0];	
@@ -73,20 +73,20 @@
     ctx.stroke();
   };
 
-  Canvas.draw = function(ctx, canvasWidth, canvasHeight){
+  AudioApp.drawCanvas = function(ctx, canvasWidth, canvasHeight){
     ctx.clearRect(0,0,canvasWidth,canvasHeight);
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,canvasWidth,canvasHeight);
-		Canvas.drawLogo(ctx, canvasWidth, canvasHeight);
-    Canvas.drawRows(ctx, canvasWidth, canvasHeight);
+		AudioApp.drawLogo(ctx, canvasWidth, canvasHeight);
+    AudioApp.drawRows(ctx, canvasWidth, canvasHeight);
   }
 	
-	Canvas.drawLogo = function(ctx, canvasWidth, canvasHeight){
+	AudioApp.drawLogo = function(ctx, canvasWidth, canvasHeight){
 		//image is 356 x 199
 		ctx.drawImage(logoImage, canvasWidth/2 -356/2, canvasHeight/2 - 199/2);
 	};
 
-  Canvas.drawRows = function(ctx, canvasWidth, canvasHeight){
+  AudioApp.drawRows = function(ctx, canvasWidth, canvasHeight){
 		var numRows = 11;
     var rowHeight = canvasHeight/numRows;
 
@@ -100,17 +100,17 @@
     }
   };
 
-  Canvas.drawCursors = function(ctx, clickedObj, data){
-    for (var key in cursors){
+  AudioApp.drawCursors = function(ctx, clickedObj, data){
+    for (var key in AudioApp.cursors){
       if (clickedObj[key] === true){
-        cursors[key].drawCursor(ctx, true, data);
+        AudioApp.cursors[key].drawCursor(ctx, true, data);
       } else{
-        cursors[key].drawCursor(ctx);
+        AudioApp.cursors[key].drawCursor(ctx);
       }
     }
   };
 
-  Canvas.drawVisualizer = function(ctx, data, canvasWidth, canvasHeight){
+  AudioApp.drawVisualizer = function(ctx, data, canvasWidth, canvasHeight){
     var rowWidth = canvasWidth/data.length;
 		var numColors = Object.keys(visualizerColors).length;
     for (var i = 0; i < data.length/numColors; i++) {
