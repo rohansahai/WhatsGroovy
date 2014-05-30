@@ -33,129 +33,129 @@ instrumentGains = {
 	'Drums': .4
 }
 
-$(function(){
-    var MasterAudio = window.MasterAudio = function() {
-        this.initializeAudioHashes();
-        this.myAudioContext = new AudioContext();
-				
-				if (!this.myAudioContext){
-					$('.modal-body').html("Sorry, this game isn't supported in your browser :(");
-				}
 
-        this.setUpVisualizer();
+var MasterAudio = window.MasterAudio = function() {
+    this.initializeAudioHashes();
+    this.myAudioContext = new AudioContext();
+		
+		if (!this.myAudioContext){
+			$('.modal-body').html("Sorry, this game isn't supported in your browser :(");
+		}
 
-        this.instruments = {
-          'wildSynth': WildSynth,
-          'organSynth': OrganSynth,
-          'marimba': Marimba,
-          'pluckedSynth': PluckedSynth,
-          'triangleWah': TriangleWah,
-					'bassSynth': BassSynth,
-					'harpChord': HarpChord
-        }
-				
-        this.instrumentTempos = {
-          'wildSynth': 125,
-          'organSynth': 125,
-          'marimba': 250,
-          'pluckedSynth': 125,
-          'triangleWah': 125,
-					'bassSynth': 125,
-					'harpChord': 125
-        }
+    this.setUpVisualizer();
 
-        this.instrumentObjects = {
-          'wildSynth': this.wildSynths,
-          'organSynth': this.organSynths,
-          'marimba': this.marimbas,
-          'pluckedSynth': this.pluckedSynths,
-          'triangleWah': this.triangleWahs,
-					'bassSynth': this.bassSynths,
-					'harpChord': this.harpChords
-        }
-
-        //http://localhost:8080 local hosting!
-        //http://whatsgroovy.herokuapp.com  heroku hosting!
-        hostUrl = window.location.origin;
-        this.preLoadFiles();
-        this.clicked = {};
-    };
-
-    MasterAudio.prototype.setUpVisualizer = function(){
-      this.analyser = this.myAudioContext.createAnalyser();
-      this.analyser.fftSize = 128;
-      this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
-    };
-
-    MasterAudio.prototype.playCurrentInstrument = function(row, instrument, user) {
-			cursors[user].instrument = instrument;
-      this.instrumentObjects[instrument][user] = this.checkInstrument(
-        this.instrumentObjects[instrument][user], instrument, user, row);
+    this.instruments = {
+      'wildSynth': WildSynth,
+      'organSynth': OrganSynth,
+      'marimba': Marimba,
+      'pluckedSynth': PluckedSynth,
+      'triangleWah': TriangleWah,
+			'bassSynth': BassSynth,
+			'harpChord': HarpChord
+    }
+		
+    this.instrumentTempos = {
+      'wildSynth': 125,
+      'organSynth': 125,
+      'marimba': 250,
+      'pluckedSynth': 125,
+      'triangleWah': 125,
+			'bassSynth': 125,
+			'harpChord': 125
     }
 
-    MasterAudio.prototype.checkInstrument = function(obj, instr, user, row){
-
-      if (!obj || obj.playing === false){
-        obj = new this.instruments[instr](this.myAudioContext, this.analyser);
-        this.playExternalApiInstrument(obj, user, row, this.instrumentTempos[instr]);
-      }
-			else {
-        obj.updateFrequency(row, this.intervals[user]);
-      }
-      return obj;
+    this.instrumentObjects = {
+      'wildSynth': this.wildSynths,
+      'organSynth': this.organSynths,
+      'marimba': this.marimbas,
+      'pluckedSynth': this.pluckedSynths,
+      'triangleWah': this.triangleWahs,
+			'bassSynth': this.bassSynths,
+			'harpChord': this.harpChords
     }
 
-    MasterAudio.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
-      if(!fromMove){
-        this.clicked[user] = false;
-        this.instrumentObjects[instrument][user].playing = false;
-				delete this.instrumentObjects[instrument][user]; //ah!
-        clearInterval(this.intervals[user]);
-      }
-    }
+    //http://localhost:8080 local hosting!
+    //http://whatsgroovy.herokuapp.com  heroku hosting!
+    hostUrl = window.location.origin;
+    this.preLoadFiles();
+    this.clicked = {};
+};
 
-    MasterAudio.prototype.playExternalApiInstrument = function(inst, user, row, interval){
-      this.clicked[user] = true;
-      var that = this;
-      inst.frequency = row;
-      inst.playSound(row);
-      this.intervals[user] = setInterval(function(){
-        inst.playSound();
-      }, interval);
-    }
+MasterAudio.prototype.setUpVisualizer = function(){
+  this.analyser = this.myAudioContext.createAnalyser();
+  this.analyser.fftSize = 128;
+  this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
+};
 
-    MasterAudio.prototype.updateAnalyser = function(){
-      this.analyser.getByteFrequencyData(this.frequencyData);
-    }
+MasterAudio.prototype.playCurrentInstrument = function(row, instrument, user) {
+	cursors[user].instrument = instrument;
+  this.instrumentObjects[instrument][user] = this.checkInstrument(
+    this.instrumentObjects[instrument][user], instrument, user, row);
+}
 
-    MasterAudio.prototype.playKick = function(hostUrl) {
-      var that = this;
-      KickDrum.loadAllFiles(this.myAudioContext, function(){
-        KickDrum.playSound(that.myAudioContext, that.analyser);
-        setInterval(function(){
-          KickDrum.playSound(that.myAudioContext, that.analyser);
-        }, 4000);
-      });
-    };
+MasterAudio.prototype.checkInstrument = function(obj, instr, user, row){
 
-    MasterAudio.prototype.initializeAudioHashes = function() {
-      this.triangleWahs = {};
-      this.organSynths = {};
-      this.marimbas = {};
-      this.pluckedSynths = {};
-      this.wildSynths = {};
-			this.bassSynths = {};
-			this.harpChords = {};
-      this.intervals = {};
-    };
+  if (!obj || obj.playing === false){
+    obj = new this.instruments[instr](this.myAudioContext, this.analyser);
+    this.playExternalApiInstrument(obj, user, row, this.instrumentTempos[instr]);
+  }
+	else {
+    obj.updateFrequency(row, this.intervals[user]);
+  }
+  return obj;
+}
 
-    MasterAudio.prototype.preLoadFiles = function() {
-      OrganSynth.loadAllFiles(this.myAudioContext);
-      Marimba.loadAllFiles(this.myAudioContext);
-      PluckedSynth.loadAllFiles(this.myAudioContext);
-      WildSynth.loadAllFiles(this.myAudioContext);
-			BassSynth.loadAllFiles(this.myAudioContext);
-			HarpChord.loadAllFiles(this.myAudioContext);
-      this.playKick();
-    }
-});
+MasterAudio.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
+  if(!fromMove){
+    this.clicked[user] = false;
+    this.instrumentObjects[instrument][user].playing = false;
+		delete this.instrumentObjects[instrument][user]; //ah!
+    clearInterval(this.intervals[user]);
+  }
+}
+
+MasterAudio.prototype.playExternalApiInstrument = function(inst, user, row, interval){
+  this.clicked[user] = true;
+  var that = this;
+  inst.frequency = row;
+  inst.playSound(row);
+  this.intervals[user] = setInterval(function(){
+    inst.playSound();
+  }, interval);
+}
+
+MasterAudio.prototype.updateAnalyser = function(){
+  this.analyser.getByteFrequencyData(this.frequencyData);
+}
+
+MasterAudio.prototype.playKick = function(hostUrl) {
+  var that = this;
+  KickDrum.loadAllFiles(this.myAudioContext, function(){
+    KickDrum.playSound(that.myAudioContext, that.analyser);
+    setInterval(function(){
+      KickDrum.playSound(that.myAudioContext, that.analyser);
+    }, 4000);
+  });
+};
+
+MasterAudio.prototype.initializeAudioHashes = function() {
+  this.triangleWahs = {};
+  this.organSynths = {};
+  this.marimbas = {};
+  this.pluckedSynths = {};
+  this.wildSynths = {};
+	this.bassSynths = {};
+	this.harpChords = {};
+  this.intervals = {};
+};
+
+MasterAudio.prototype.preLoadFiles = function() {
+  OrganSynth.loadAllFiles(this.myAudioContext);
+  Marimba.loadAllFiles(this.myAudioContext);
+  PluckedSynth.loadAllFiles(this.myAudioContext);
+  WildSynth.loadAllFiles(this.myAudioContext);
+	BassSynth.loadAllFiles(this.myAudioContext);
+	HarpChord.loadAllFiles(this.myAudioContext);
+  this.playKick();
+}
+
