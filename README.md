@@ -22,6 +22,10 @@ Everything else to the application is just proper javascript organization, html,
 
 - Enhance performance (caches, CPU usage, etc)
 
+- Grunt auto-name new file 
+
+- heroku environment variable to include minified js file in production and others during development. (right now changing index.html manually eek).
+
 - potentially add chat functionality
 
 - Cursor animation?
