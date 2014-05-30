@@ -52,7 +52,6 @@ OrganSynth.prototype.updateFrequency = function(row) {
 }
 
 OrganSynth.prototype.playSound = function() {
-  // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
   var gainNode = this.ctx.createGain();
@@ -61,9 +60,7 @@ OrganSynth.prototype.playSound = function() {
 	panner.panningModel = 'equalpower';
 	var xPan = panning['OrganSynth'];
 	panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
-	
 
-  //this.source.buffer = this.audioBuffer;
   source.buffer = organSynthAudioBuffer[this.frequency];
   source.loop = false;
 

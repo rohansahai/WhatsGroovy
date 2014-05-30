@@ -17,7 +17,6 @@ marimbaAudioBuffer = {};
 var Marimba = window.Marimba = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
-  this.source = null;
   this.analyser = analyser;
 };
 
@@ -56,25 +55,25 @@ Marimba.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
-  this.gainNode = this.ctx.createGain();
-  this.source = this.ctx.createBufferSource();
+  var gainNode = this.ctx.createGain();
+  var source = this.ctx.createBufferSource();
 	
-	this.panner = this.ctx.createPanner();
-	this.panner.panningModel = 'equalpower';
+	var panner = this.ctx.createPanner();
+	panner.panningModel = 'equalpower';
 	var xPan = panning['Marimba'];
-	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
+	panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 
   //this.source.buffer = this.audioBuffer;
-  this.source.buffer = marimbaAudioBuffer[this.frequency];
-  this.source.loop = false;
+  source.buffer = marimbaAudioBuffer[this.frequency];
+  source.loop = false;
 
-  this.gainNode.gain.setTargetAtTime(instrumentGains['Marimba'], timeToPlay, 0.01);
-  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + 1, 0.1);
+  gainNode.gain.setTargetAtTime(instrumentGains['Marimba'], timeToPlay, 0.01);
+  gainNode.gain.setTargetAtTime(0.0, timeToPlay + 1, 0.1);
 
-  this.source.connect(this.panner);
-	this.panner.connect(this.gainNode);
-  this.gainNode.connect(this.analyser);
+  source.connect(panner);
+	panner.connect(gainNode);
+  gainNode.connect(this.analyser);
   this.analyser.connect(this.ctx.destination);
 
-  this.source.start(timeToPlay); // Play immediately.
+  source.start(timeToPlay); // Play immediately.
 }

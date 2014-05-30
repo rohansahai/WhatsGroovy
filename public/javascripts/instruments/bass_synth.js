@@ -18,7 +18,6 @@ var BassSynth = window.BassSynth = function(ctx, analyser) {
   // Create an audio context.
   this.ctx = ctx;
   this.analyser = analyser;
-  this.source = null;
 };
 
 BassSynth.loadAllFiles = function(ctx){
@@ -56,25 +55,23 @@ BassSynth.prototype.playSound = function() {
   // source is global so we can call .noteOff() later.
   var now = this.ctx.currentTime;
   var timeToPlay = (Math.floor(now/.125) + 1) * .125;
-  this.gainNode = this.ctx.createGain();
-  this.source = this.ctx.createBufferSource();
-	this.panner = this.ctx.createPanner();
-	this.panner.panningModel = 'equalpower';
+  var gainNode = this.ctx.createGain();
+  var source = this.ctx.createBufferSource();
+	var panner = this.ctx.createPanner();
+	panner.panningModel = 'equalpower';
 	var xPan = panning['BassSynth'];
-	this.panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
+	panner.setPosition(xPan, 0, 1 - Math.abs(xPan));
 	
+  source.buffer = bassSynthAudioBuffer[this.frequency];
+  source.loop = false;
 
-  //this.source.buffer = this.audioBuffer;
-  this.source.buffer = bassSynthAudioBuffer[this.frequency];
-  this.source.loop = false;
+  gainNode.gain.setTargetAtTime(instrumentGains['BassSynth'], timeToPlay, 0.01);
+  gainNode.gain.setTargetAtTime(0.0, timeToPlay + .5, 0.1);
 
-  this.gainNode.gain.setTargetAtTime(instrumentGains['BassSynth'], timeToPlay, 0.01);
-  this.gainNode.gain.setTargetAtTime(0.0, timeToPlay + .5, 0.1);
-
-  this.source.connect(this.panner);
-	this.panner.connect(this.gainNode);
-  this.gainNode.connect(this.analyser);
+  source.connect(panner);
+	panner.connect(gainNode);
+  gainNode.connect(this.analyser);
   this.analyser.connect(this.ctx.destination);
 
-  this.source.start(timeToPlay); // Play immediately.
+  source.start(timeToPlay); // Play immediately.
 }
