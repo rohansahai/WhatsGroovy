@@ -95,6 +95,8 @@ $(function(){
     }
 
     AudioApp.prototype.checkInstrument = function(obj, instr, user, row){
+			console.log("obj-" + obj);
+			if (obj){console.log(obj.playing)}
       if (!obj || obj.playing === false){
         obj = new this.instruments[instr](this.myAudioContext, this.analyser);
         this.playExternalApiInstrument(obj, user, row, this.instrumentTempos[instr]);
@@ -108,6 +110,7 @@ $(function(){
       if(!fromMove){
         this.clicked[user] = false;
         this.instrumentObjects[instrument][user].playing = false;
+				delete this.instrumentObjects[instrument][user]; //ah!
         clearInterval(this.intervals[user]);
       }
     }
