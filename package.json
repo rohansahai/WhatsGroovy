@@ -1,7 +1,7 @@
 {
-  "name": "chat-app",
+  "name": "whats-groovy",
   "version": "0.0.1",
-  "description": "Chatroom App",
+  "description": "Audio ChatRoom App",
   "main": "server",
   "dependencies": {
     "lodash": "~1.3.1",
@@ -10,6 +10,7 @@
     "socket.io": "~0.9.6"
   },
   "devDependencies": {
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "^0.4.0"
   }
 }
