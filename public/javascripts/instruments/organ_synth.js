@@ -68,12 +68,9 @@ OrganSynth.prototype.playSound = function() {
   gainNode.gain.setTargetAtTime(0.0, timeToPlay + .1, 0.1);
 
   source.connect(gainNode);
-  //this.feedbackGainNode.connect(this.delayNode);
   gainNode.connect(panner);
 	panner.connect(this.analyser);
   this.analyser.connect(this.ctx.destination);
-
-  // this.pannerNode.connect(this.ctx.destination);
 
   source.start(timeToPlay); // Play immediately.
 }

@@ -24,7 +24,7 @@
 	    AudioApp.drawCanvas(ctx, canvas.width, canvas.height);
 	    AudioApp.drawCursors(ctx, audioApp.clicked, audioApp.frequencyData);
 	    AudioApp.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
-	  }, 10);
+	  }, 70);
 
 	  setUpMouseEvents();
 		setButtonState();
