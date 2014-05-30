@@ -37,8 +37,8 @@ var router = function(request, response){
 	var url = request.url;
 	console.log("Routing to ", url);
 	if (url === "/"){
-		serveFile(request, response, "public/index.html");
-		//fileServer.serve(request, response);
+		//serveFile(request, response, "public/index.html");
+		fileServer.serve(request, response);
 	} else {
 	  //serveFile(request, response, ("public" + url));
 		fileServer.serve(request, response);
