@@ -28,8 +28,6 @@ OrganSynth.loadAllFiles = function(ctx){
 
 OrganSynth.loadSoundFile = function(url, freq, ctx) {
   var xhr = new XMLHttpRequest();
-  //http://localhost:8080 local hosting!
-  //http://whatsgroovy.herokuapp.com  heroku hosting!
   xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {

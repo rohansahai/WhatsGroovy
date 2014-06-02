@@ -38,7 +38,7 @@
     })
 		
 		$('#room-list-modal').click(function(){
-			$('.rooms-modal').modal('show')
+			$('.rooms-modal').modal('show');
 		});
 
     var gameHtml = new EJS({url: './templates/game.jst.ejs'}).render();
