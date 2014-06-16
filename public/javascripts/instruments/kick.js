@@ -1,5 +1,6 @@
 var kickDrumFiles = {
   1: '/audios/drums/simplerBeat.mp3',
+  2: '/audios/drums/bass-beat.mp3'
 }
 
 kickDrumAudioBuffer = {};
@@ -10,32 +11,35 @@ var KickDrum = window.KickDrum = function(ctx) {
 };
 
 KickDrum.loadAllFiles = function(ctx, callback){
-
-  KickDrum.loadSoundFile(kickDrumFiles[1], ctx, callback);
-
+  for (var key in kickDrumFiles) {
+    KickDrum.loadSoundFile(kickDrumFiles[key], key, ctx, callback);
+  }
+  //KickDrum.loadSoundFile(kickDrumFiles[1], ctx, callback);
 }
 
-KickDrum.loadSoundFile = function(url, ctx, callback) {
+KickDrum.loadSoundFile = function(url, key, ctx, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', hostUrl + url, true);
   xhr.responseType = 'arraybuffer';
   xhr.onload = function(e) {
-    KickDrum.initSound(this.response, ctx, callback); // this.response is an ArrayBuffer.
+    KickDrum.initSound(this.response, key, ctx, callback); // this.response is an ArrayBuffer.
   };
   xhr.send();
 }
 
 
-KickDrum.initSound = function(arrayBuffer, ctx, callback) {
+KickDrum.initSound = function(arrayBuffer, key, ctx, callback) {
   ctx.decodeAudioData(arrayBuffer, function(buffer) {
-    kickDrumAudioBuffer[1] = buffer;
-    callback(ctx);
+    kickDrumAudioBuffer[key] = buffer;
+    if (key === '1'){ 
+      callback();
+    }
   }, function(e) {
     console.log('Error decoding file', e);
   });
 }
 
-KickDrum.playSound = function(ctx, analyser) {
+KickDrum.playSound = function(ctx, analyser, track) {
   // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
   var timeToPlay = (Math.floor(now) + 1);
@@ -43,7 +47,7 @@ KickDrum.playSound = function(ctx, analyser) {
   var gainNode = ctx.createGain();
   var source = ctx.createBufferSource();
 
-  source.buffer = kickDrumAudioBuffer[1];
+  source.buffer = kickDrumAudioBuffer[track];
   source.loop = false;
 
   gainNode.gain.setTargetAtTime(instrumentGains['Drums'], timeToPlay, 0.01);

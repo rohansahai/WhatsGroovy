@@ -104,11 +104,11 @@
 	    }
 
 	    $('#kick-button').click(function(event){
-	    	audioApp.beats['kick'] = true;
+	    	audioApp.track = 1;
 	    });
 
 	    $('#bass-button').click(function(event){
-	    	audioApp.beats['bass'] = true;
+	    	audioApp.track = 2;
 	    });
 
 	  }

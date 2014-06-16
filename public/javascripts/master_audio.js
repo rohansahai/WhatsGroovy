@@ -76,11 +76,7 @@
 				'harpChord': this.harpChords
 	    }
 
-	    this.beats = {
-	    	'kick': false,
-	    	'bass': false
-	    }
-
+	    this.track = 1;
 	    //http://localhost:8080 local hosting!
 	    //http://whatsgroovy.herokuapp.com  heroku hosting!
 	    hostUrl = window.location.origin;
@@ -138,16 +134,9 @@
 	MasterAudio.prototype.playKick = function(hostUrl) {
 	  var that = this;
 	  KickDrum.loadAllFiles(this.myAudioContext, function(){
-	    KickDrum.playSound(that.myAudioContext, that.analyser);
+	    KickDrum.playSound(that.myAudioContext, that.analyser, that.track);
 	    setInterval(function(){
-	    	if (that.beats['kick']){
-	    		KickDrum.playSound(that.myAudioContext, that.analyser);
-	    	}
-
-	    	if (that.beats['bass']){
-	    		BassBeat.playSound(that.myAudioContext, that.analyser);
-	    	}
-	      
+    		KickDrum.playSound(that.myAudioContext, that.analyser, that.track);
 	    }, 4000);
 	  });
 	};
@@ -171,7 +160,6 @@
 		BassSynth.loadAllFiles(this.myAudioContext);
 		HarpChord.loadAllFiles(this.myAudioContext);
 
-		BassBeat.loadAllFiles(this.myAudioContext);
 	  this.playKick();
 	}
 })(this);
