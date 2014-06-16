@@ -93,6 +93,13 @@ canvas {
 /*    width: 800px;
 */}
 
+#sidebar {
+  float: right;
+  position: relative;
+  bottom: 50%;
+  width: 10%;
+}
+
 /* FROM CSS CIRCULAR NAVBAR DEMO */
 
 * { 

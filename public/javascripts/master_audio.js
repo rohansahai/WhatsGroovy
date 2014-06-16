@@ -76,6 +76,11 @@
 				'harpChord': this.harpChords
 	    }
 
+	    this.beats = {
+	    	'kick': false,
+	    	'bass': false
+	    }
+
 	    //http://localhost:8080 local hosting!
 	    //http://whatsgroovy.herokuapp.com  heroku hosting!
 	    hostUrl = window.location.origin;
@@ -135,7 +140,14 @@
 	  KickDrum.loadAllFiles(this.myAudioContext, function(){
 	    KickDrum.playSound(that.myAudioContext, that.analyser);
 	    setInterval(function(){
-	      KickDrum.playSound(that.myAudioContext, that.analyser);
+	    	if (that.beats['kick']){
+	    		KickDrum.playSound(that.myAudioContext, that.analyser);
+	    	}
+
+	    	if (that.beats['bass']){
+	    		BassBeat.playSound(that.myAudioContext, that.analyser);
+	    	}
+	      
 	    }, 4000);
 	  });
 	};
@@ -155,9 +167,11 @@
 	  OrganSynth.loadAllFiles(this.myAudioContext);
 	  Marimba.loadAllFiles(this.myAudioContext);
 	  PluckedSynth.loadAllFiles(this.myAudioContext);
-	  WildSynth.loadAllFiles(this.myAudioContext);
+	 	WildSynth.loadAllFiles(this.myAudioContext);
 		BassSynth.loadAllFiles(this.myAudioContext);
 		HarpChord.loadAllFiles(this.myAudioContext);
+
+		BassBeat.loadAllFiles(this.myAudioContext);
 	  this.playKick();
 	}
 })(this);

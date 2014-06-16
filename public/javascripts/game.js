@@ -6,7 +6,7 @@
 	  $('body').css('background-color', 'white');
 		$('.modal-loading').modal('show');
 	  var canvas = document.getElementById("music");
-	  canvas.width  = window.innerWidth - 150;
+	  canvas.width  = window.innerWidth - 250;
 	  canvas.height = window.innerHeight - 170;
 	  var instrumentNames = ['triangleWah', 'marimba', 'pluckedSynth',
 	                     'wildSynth', 'organSynth', 'bassSynth', 'harpChord'];
@@ -102,6 +102,15 @@
 	        })
 	      })(i);
 	    }
+
+	    $('#kick-button').click(function(event){
+	    	audioApp.beats['kick'] = true;
+	    });
+
+	    $('#bass-button').click(function(event){
+	    	audioApp.beats['bass'] = true;
+	    });
+
 	  }
 	
 		// from http://stackoverflow.com/questions/1517924/javascript-mapping-touch-events-to-mouse-events
