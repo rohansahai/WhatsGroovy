@@ -115,6 +115,14 @@
 	    	beatPlaying[3] ^= true;
 	    });
 
+	    $('#pattern4').click(function(event){
+	    	beatPlaying[4] ^= true;
+	    });
+
+	    $('#pattern5').click(function(event){
+	    	beatPlaying[5] ^= true;
+	    });
+
 	  }
 	
 		// from http://stackoverflow.com/questions/1517924/javascript-mapping-touch-events-to-mouse-events

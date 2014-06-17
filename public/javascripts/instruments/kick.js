@@ -1,7 +1,9 @@
 var kickDrumFiles = {
   1: '/audios/drums/drum-beat1.mp3',
-  2: '/audios/drums/drum-beat2.mp3',
-  3: '/audios/drums/bass-beat.mp3'
+  2: '/audios/drums/bassline-beat.mp3',
+  3: '/audios/drums/epiano-beat.mp3',
+  4: '/audios/drums/conga-beat.mp3',
+  5: '/audios/drums/cj-beat.mp3'
 }
 
 var kickDrumAudioBuffer = {};
@@ -9,7 +11,9 @@ var kickDrumAudioBuffer = {};
 beatPlaying = {
   1: true,
   2: false,
-  3: false
+  3: false,
+  4: false,
+  5: false
 }
 
 var KickDrum = window.KickDrum = function(ctx) {
