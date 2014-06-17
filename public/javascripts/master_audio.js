@@ -76,7 +76,6 @@
 				'harpChord': this.harpChords
 	    }
 
-	    this.track = 1;
 	    //http://localhost:8080 local hosting!
 	    //http://whatsgroovy.herokuapp.com  heroku hosting!
 	    hostUrl = window.location.origin;
@@ -134,9 +133,9 @@
 	MasterAudio.prototype.playKick = function(hostUrl) {
 	  var that = this;
 	  KickDrum.loadAllFiles(this.myAudioContext, function(){
-	    KickDrum.playSound(that.myAudioContext, that.analyser, that.track);
+	    KickDrum.playSound(that.myAudioContext, that.analyser);
 	    setInterval(function(){
-    		KickDrum.playSound(that.myAudioContext, that.analyser, that.track);
+    		KickDrum.playSound(that.myAudioContext, that.analyser);
 	    }, 4000);
 	  });
 	};

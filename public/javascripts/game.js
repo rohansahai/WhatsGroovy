@@ -103,12 +103,16 @@
 	      })(i);
 	    }
 
-	    $('#kick-button').click(function(event){
-	    	audioApp.track = 1;
+	    $('#pattern1').click(function(event){
+	    	beatPlaying[1] ^= true;
 	    });
 
-	    $('#bass-button').click(function(event){
-	    	audioApp.track = 2;
+	    $('#pattern2').click(function(event){
+	    	beatPlaying[2] ^= true;
+	    });
+
+	    $('#pattern3').click(function(event){
+	    	beatPlaying[3] ^= true;
 	    });
 
 	  }
