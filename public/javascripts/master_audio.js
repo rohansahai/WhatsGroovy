@@ -25,13 +25,13 @@
 
 	instrumentGains = {
 		'BassSynth': .5,
-		'HarpChord': .9,
-		'OrganSynth': 1.1,
+		'HarpChord': .7,
+		'OrganSynth': .9,
 		'PluckedSynth': 1.1,
 		'TriangleWah': 1.1,
 		'Marimba': 1.4,
 		'WildSynth': .6,
-		'Drums': .5
+		'Drums': 1
 	}
 	
   var AudioApp = root.AudioApp = (root.AudioApp || {});
