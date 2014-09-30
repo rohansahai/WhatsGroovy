@@ -1,5 +1,7 @@
 (function(root){
   var AudioApp = root.AudioApp = (root.AudioApp || {});
+  window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 	
 	AudioApp.startGame = function startGame(nickname){
 		//set up design 
@@ -18,6 +20,26 @@
 	  var currentAudioRow = 0;
 	  var numRows = 11;
 	  var ctx = canvas.getContext("2d");
+
+	  // leaving this in here to hopefully optimize in the future. As is requestAnimationFrame is actually burning more cpu than my setInterval call to canvas??
+
+	  // var start = null;
+	  // function step(timestamp) {
+	  // 	var progress;
+	  // 	if (start === null) start = timestamp;
+	  //   progress = timestamp - start;
+
+	  //   audioApp.updateAnalyser();
+	  //   AudioApp.drawCanvas(ctx, canvas.width, canvas.height);
+	  //   AudioApp.drawCursors(ctx, audioApp.clicked, audioApp.frequencyData);
+	  //   AudioApp.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
+
+	  //   //if (progress < 2000){
+	  //   	requestAnimationFrame(step);
+	  //   //}	
+	  // }
+
+	  //requestAnimationFrame(step);
 
 	  setInterval(function(){
 	    audioApp.updateAnalyser();
@@ -103,26 +125,9 @@
 	      })(i);
 	    }
 
-	    $('#pattern1').click(function(event){
-	    	beatPlaying[1] ^= true;
+	    $('.btn-beat').click(function(event){
+	    	beatPlaying[event.target.id] ^= true;
 	    });
-
-	    $('#pattern2').click(function(event){
-	    	beatPlaying[2] ^= true;
-	    });
-
-	    $('#pattern3').click(function(event){
-	    	beatPlaying[3] ^= true;
-	    });
-
-	    $('#pattern4').click(function(event){
-	    	beatPlaying[4] ^= true;
-	    });
-
-	    $('#pattern5').click(function(event){
-	    	beatPlaying[5] ^= true;
-	    });
-
 	  }
 	
 		// from http://stackoverflow.com/questions/1517924/javascript-mapping-touch-events-to-mouse-events

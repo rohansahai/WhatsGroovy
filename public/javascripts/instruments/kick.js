@@ -50,7 +50,6 @@ KickDrum.initSound = function(arrayBuffer, key, ctx, callback) {
 }
 
 KickDrum.playSound = function(ctx, analyser) {
-  // source is global so we can call .noteOff() later.
   var now = ctx.currentTime;
   var timeToPlay = (Math.floor(now) + 1);
 	$('.modal-loading').modal('hide')
