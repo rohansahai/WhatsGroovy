@@ -76,8 +76,6 @@
                 'harpChord': this.harpChords
         }
 
-        //http://localhost:8080 local hosting!
-        //http://whatsgroovy.herokuapp.com  heroku hosting!
         hostUrl = window.location.origin;
         this.preLoadFiles();
         this.clicked = {};
@@ -90,9 +88,10 @@
     };
 
     MasterAudio.prototype.playCurrentInstrument = function(row, instrument, user) {
-        AudioApp.cursors[user].instrument = instrument;
+      AudioApp.cursors[user].instrument = instrument;
       this.instrumentObjects[instrument][user] = this.checkInstrument(
-        this.instrumentObjects[instrument][user], instrument, user, row);
+        this.instrumentObjects[instrument][user], instrument, user, row
+      );
     }
 
     MasterAudio.prototype.checkInstrument = function(obj, instr, user, row){
@@ -146,8 +145,8 @@
       this.marimbas = {};
       this.pluckedSynths = {};
       this.wildSynths = {};
-        this.bassSynths = {};
-        this.harpChords = {};
+      this.bassSynths = {};
+      this.harpChords = {};
       this.intervals = {};
     };
 
@@ -156,8 +155,8 @@
       Marimba.loadAllFiles(this.myAudioContext);
       PluckedSynth.loadAllFiles(this.myAudioContext);
       WildSynth.loadAllFiles(this.myAudioContext);
-        BassSynth.loadAllFiles(this.myAudioContext);
-        HarpChord.loadAllFiles(this.myAudioContext);
+      BassSynth.loadAllFiles(this.myAudioContext);
+      HarpChord.loadAllFiles(this.myAudioContext);
       this.playKick();
     }
 })(this);
