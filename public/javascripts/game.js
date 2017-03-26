@@ -1,6 +1,6 @@
 (function(root){
   var AudioApp = root.AudioApp = (root.AudioApp || {});
-    
+
   AudioApp.startGame = function startGame(nickname){
       //set up design 
     $('body').css('background-color', 'white');
@@ -19,28 +19,32 @@
     var numRows = 11;
     var ctx = canvas.getContext("2d");
 
+    window.recording = [];
     setInterval(function(){
       audioApp.updateAnalyser();
       AudioApp.drawCanvas(ctx, canvas.width, canvas.height);
       AudioApp.drawCursors(ctx, audioApp.clicked, audioApp.frequencyData);
       AudioApp.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
+      recording.push({"mouseX": window.mouseX, "mouseY": window.mouseY, "clicked": window.clicked});
     }, 60);
 
     setUpMouseEvents();
-      setButtonState();
+    setButtonState();
     setUpButtonEvents(instrumentNames);
       
     function setUpMouseEvents(){
       canvas.addEventListener('mousedown', function(evt) {
-              evt.preventDefault();
+        evt.preventDefault();
         var mousePos = getMousePos(canvas, evt);
         var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
         playAudio(mousePos.y);
+        window.clicked = true;
       }, false);
 
       canvas.addEventListener('mouseup', function(evt) {
         stopAudio();
         currentAudioRow = 0;
+        window.clicked = false;
       }, false);
 
       canvas.addEventListener('mousemove', function(evt) {
@@ -53,6 +57,9 @@
 
         var canvasWidth = $('#music').width();
         var canvasHeight = $('#music').height();
+
+        window.mouseX = evt.offsetX/canvasWidth;
+        window.mouseY = evt.offsetY/canvasHeight;
         AudioApp.audioChat.sendMouseCoords(evt.offsetX/canvasWidth, evt.offsetY/canvasHeight);
         $("#my-cursor").css({left:evt.pageX, top:evt.pageY});
 
