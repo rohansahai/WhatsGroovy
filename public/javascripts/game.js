@@ -25,7 +25,7 @@
       AudioApp.drawCanvas(ctx, canvas.width, canvas.height);
       AudioApp.drawCursors(ctx, audioApp.clicked, audioApp.frequencyData);
       AudioApp.drawVisualizer(ctx, audioApp.frequencyData, canvas.width, canvas.height);
-      recording.push({"mouseX": window.mouseX, "mouseY": window.mouseY, "clicked": window.clicked});
+      recording.push({"mouseX": window.mouseX, "mouseY": window.mouseY, "clicked": window.clicked, "row": currentAudioRow, "instrument": audioApp.currentInstrument});
     }, 60);
 
     setUpMouseEvents();

@@ -107,10 +107,10 @@
     }
 
     MasterAudio.prototype.stopCurrentInstrument = function(row, fromMove, user, instrument){
-      if(!fromMove){
+      if(!fromMove && this.instrumentObjects[instrument][user]){
         this.clicked[user] = false;
         this.instrumentObjects[instrument][user].playing = false;
-            delete this.instrumentObjects[instrument][user]; //ah!
+        delete this.instrumentObjects[instrument][user]; //ah!
         clearInterval(this.intervals[user]);
       }
     }
