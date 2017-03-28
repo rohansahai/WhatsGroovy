@@ -111,40 +111,38 @@
       }
 
       // set up bot button
-      $.getJSON("../recording.json", function(recording_json) {
-        $('#bot-button').click(function(){
-          toggleBot(recording_json);
-        });
+      $('#bot-button').click(function(){
+        AudioApp.audioChat.turnBotOff();
       });
     }
   
-      // from http://stackoverflow.com/questions/1517924/javascript-mapping-touch-events-to-mouse-events
-      function touchHandler(event)
-      {
-          var touches = event.changedTouches,
-              first = touches[0],
-              type = "";
-               switch(event.type)
-          {
-              case "touchstart": type = "mousedown"; break;
-              case "touchmove":  type="mousemove"; break;        
-              case "touchend":   type="mouseup"; break;
-              default: return;
-          }
+    // from http://stackoverflow.com/questions/1517924/javascript-mapping-touch-events-to-mouse-events
+    function touchHandler(event)
+    {
+        var touches = event.changedTouches,
+            first = touches[0],
+            type = "";
+             switch(event.type)
+        {
+            case "touchstart": type = "mousedown"; break;
+            case "touchmove":  type="mousemove"; break;        
+            case "touchend":   type="mouseup"; break;
+            default: return;
+        }
 
-                   //initMouseEvent(type, canBubble, cancelable, view, clickCount, 
-          //           screenX, screenY, clientX, clientY, ctrlKey, 
-          //           altKey, shiftKey, metaKey, button, relatedTarget);
+                 //initMouseEvent(type, canBubble, cancelable, view, clickCount, 
+        //           screenX, screenY, clientX, clientY, ctrlKey, 
+        //           altKey, shiftKey, metaKey, button, relatedTarget);
 
-          var simulatedEvent = document.createEvent("MouseEvent");
-          simulatedEvent.initMouseEvent(type, true, true, window, 1, 
-                                    first.screenX, first.screenY, 
-                                    first.clientX, first.clientY, false, 
-                                    false, false, false, 0/*left*/, null);
+        var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent(type, true, true, window, 1, 
+                                  first.screenX, first.screenY, 
+                                  first.clientX, first.clientY, false, 
+                                  false, false, false, 0/*left*/, null);
 
-                                                                                       first.target.dispatchEvent(simulatedEvent);
-          event.preventDefault();
-      }
+                                                                                     first.target.dispatchEvent(simulatedEvent);
+        event.preventDefault();
+    }
 
     function getMousePos(canvas, evt) {
       var rect = canvas.getBoundingClientRect();
@@ -175,35 +173,6 @@
   
     function setButtonState(){
         $('#' + audioApp.currentInstrument + '-button').addClass("selected-button");
-    }
-
-    function toggleBot(recording_json){
-      if (AudioApp.cursors['bot']){
-        delete AudioApp.cursors['bot'];
-        window.clearInterval(window.botInterval);
-      } else {
-        AudioApp.cursors["bot"] = new AudioApp.CanvasCursor("bot");
-        var i = 0;
-        var last_audio_row;
-        window.botInterval = window.setInterval(function(){
-          var rec_data = recording_json[i];
-          rec_data["nickname"] = "bot";
-          AudioApp.updateMousePosition(rec_data);
-          if (rec_data["clicked"] && rec_data["row"] > 0) {
-            if (last_audio_row === rec_data["row"]) {
-              AudioApp.audioApp.stopCurrentInstrument(rec_data["row"], true, "bot", rec_data["instrument"]);
-            }
-            AudioApp.audioApp.playCurrentInstrument(rec_data["row"], rec_data["instrument"], "bot");
-            last_audio_row = rec_data["row"];
-          } else {
-            AudioApp.audioApp.stopCurrentInstrument(rec_data["row"], false, "bot", rec_data["instrument"]);
-          }
-          i = i + 1;
-          if (i > recording_json.length - 1) {
-            i = 0;
-          }
-        }, 60);
-      }
     }
   }
     
