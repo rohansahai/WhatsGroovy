@@ -10,7 +10,7 @@
       room: room,
       nickname: nickname
     });
-  }
+  };
 
   AudioChat.prototype.sendAudio = function(row, instrument){
     this.socket.emit('playAudioRequest', {
@@ -18,7 +18,7 @@
       instrument: instrument,
       room: this.room
     });
-  }
+  };
 
   AudioChat.prototype.stopAudio = function(row, fromMove, instrument){
     this.socket.emit('stopAudioRequest', {
@@ -27,7 +27,7 @@
       instrument: instrument,
       room: this.room
     });
-  }
+  };
 
   AudioChat.prototype.sendMouseCoords = function(mouseX, mouseY){
     this.socket.emit('moveCursorRequest', {
@@ -35,5 +35,9 @@
       mouseY: mouseY,
       room: this.room
     })
+  };
+
+  AudioChat.prototype.turnBotOff = function(){
+    this.socket.emit('botOff');
   };
 })(this);
