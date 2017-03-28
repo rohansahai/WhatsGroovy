@@ -130,6 +130,15 @@
 				ctx.restore();
 			}
 		}
+
+    AudioApp.updateMousePosition = function(data) {
+      //data.mouseX and mouseY are ratios of mouse position relative to canvas
+      //size of other user
+      var canvasWidth = $('#music').width();
+      var canvasHeight = $('#music').height();
+
+      AudioApp.cursors[data.nickname].pos = [(data.mouseX * canvasWidth), (data.mouseY * canvasHeight)];
+    }
   };
 
 })(this);
