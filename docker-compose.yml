@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    app:
+        image: node:6.10.1
+        volumes:
+            - ./:/app
+        command: sh -c 'cd app && npm install && npm start'
+        ports:
+            - "8080:8080"
