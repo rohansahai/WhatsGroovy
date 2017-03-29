@@ -40,4 +40,8 @@
   AudioChat.prototype.requestBotOff = function(){
     this.socket.emit('requestBotOff');
   };
+
+  AudioChat.prototype.requestBotOn = function(){
+    this.socket.emit('requestBotOn');
+  };
 })(this);

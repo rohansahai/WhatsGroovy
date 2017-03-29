@@ -112,7 +112,11 @@
 
       // set up bot button
       $('#bot-button').click(function(){
-        AudioApp.audioChat.requestBotOff();
+        if (AudioApp.cursors["bot"]) {
+          AudioApp.audioChat.requestBotOff();
+        } else {
+          AudioApp.audioChat.requestBotOn();
+        }
       });
     }
   
