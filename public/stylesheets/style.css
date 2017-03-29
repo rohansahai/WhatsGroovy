@@ -223,6 +223,14 @@ We are using #fbb735 #e98931 #eb403b #5c4399 #1f5ea8 #2ab0c5
   box-shadow: inset 0px 8px 48px #ddd;
 }
 
+#bot-button {
+  padding: 15px;
+  border-radius: 5x;
+  margin-left: 140px;
+  bottom: 77px;
+  position: relative;
+}
+
 /*.nav a:hover {
   text-decoration: none;
   color: #555;
