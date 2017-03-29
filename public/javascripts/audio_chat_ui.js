@@ -28,5 +28,10 @@
     socket.on('removeCursor', function(data){
       delete cursors[data.nickname];
     });
+
+    socket.on('botOff', function(data){
+      delete cursors[data.nickname];
+      AudioApp.audioApp.stopCurrentInstrument(data.row, false, data.nickname, data.instrument);
+    })
   });
 })(this);

@@ -112,7 +112,7 @@
 
       // set up bot button
       $('#bot-button').click(function(){
-        AudioApp.audioChat.turnBotOff();
+        AudioApp.audioChat.requestBotOff();
       });
     }
   

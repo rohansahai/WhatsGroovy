@@ -37,7 +37,7 @@
     })
   };
 
-  AudioChat.prototype.turnBotOff = function(){
-    this.socket.emit('botOff');
+  AudioChat.prototype.requestBotOff = function(){
+    this.socket.emit('requestBotOff');
   };
 })(this);
