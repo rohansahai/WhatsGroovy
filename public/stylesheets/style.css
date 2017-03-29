@@ -225,10 +225,8 @@ We are using #fbb735 #e98931 #eb403b #5c4399 #1f5ea8 #2ab0c5
 
 #bot-button {
   padding: 15px;
-  border-radius: 5x;
-  margin-left: 140px;
-  bottom: 77px;
-  position: relative;
+  top: 35px;
+  position: absolute;
 }
 
 /*.nav a:hover {
